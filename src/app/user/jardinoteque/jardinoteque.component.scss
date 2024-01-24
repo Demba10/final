@@ -1,0 +1,36 @@
+.jardinier{
+    // background-image: url('/assets/images/banner/banner-3.png');
+    // background-position: center;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    padding: 40px 10%;
+}
+
+// Jardinier
+.jardiniers-box img {
+    padding: 0;
+}
+
+.jar-items .img {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.jar-items a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 26px;
+}
+
+// fin jardinier
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}

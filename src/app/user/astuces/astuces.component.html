@@ -1,0 +1,99 @@
+<app-share-banner></app-share-banner>
+<section class="astuces">
+    <h2 style="color: #4CAF50; font-size: 48px;" class="fw-semibold mb-3">{{astuce?.titre}}</h2>
+    <h4 class="fw-light">{{astuce?.sous_titre}}</h4>
+    <div class="user d-flex gap-4">
+        <div class="img">
+            <img [src]="astuce?.user_image" alt="">
+        </div>
+        <div class="typo">
+            <span class="fs-5">{{astuce?.user_name}}</span>
+            <div style="font-size: 13px;" class="d-flex gap-2 align-items-center fw-semibold">
+                <span>Lecture en 5 min</span>
+                <i class="fa-solid fa-circle" style="font-size: 8px;"></i>
+                <span>Publié le {{astuce?.date}}</span>
+            </div>
+        </div>
+    </div>
+    <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
+        <span>
+            <i class="fa-solid fa-thumbs-up"></i> {{astuce?.like}}
+        </span>
+        <span  (click)="openEnd(content)" style="cursor: pointer;">
+            <i class="fa-solid fa-comment"></i> {{astuce?.message}}
+        </span>
+    </span>
+    <hr style="border-width: 2px;">
+    <div class="image-article">
+        <img [src]="astuce?.image" alt="" class="">
+    </div>
+    <div class="contenu">
+        <h4 class="astuce-title">1. Titre 1</h4>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+        gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+        accusam et justo duo dolores et ea rebum.</p>
+        <h4 class="astuce-title">2. Titre 2</h4>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+        gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+        accusam et justo duo dolores et ea rebum.</p>
+        <img src="assets/images/conseils/conseil-7.png" alt="">
+    </div>
+</section>
+
+<!-- modele open -->
+<ng-template #content let-offcanvas>
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Commentaires ({{astuce?.message}})</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+</ng-template>
+<style>
+    .astuces {
+        padding: 60px 20%;
+    }
+    .user {
+        margin: 30px 0;
+    }
+    .img {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        place-content: center;
+        border-radius: 50%;
+    }
+    .img img {
+        width: 100%;
+    }
+    .image-article {
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .image-article img {
+        width: 100%;
+        height: auto;
+    } 
+    .contenu {
+        margin: 40px 0;
+    }
+    .astuce-title {
+        font-weight: 700;
+        margin-top: 40px;
+    }
+    .astuce-title + p {
+        padding-left: 10px;
+    }
+    /* .offcanvas-header button::after,
+    .offcanvas-header button:focus,
+    .offcanvas-header button:visited {
+        border: 0;
+    } */
+</style>

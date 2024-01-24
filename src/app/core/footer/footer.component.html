@@ -1,0 +1,101 @@
+<div class="footer">
+    <div class="footer-top d-flex justify-content-between align-items-center">
+        <div class="log-medias">
+            <h1 class="logo"><img src="assets/logo-2.svg" alt=""></h1>
+            <div class="medias">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-square-x-twitter"></i>
+                <i class="fa-brands fa-square-instagram"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+        <div class="newslatters">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">S'inscrire au newslatters</label>
+                <div class="d-flex">
+                    <input type="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Entrez votre email">
+                    <button type="button" class="btn btn-primary">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="liens">
+        <li class="lien" *ngFor="let item of lien">{{item.title}}</li>
+    </ul>
+    <div class="foot">
+        <hr class="">
+        <span class="copyright">Copyright @2022</span>
+    </div>
+</div>
+
+<style>
+    .footer {
+        background-color: #292D26;
+        padding: 30px 10%;
+        border-top: 3px solid #D3D3D3;
+    }
+    .logo {
+        height: 54px;
+    }
+    .logo img {
+        height: 100%    ;
+    }
+
+    .medias,
+    h1,
+    .newslatters {
+        color: #D3D3D3;
+    }
+
+    .medias {
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .newslatters .btn {
+        position: relative;
+        left: -30px;
+        background-color: #4CAF50;
+        border: 0px;
+        transform: scale(0.9);
+    }
+
+    .liens {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 20px 0;
+        padding: 0;
+    }
+
+    .lien {
+        color: #D3D3D3;
+        cursor: pointer;
+    }
+
+    .lien:hover,
+    .medias i:hover {
+        color: #4CAF50;
+    }
+
+    .foot hr {
+        border-color: #4CAF50;
+        border-width: 3px;
+        margin-top: 50px;
+        opacity: 1;
+    }
+
+    .copyright {
+        padding: 10px 0;
+        width: 170px;
+        color: #D3D3D3;
+        position: absolute;
+        margin-top: -40px;
+        text-align: center;
+        background-color: #292D26;
+        left: calc(50% - 85px)
+    }
+</style>

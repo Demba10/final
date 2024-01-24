@@ -1,0 +1,118 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="container-fluid header">
+        <a class="navbar-brand text-black" routerLink=""><img src="assets/logo.svg" alt=""></a>
+        <div class="middle">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item text-black" *ngFor="let item of sidebar_data">
+                        <a class="nav-link" [routerLink]="item.lien" routerLinkActive="active" [style.color]="item.isActive"
+                            (click)="changeColor(item.id)">
+                            {{item.title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-cta">
+            <button style="background-color: transparent; border: none;" routerLink="../auth">
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            </button>
+            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"><i class="fa-regular fa-user"></i></button>
+            <ng-template #menu>
+                <div class="example-menu" cdkMenu>
+                    <button class="example-menu-item" cdkMenuItem>Profil</button>
+                    <button class="example-menu-item" cdkMenuItem>Espace créatif</button>
+                    <button class="example-menu-item" cdkMenuItem>Déconnexion</button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</nav>
+<style>
+    .navbar {
+        background-color: #292D26;
+        height: 80px;
+    }
+
+    .header {
+        background-color: white;
+        padding: 0 10%;
+        height: 60px;
+    }
+    .navbar-brand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        height: 54px;
+    }
+    .navbar-brand img {
+        height: 100%;
+    }
+    .nav-link  {
+        font-weight: 600; 
+        opacity: 0.8d;
+    }
+
+    .nav-link:hover {
+        color: #4CAF50 !important;
+    }
+    .nav-link:hover {
+        color: #4CAF50 !important;
+    }
+
+    .header-cta {
+        display: flex;
+        gap: 16px;
+    }
+    .acive {
+        color: #4CAF50;
+    }
+
+    /* dropdown */
+    .example-menu {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-width: 280px;
+    background-color: rgba(255, 255, 255);
+    padding: 6px 0;
+    position: relative;
+    top: 20px;
+    }
+
+    .example-menu-item,
+    .example-standalone-trigger {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+
+    user-select: none;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex: 1;
+    }
+
+    .example-menu-item:hover {
+    background-color: rgb(208, 208, 208);
+    }
+
+    .example-menu-item:active {
+    background-color: rgb(170, 170, 170);
+    }
+
+    .example-standalone-item {
+    background-color: rgb(239, 239, 239);
+    }
+    .example-standalone-item:hover {
+    background-color: rgb(208, 208, 208);
+    }
+    .example-standalone-item[aria-expanded='true'] {
+    background-color: rgb(208, 208, 208);
+    }
+</style>

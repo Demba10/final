@@ -1,0 +1,174 @@
+.about {
+    background-color: white;
+    background-color: #292D26;
+    /* padding: 20px 10%; */
+    margin: 20px 10%;
+    padding: 30px;
+    border-radius: 10px;
+    /* border: 4px solid #4CAF50; */
+    /* border: 4px solid #4CAF50; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.about-content-text {}
+
+.about-content-text p {
+    color: white;
+}
+
+.about-content-text ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about-content-text li {
+    color: white;
+}
+
+.about-content-img {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+}
+
+.alaune, .panel {
+    padding: 20px 10%;
+
+}
+.all-box-typo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    // border: 2px solid black;
+}
+.about-content-img div img {}
+
+.img-sous {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+}
+.alaune-box .card {
+    background-color: #292D26;
+    border-radius: 10px;
+}
+
+.alaune-box-card {
+    box-shadow: 0 0 6px 0px #acacac;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #292D26;
+}
+.about-content-img .img {
+    border-radius: 10px;
+    border: 4px solid #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alaune-box img {}
+
+.card-title {
+    color: #4CAF50;
+}
+
+.alaune-box .card-text {
+    color: white;
+}
+// conseils
+
+.conseils {
+    padding: 20px 10%;
+    // background-color: #292D26;
+}
+.date {
+    position: absolute;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 8px;
+    font-size: 12px;
+}
+
+/*  */
+.jardinier,
+.boutique, .alaune {
+    background-image: url('/assets/images/banner/banner-3.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 40px 10%;
+}
+
+// Jardinier
+.jardiniers-box img {
+    padding: 0;
+}
+
+.jar-items .img {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.jar-items a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 26px;
+}
+// fin jardinier
+
+.blog-produits {
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+
+.blog-produits:hover {
+    box-sizing: border-box;
+    animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        border: 3px solid #FF8A00;
+    }
+
+    50% {
+        transform: scale(1.04);
+        border: 3px solid #4CAF50;
+    }
+
+    to {
+        transform: scale(1);
+        border: 3px solid #FF8A00;
+    }
+}
+
+.notes {
+    display: flex;
+    gap: 3px;
+}
+
+.notes i {
+    font-size: 8px;
+    color: #FF8A00;
+}
+
+.notes i:last-child {
+    color: #d3d3d3;
+}
+
+.card-produit {
+    background-color: #292D26;
+    color: white;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
