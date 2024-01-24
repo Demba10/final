@@ -1,14 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { ArticleComponent } from './article/article.component';
+import { AstucesComponent } from './astuces/astuces.component';
+import { ProduitsComponent } from './produits/produits.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent
-  },
-  {
-    path: 'article', loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+    path: '', component: AdminComponent, children: [
+      {
+        path: 'dashboard', component: DashboardComponent
+      },
+      {
+        path: 'articles', component: AstucesComponent
+      },
+      {
+        path: 'produit', component: ProduitsComponent
+      },
+      {
+        path: 'utilisateurs', component: ProduitsComponent
+      },
+      {
+        path: '**', redirectTo:'dashboard', pathMatch: 'full'
+      },
+    ]
   }
 ];
 

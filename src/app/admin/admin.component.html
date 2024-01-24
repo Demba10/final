@@ -1,1 +1,35 @@
-<router-outlet></router-outlet>
+<div class="sidnav">
+    <app-sidebar></app-sidebar>
+</div>
+<div class="main">
+    <app-navbar></app-navbar>
+    <div class="div" style="position: relative; top: 60px;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<style>
+    .sidnav {
+        position: fixed;
+        z-index: 300;
+        height: 100vh;
+        width: 260px;
+        background-color: white !important;
+        border-right: 1px solid #C1C1C1;
+
+        /* background-color: black; */
+        .active {
+            background-color: #4CAF50;
+        }
+
+    }
+
+    .main {
+        position: relative;
+        left: 260px;
+        /* background-color: #FAFAFA; */
+        width: calc(100% - 260px);
+        padding: 20px 60px;
+        height: calc(100vh);
+        /* box-sizing: border-box; */
+    }
+</style>
