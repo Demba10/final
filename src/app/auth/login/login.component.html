@@ -1,45 +1,35 @@
-<form class="example-form">
-    <div class="texte pb-4">
-        <h2 class="titre">Connexion</h2>
-        <p>Veuillez saisir vos informations</p>
-    </div>
-    <div class="champs">
-        <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                placeholder="Ex. pat@example.com">
-            <!-- <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
-            </mat-error> -->
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Passe</mat-label>
-            <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
-            <!-- <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Veuillez entrer votre mot de passe
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
-            </mat-error> -->
-        </mat-form-field>
-        <div class="bouton d-flex justify-content-end">
-            <button mat-raised-button style="background-color: #429A3A; color: white; width: max-content;">Se connecter</button>
+<main>
+    <div class="container-fluid">
+        <div class="row"> 
+            <div class="col-sm-6 login-section-wrapper">
+                <div class="brand-wrapper" style="cursor: pointer;">
+                    <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']" routerLinkActive="router-link-active">
+                </div>
+                <div class="login-wrapper my-auto">
+                    <h1 class="login-title">Connexion</h1>
+                    <form action="#!">
+                        <div class="form-group">
+                            <label for="email">Adresse Email</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                placeholder="email@example.com" [(ngModel)]="email">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="votre mot de passe">
+                        </div>
+                        <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Connexion" (click)="connexion()">
+                    </form>
+                    <a href="#!" class="forgot-password-link">Mot de passe oublié?</a>
+                    <p class="login-wrapper-footer-text">Vous n'avez pas de compte? <a routerLink="../register" class="text-reset">S'inscrire</a></p>
+                </div>
+            </div>
+            <div class="col-sm-6 px-0 d-none d-sm-block" style="overflow: hidden;;">
+                <img src="https://img.freepik.com/photos-gratuite/mains-coupant-branche-plante-pot_23-2149391922.jpg?size=626&ext=jpg&ga=GA1.1.735943258.1704851612&semt=sph" alt="login image" class="login-img">
+            </div>
         </div>
-        <hr>
-        <h6 class="d-flex justify-content-between">
-            <span>Vous n'avez pas de compte ?</span>
-            <span class="cta-connexion" routerLink="../../auth/register">S'inscrire</span>
-        </h6>
     </div>
-</form>
-<style>
-    .cta-connexion {
-        color: #429A3A;
-        cursor: pointer;
-    }
-</style>
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

@@ -1,35 +1,44 @@
-<div class="persepective d-flex justify-content-end">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle (click)="filtrer()" value="bold"><i class="fa-solid fa-list"></i></mat-button-toggle>
-        <mat-button-toggle (click)="filtrer()" value="italic"><i class="fa-regular fa-credit-card"></i></mat-button-toggle>
-    </mat-button-toggle-group>
-</div>
-<section class="conseils row" *ngIf="filtre">
-    <div class="col-4 py-3" *ngFor="let item of dataSource.data">
-        <mat-card class="example-card">
-            <img mat-card-image [src]="item.image" alt="Photo of a Shiba Inu">
-            <mat-card-content class="py-2">
-                <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span>
-                <h6>{{item.titre}}</h6>
-            </mat-card-content>
-            <mat-card-actions class="d-flex justify-content-between">
-                <button mat-button style="background-color: #292D26; color: white;" class="fw-normal ms-2">Détails</button>
-                <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
-                    <span>
-                        <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
-                    </span>
-                    <span>
-                        <i class="fa-solid fa-comment"></i> {{item.like}}
-                    </span>
-                </span>
-            </mat-card-actions>
-        </mat-card>
+<mat-card *ngIf="filtre">
+    <div class="persepective d-flex justify-content-end p-3 pb-0">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle (click)="filtrer()" value="bold"><i class="fa-solid fa-list"></i></mat-button-toggle>
+            <mat-button-toggle (click)="filtrer()" value="italic"><i class="fa-regular fa-credit-card"></i></mat-button-toggle>
+        </mat-button-toggle-group>
     </div>
-</section>
-<section class="conseils row" *ngIf="!filtre">
+    <section class="row px-3">
+        <div class="col-4 py-3" *ngFor="let item of dataSource.data">
+            <mat-card class="example-card">
+                <img mat-card-image [src]="item.image" alt="Photo of a Shiba Inu">
+                <mat-card-content class="py-2">
+                    <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span>
+                    <h6>{{item.titre}}</h6>
+                </mat-card-content>
+                <mat-card-actions class="d-flex justify-content-between">
+                    <button mat-button style="background-color: #292D26; color: white;" class="fw-normal ms-2">Détails</button>
+                    <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
+                        <span>
+                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-comment"></i> {{item.like}}
+                        </span>
+                    </span>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </section>
+</mat-card>
+<!-- <section class="conseils row" > -->
     <!-- affichage par liste -->
-    
-    <div class="mat-elevation-z2">
+<mat-card *ngIf="!filtre">
+    <div class="persepective d-flex justify-content-end p-3 pb-0">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle (click)="filtrer()" value="bold"><i class="fa-solid fa-list"></i></mat-button-toggle>
+            <mat-button-toggle (click)="filtrer()" value="italic"><i
+                    class="fa-regular fa-credit-card"></i></mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div class="p-3">
         <table mat-table [dataSource]="dataSource">
     
             <!-- Position Column -->
@@ -72,7 +81,8 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
-</section>
+</mat-card>
+<!-- </section> -->
 <style>
     .filtre {
         

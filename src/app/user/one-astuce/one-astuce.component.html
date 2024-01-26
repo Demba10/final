@@ -1,0 +1,45 @@
+<app-share-banner></app-share-banner>
+<section class="conseils row">
+    <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="text-center"
+        color_one="#4CAF50" color_two="#292D26"></app-titre>
+    <div class="col-4" *ngFor="let item of mesArticles">
+        <div class="card" style="margin: 12px 0;">
+            <div class="d-flex justify-content-end">
+                <div class="date">{{item.date}}</div>
+            </div>
+            <img [src]="item.image" class="card-img-top" alt="">
+            <div class="card-body">
+                <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span>
+                <h6 class="card-text fw-bold">{{item.titre}}</h6>
+                <div class="d-flex justify-content-between">
+                    <a href="#" class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;">Lire plus <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                    <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
+                        <span>
+                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-comment"></i> {{item.like}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
+</section>
+
+<style>
+    .conseils {
+        padding: 20px 10%;
+        /* background-color: #292D26; */
+    }
+    .date {
+        position: absolute;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        margin: 8px;
+        font-size: 12px;
+    }
+</style>

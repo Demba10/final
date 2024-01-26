@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatInputModule } from '@angular/material/input';
     ShareBannerComponent,
     BannerUserComponent,
     RechercheSectionComponent,
-    JardinotequeComponent
+    JardinotequeComponent,
+    OneAstuceComponent
   ],
   imports: [
     CommonModule,

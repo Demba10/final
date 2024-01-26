@@ -2,39 +2,31 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 60px;"><img src="assets/logo.svg"
             alt="" style="height: 100%;"></div>
     <hr style="height: 20px; border-width: 0;">
-    <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="nav nav-pills flex-column mb-auto gap-3">
         <li>
             <a routerLink="dashboard" routerLinkActive="router-link-active" href="#" class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#table"></use>
-                </svg>
+                <i class="fa-solid fa-table"></i>
                 Dashboard
             </a>
         </li>
         <li>
             <a routerLink="articles" routerLinkActive="router-link-active"
                 class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#speedometer2"></use>
-                </svg>
+                <i class="fa-solid fa-newspaper"></i>
                 Articles
             </a>
         </li>
         <li>
             <a routerLink="produit" routerLinkActive="router-link-active" href="#"
                 class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#table"></use>
-                </svg>
+                <i class="fa-brands fa-shopify"></i>
                 Produits
             </a>
         </li>
         <li>
             <a routerLink="utilisateurs" routerLinkActive="router-link-active" href="#"
                 class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#grid"></use>
-                </svg>
+                <i class="fa-solid fa-users"></i>
                 Utilisateurs
             </a>
         </li>
@@ -66,8 +58,28 @@
         background-color: white !important;
         border-right: 1px solid #C1C1C1;
 
-        /* background-color: black; */
+        .nav-link {
+            color: rgba(0, 0, 0, 0.87) !important;
+            font-weight: 400;
+            /* font-size: 14px; */
+            padding: 12px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-link:hover {
+            background-color: #4caf4f1e;
+        }
+        .nav-link i {
+            opacity: 0.8;
+            margin-right: 14px;
+            font-size: 20px;
+        } 
         .router-link-active {
+            background-color: #4CAF50;
+            color: white !important;
+        }
+        .router-link-active:hover {
             background-color: #4CAF50;
             color: white !important;
         }

@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-
 import {
+  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels,
-  ApexStroke,
-  ApexTooltip,
   ApexXAxis,
-  ChartComponent,
+  ApexDataLabels,
+  ApexTooltip,
+  ApexStroke
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -26,22 +25,22 @@ export type ChartOptions = {
 })
 export class SplineComponent {
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions: ChartOptions;
 
   constructor() {
     this.chartOptions = {
       series: [
         {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100]
+          name: "Produits",
+          data: [31, 40, 28, 51, 42, 109, 10]
         },
         {
-          name: "series2",
+          name: "Aticles",
           data: [11, 32, 45, 32, 34, 52, 41]
         }
       ],
       chart: {
-        height: 350,
+        height: 400,
         type: "area"
       },
       dataLabels: {

@@ -8,9 +8,22 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AstucesComponent } from './astuces/astuces.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { DashboardComponent } from './dashboard/dashboard.component'; 
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { SplineComponent } from './chartes/spline/spline.component';
+import { DonutComponent } from './chartes/donut/donut.component';
+import { MatButtonModule } from '@angular/material/button';
+import { AreaCharteComponent } from './chartes/area-charte/area-charte.component';
+import { ProduitsComponent } from './produits/produits.component';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -18,15 +31,28 @@ import { MatTableDataSource } from '@angular/material/table';
     SidebarComponent,
     NavbarComponent,
     AstucesComponent,
-    DashboardComponent
+    DashboardComponent,
+    SplineComponent,
+    DonutComponent,
+    AreaCharteComponent,
+    ProduitsComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    MatPaginatorModule,
     MatCardModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatPaginatorModule,
-    MatTableDataSource
+    MatTableModule,
+    NgApexchartsModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ]
 })
 export class AdminModule { }

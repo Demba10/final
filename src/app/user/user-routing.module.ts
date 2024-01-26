@@ -6,6 +6,7 @@ import { AstucesComponent } from './astuces/astuces.component';
 import { EchoppeVerteComponent } from './echoppe-verte/echoppe-verte.component';
 import { ContactComponent } from './contact/contact.component';
 import { JardinotequeComponent } from './jardinoteque/jardinoteque.component';
+import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,18 @@ const routes: Routes = [
         component: AccueilComponent
       },
       {
-        path: 'astuces', 
-        component: AstucesComponent
+        path: 'astuce', 
+        component: AstucesComponent, children: [
+          {
+            path: 'oneAstuce', component: OneAstuceComponent
+          },
+          {
+            path: '**', redirectTo: '', pathMatch: 'full'
+          }
+        ]
+      },
+      {
+        path: 'astuces', component: OneAstuceComponent
       },
       {
         path: 'espace-verte', 

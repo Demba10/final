@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { AstucesComponent } from './astuces/astuces.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
         path: 'produit', component: ProduitsComponent
       },
       {
-        path: 'utilisateurs', component: ProduitsComponent
+        path: 'utilisateurs', component: UsersComponent
       },
       {
         path: '**', redirectTo:'dashboard', pathMatch: 'full'
