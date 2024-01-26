@@ -1,18 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { NgIf } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -27,17 +14,14 @@ export class LoginComponent implements OnInit {
   password!: string;
 
   constructor(
-    private user : UsersService
+    private user: UsersService,
+    private auth: AuthentificationService
   ) {}
   ngOnInit(): void {
       
   }
 
   connexion() {
-    const auth = { emai: this.email, password: this.password };
-    this.user.post('login', auth).subscribe(
-      response => {console.log(response);
-      }
-    )
+    this.auth.connexion(this.email, this.password);
   }
 }

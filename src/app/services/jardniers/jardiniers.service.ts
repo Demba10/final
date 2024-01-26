@@ -47,7 +47,6 @@ export class JardiniersService {
       nom: 'Mansour Sall',
       lien: '',
       adresse: 'Mbour',
-      produits: 15
     },
     {
       id: 2,

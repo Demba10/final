@@ -16,7 +16,7 @@
                         <div class="form-group mb-4">
                             <label for="password">Mot de passe</label>
                             <input type="password" name="password" id="password" class="form-control"
-                                placeholder="votre mot de passe">
+                                placeholder="votre mot de passe" [(ngModel)]="password">
                         </div>
                         <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Connexion" (click)="connexion()">
                     </form>

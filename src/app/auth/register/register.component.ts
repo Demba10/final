@@ -95,9 +95,6 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
-      },
-      error => {
-        console.log(error);
       }
     )
   }
