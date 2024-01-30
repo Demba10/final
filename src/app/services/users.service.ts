@@ -1,19 +1,33 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable, inject } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  private apiUrl = this.apiUrl2.getApi();
 
-  private apiUrl = 'http://127.0.0.1:8000/api/';
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private apiUrl2: ApiService
+  ) { }
 
   // Méthode pour effectuer une requête GET
   get(resource: string): Observable<any> {
     return this.http.get(`${this.apiUrl}${resource}`);
+  }
+  // Fonction pour récupérer les clients depuis l'API Laravel
+  getClients(): Observable<any> {
+    const resource = 'listClients';
+    return this.http.get<any>(`${this.apiUrl}${resource}`);
+  }
+  
+  getToken() {
+    let headers = new HttpHeaders();
+    headers = headers.set('token', '' + localStorage.getItem("token"));
+    return { headers: headers };
   }
 
   // Méthode pour effectuer une requête POST

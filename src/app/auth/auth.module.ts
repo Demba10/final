@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importez ReactiveFormsM
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatStepperModule
+    MatStepperModule,
+    FileUploadModule,
+    // BrowserAnimationsModule
   ]
 })
 export class AuthModule { }

@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { OneAstuceComponent } from './one-astuce/one-astuce.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { OneAstuceComponent } from './one-astuce/one-astuce.component';
     MatPaginatorModule,
     MatTableModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    EditorModule
   ]
 })
 export class UserModule { }

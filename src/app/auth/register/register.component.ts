@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
+import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 
 @Component({
   selector: 'app-register',
@@ -12,21 +14,33 @@ export class RegisterComponent implements OnInit {
   // Debut des propriétés de l'utilisateur
   prenom!: string
   nom!: string
-  image!: string
+  image!: any
   adresse!: string
   telephone!: string
   email!: string
   password!: string
+  step: number =  1;
   // Fin des propriétés de l'utilisateur
+  public fileUploadControl = new FileUploadControl(undefined, FileUploadValidators.filesLimit(2));
 
   constructor(
-    private user: UsersService
+    private user: UsersService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.user.get('listClients').subscribe(
       response => {console.log(response);
       }
     )
+  }
+  goStep1() {
+    this.step = 1;
+  }
+  goStep2() {
+    this.step = 2;
+  }
+  goStep3() {
+    this.step = 3;
   }
   // Inscriptionde l'utilisateur
   validation() {
@@ -77,16 +91,15 @@ export class RegisterComponent implements OnInit {
     });
   }
   ajoutUtilisateur() {
-    const newUser = {
-      prenom: this.prenom,
-      nom: this.nom,
-      image: this.image,
-      adresse: this.adresse,
-      telephone: this.telephone = this.telephone.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4'),
-      email: this.email,
-      password: this.password
-    }
-    this.user.post('register', newUser).subscribe(
+    let formData = new FormData();
+    formData.append("image", this.image);
+    formData.append("prenom", this.prenom);
+    formData.append("nom", this.nom);
+    formData.append("adresse", this.adresse);
+    formData.append("telephone", this.telephone);
+    formData.append("email", this.email);
+    formData.append("password", this.password);
+    this.user.post('register', formData).subscribe(
       response => {
         console.log(response);
         Swal.fire({
@@ -95,8 +108,13 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
+        // this.router.navigate(['/login'])
       }
     )
   }
-  // Fin de l'inscription
+  getFile(event: any) {
+    console.warn(event.target.files[0]);
+    this.image = event.target.files[0] as File;
+  }
+  // Fin de l'inscription  = this.telephone.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4')
 }

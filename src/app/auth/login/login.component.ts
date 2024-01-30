@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
     private auth: AuthentificationService
   ) {}
   ngOnInit(): void {
-      
+    this.user.getClients().subscribe(
+      response => console.log(response)
+    )   
   }
 
   connexion() {

@@ -1,42 +1,57 @@
 <main>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 login-section-wrapper" style="height: 100vh; cursor: pointer;" >
+            <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;" >
                 <div class="brand-wrapper">
                     <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']" routerLinkActive="router-link-active" >
                 </div>
                 <div class="login-wrapper my-auto">
                     <h1 class="login-title">Inscription</h1>
                     <form action="#!">
-                        <div class="form-group">
-                            <label for="email">Prénom</label>
-                            <input type="text" name="prenom" id="prenom" class="form-control"
-                                placeholder="Entez votre prénom" [(ngModel)]="prenom">
+                        <div *ngIf="step == 1" class="etape">
+                            <div class="form-group">
+                                <label for="email">Prénom</label>
+                                <input type="text" name="prenom" id="prenom" class="form-control"
+                                    placeholder="Entez votre prénom" [(ngModel)]="prenom">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Nom</label>
+                                <input type="text" name="nom" id="nom" class="form-control" placeholder="Entez votre nom" [(ngModel)]="nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Adresse</label>
+                                <input type="email" name="adresse" id="adresse" class="form-control"
+                                placeholder="Entez votre adresse" [(ngModel)]="adresse">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Nom</label>
-                            <input type="text" name="nom" id="nom" class="form-control" placeholder="Entez votre nom" [(ngModel)]="nom">
+                        <div *ngIf="step == 2" class="etape">
+                            <div class="form-group">
+                                <label for="email">Adresse Email</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                placeholder="email@example.com" [(ngModel)]="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Téléphone</label>
+                                <input type="text" name="telephone" id="email" class="form-control" placeholder="Entez votre numéro de téléphone" [(ngModel)]="telephone">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Entez votre mot de passe" [(ngModel)]="password">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Adresse</label>
-                            <input type="email" name="adresse" id="adresse" class="form-control"
-                            placeholder="Entez votre adresse" [(ngModel)]="adresse">
+                        <div *ngIf="step == 3" class="etape">
+                            <file-upload [control]="fileUploadControl" (change)="getFile($event)" style="width: 100%; height: 100%;" [(ngModel)]="image"></file-upload>
+                            <!-- <input type="file" (change)="getFile($event)" [(ngModel)]="image"> -->
                         </div>
-                        <div class="form-group">
-                            <label for="email">Adresse Email</label>
-                            <input type="email" name="email" id="email" class="form-control"
-                            placeholder="email@example.com" [(ngModel)]="email">
+                        <div class="d-flex justify-content-between mt-2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Précédent" style="opacity: 0.4;" (click)="goStep2()" *ngIf="step == 1" disabled>
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Suivant" (click)="goStep2()" *ngIf="step == 1">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Précédent" (click)="goStep1()" *ngIf="step == 2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Suivant" (click)="goStep3()" *ngIf="step == 2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Précédent" (click)="goStep2()" *ngIf="step == 3">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Inscription" (click)="validation()" *ngIf="step == 3">
                         </div>
-                        <div class="form-group">
-                            <label for="email">Téléphone</label>
-                            <input type="text" name="telephone" id="email" class="form-control" placeholder="Entez votre numéro de téléphone" [(ngModel)]="telephone">
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="password">Mot de passe</label>
-                            <input type="password" name="password" id="password" class="form-control"
-                                placeholder="Entez votre mot de passe" [(ngModel)]="password">
-                        </div>
-                        <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Inscription" (click)="validation()">
                     </form>
                     <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']" routerLinkActive="router-link-active" 
                             class="text-reset">Se connecter</a></p>
@@ -52,3 +67,12 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style>
+    .etape {
+        height: 200px;
+    }
+    .login-section-wrapper::-webkit-scrollbar {
+        width: 0;
+    }
+</style>

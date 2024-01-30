@@ -1,34 +1,42 @@
-<mat-card>
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-    </mat-form-field>
+<mat-card class="">
+    <div class="d-flex justify-content-between align-items-center p-3">
+        <h6 class="fw-bold">Liste des utilateur</h6>
+        <div class="d-flex gap-3">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer" #input class="px-2 rounded-2">
+            <button mat-raised-button color="primary" (click)="openLg(add)">Ajouter</button>
+        </div>
+    </div> 
+    <table mat-table [dataSource]="dataSource" class="">
     
-    <div class="">
-      <table mat-table [dataSource]="dataSource" matSort>
-    
-        <!-- ID Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        <ng-container matColumnDef="#">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
     
-        <!-- Progress Column -->
-        <ng-container matColumnDef="progress">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-          <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+        <ng-container matColumnDef="utilisateur">
+            <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
+            <td mat-cell *matCellDef="let element"> {{element.prenom}} {{element.nom}}  <br> </td>
         </ng-container>
     
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
         </ng-container>
     
-        <!-- Fruit Column -->
-        <ng-container matColumnDef="fruit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-          <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+        <ng-container matColumnDef="création">
+            <th mat-header-cell *matHeaderCellDef> Création </th>
+            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+        </ng-container>
+    
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> 
+                <div class="d-flex gap-3">
+                    <button mat-raised-button color="warn" (click)="openLg(content)">Détails</button>
+                    <button mat-raised-button color="primary">Désactiver</button>  
+                </div>
+            </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -36,12 +44,119 @@
     
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
-      </table>
-    
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-    </div>
+    </table>
+    <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+    </mat-paginator>
 </mat-card>
-
-
+<div class="details">
+    <ng-template #content let-modal class="modal">
+        <div class="modal-header" style="border-bottom: 0;">
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body d-flex gap-4">
+            <div class="left">
+                <div class="img">
+                    <img src="assets/images/jardinier/jardinier-1.png" alt="">
+                </div>
+                <h5 class="my-4 d-flex align-items-center gap-2"><i class="fa-solid fa-user-tie"></i><span>Jardinier</span></h5>
+                <div>
+                    <button mat-raised-button color="" style="background-color: #4CAF50; color: white; height: 100%; padding: 4px;">Active</button>
+                    <button mat-raised-button color="primary" class="my-3" style="display: block; width: max-content;" style="background-color: #292D26; color: white; height: 100%; padding: 4px 10px;">Espace verte</button>
+                </div>
+            </div>
+            <div class="right w-100">
+                <div class="top d-flex justify-content-between align-items-center pb-4" style="border-bottom: 3px solid #4CAF50;">
+                    <h4>Détals du profil</h4>
+                    <button mat-raised-button color="warn">Désactiver</button>
+                </div>
+                <table class="user my-3">
+                    <tr>
+                        <td>Prénom et nom</td>
+                        <td>Adama Diop</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse email</td>
+                        <td>diopadama@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Ville</td>
+                        <td>Dakar</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse</td>
+                        <td>Parcelle U26</td>
+                    </tr>
+                    <tr>
+                        <td>Téléphone</td>
+                        <td>786759887</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+        </div>
+    </ng-template>
+</div>
+<div class="ajout">
+    <ng-template #add let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Ajout Administrateur</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Prénom</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Prénom"
+                            required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Nom</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </span>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Nom" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn" style="background-color: #4CAF50; color: white;">Valider</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+        </div>
+    </ng-template>
+</div>
+<style>
+    .left {
+        width: min-content;
+    }
+    .user tr td {
+        padding: 6px 0;
+    }
+    .user tr td:first-child {
+        font-weight: 500;
+    }
+    .input-group-text {
+        width: 40px;
+    }
+</style>

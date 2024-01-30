@@ -2,17 +2,17 @@
 <section class="conseils row">
     <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="text-center"
         color_one="#4CAF50" color_two="#292D26"></app-titre>
-    <div class="col-4" *ngFor="let item of mesArticles">
+    <div class="col-4" *ngFor="let item of articleList">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">
-                <div class="date">{{item.date}}</div>
+                <div class="date">12 Fev 2021</div>
             </div>
-            <img [src]="item.image" class="card-img-top" alt="">
+            <img src="assets/images/conseils/conseil-1.png" class="card-img-top" alt="">
             <div class="card-body">
                 <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span>
                 <h6 class="card-text fw-bold">{{item.titre}}</h6>
                 <div class="d-flex justify-content-between">
-                    <a href="#" class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;">Lire plus <i
+                    <a class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;" (click)="openFullscreen(detail)" (click)="details(item.id)">Lire plus<i
                             class="fa-solid fa-arrow-right"></i></a>
                     <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
                         <span>
@@ -26,8 +26,22 @@
             </div>
         </div>
     </div>
-    <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
 </section>
+<ng-template #detail let-modal>
+    <!-- <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+    </div> -->
+    <div class="modal-body">
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')" style="position: fixed;"></button>
+        </div>
+        <app-astuces></app-astuces>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div> -->
+</ng-template>
+
 
 <style>
     .conseils {

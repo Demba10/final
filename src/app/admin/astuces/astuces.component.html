@@ -1,35 +1,37 @@
-<mat-card *ngIf="filtre">
-    <div class="persepective d-flex justify-content-end p-3 pb-0">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle (click)="filtrer()" value="bold"><i class="fa-solid fa-list"></i></mat-button-toggle>
-            <mat-button-toggle (click)="filtrer()" value="italic"><i class="fa-regular fa-credit-card"></i></mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-    <section class="row px-3">
-        <div class="col-4 py-3" *ngFor="let item of dataSource.data">
-            <mat-card class="example-card">
-                <img mat-card-image [src]="item.image" alt="Photo of a Shiba Inu">
-                <mat-card-content class="py-2">
-                    <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span>
-                    <h6>{{item.titre}}</h6>
-                </mat-card-content>
-                <mat-card-actions class="d-flex justify-content-between">
-                    <button mat-button style="background-color: #292D26; color: white;" class="fw-normal ms-2">Détails</button>
-                    <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
-                        <span>
-                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
-                        </span>
-                        <span>
-                            <i class="fa-solid fa-comment"></i> {{item.like}}
-                        </span>
-                    </span>
-                </mat-card-actions>
-            </mat-card>
+<section class="row">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 style="color: #2a3547; font-size: 18px; ">Liste des articles</h5>
+        <div class="d-flex gap-3">
+            <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
+                aria-describedby="addon-wrapping">
+            <button mat-raised-button color="primary" class="btn" (click)="openXl(content)">Ajouter</button>
         </div>
-    </section>
+    </div>
+    <div class="all col-2 pb-4" *ngFor="let item of articleSliste">
+        <mat-card class="example-card">
+            <div style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
+                <img mat-card-image [src]="item.image"alt="Photo of a Shiba Inu" style="width: 100%;">
+            </div>
+            <mat-card-content class="py-2">
+                <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span> -->
+                <h6>{{item.titre}}</h6>
+            </mat-card-content>
+            <mat-card-actions class="d-flex justify-content-between">
+                <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;" class="fw-bold">Détails</button>
+                <span class="d-flex gap-3" style="font-size: 0.8em; opacity: 0.8;">
+                    <span>
+                        <i class="fa-solid fa-thumbs-up"></i> {{item.id}}
+                    </span>
+                    <span>
+                        <i class="fa-solid fa-comment"></i> {{item.id}}
+                    </span>
+                </span>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</section>
+<mat-card *ngIf="filtre">
 </mat-card>
-<!-- <section class="conseils row" > -->
-    <!-- affichage par liste -->
 <mat-card *ngIf="!filtre">
     <div class="persepective d-flex justify-content-end p-3 pb-0">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
@@ -82,20 +84,73 @@
         </mat-paginator>
     </div>
 </mat-card>
+
+<!-- Ajout article -->
+<ng-template #content let-modal style="">
+    <div class="modal-header">
+        <h4 class="modal-title" style="padding: 0 0%;">Ajout d'article</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" style="margin: 0px 0%;">
+        <editor [init]="{
+          base_url: '/tinymce',
+          suffix: '.min'       
+        }" [(ngModel)]="contenu"></editor>
+    </div>
+    <div class="modal-footer">
+        <button mat-raised-button color="primary" (click)="ajouterArticle()" (click)="modal.close('Close click')">Publié</button>
+    </div>  
+</ng-template>
+<!-- Fin ajout article -->
+
 <!-- </section> -->
 <style>
-    .filtre {
-        
+    .example-card {
+        box-shadow: 0 0 6px 1px #292d2654;
+    }
+    .all {
+        animation: 600ms display;
+    }
+    @keyframes display {
+        from {
+            transform: scale(0.7);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+    .example-card:hover{
+        animation: 200ms transform;
+        animation-fill-mode: forwards;
+    }
+    @keyframes transform {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(1.1);
+        }
     }
     ul {
         list-style-type: none;
         display: flex;
         gap: 20px;
         padding: 0;
-        /* border: 2px solid black; */
         font-size: 24px;
     }
     ul li {
         cursor: pointer ;
+    }
+    mat-card-content h6 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 95%;
+    }
+    .input-title {
+        width: 100%;
+        font-size: 24px;
+        border: 0;
+        outline: 0;
     }
 </style>

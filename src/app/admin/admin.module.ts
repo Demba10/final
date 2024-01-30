@@ -10,7 +10,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AstucesComponent } from './astuces/astuces.component';
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SplineComponent } from './chartes/spline/spline.component';
@@ -18,12 +18,17 @@ import { DonutComponent } from './chartes/donut/donut.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AreaCharteComponent } from './chartes/area-charte/area-charte.component';
 import { ProduitsComponent } from './produits/produits.component';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './users/users.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { AddAstuceComponent } from './add-astuce/add-astuce.component';
+import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,8 @@ import { UsersComponent } from './users/users.component';
     DonutComponent,
     AreaCharteComponent,
     ProduitsComponent,
-    UsersComponent
+    UsersComponent,
+    AddAstuceComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +58,12 @@ import { UsersComponent } from './users/users.component';
     MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule,
+    EditorModule,
+    MdbCheckboxModule,
+    FormsModule,
+    // BrowserModule
   ]
 })
 export class AdminModule { }

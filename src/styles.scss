@@ -5,17 +5,17 @@ body {
     font-family: 'poppins';
     overflow-x: hidden;
 }
-body::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    background-color: #4CAF50;
-    padding: 0 2px;
-    // border-radius: 10px;
-}
-body::-webkit-scrollbar {
-    width: 10px;
-    // border-radius: 10px;
-    background-color: #292D26;
-}
+// body::-webkit-scrollbar-thumb {
+//     background-color: #ffffff;
+//     background-color: #4CAF50;
+//     padding: 0 2px;
+//     // border-radius: 10px;
+// }
+// body::-webkit-scrollbar {
+//     width: 10px;
+//     // border-radius: 10px;
+//     background-color: #292D26;
+// }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

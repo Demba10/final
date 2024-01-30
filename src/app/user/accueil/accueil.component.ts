@@ -24,10 +24,9 @@ export class AccueilComponent implements OnInit {
   defaultProduct = this.produits.defaultProduct;
 
   ngOnInit(): void {
-    this.apiUser.get('listClients').subscribe(
+    this.apiUser.getClients().subscribe(
       response => {
         console.log(response);
-        
       }
     )
   }
