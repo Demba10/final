@@ -4,13 +4,13 @@
         <div class="d-flex gap-3">
             <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
                 aria-describedby="addon-wrapping">
-            <button mat-raised-button color="primary" class="btn" (click)="openXl(content)">Ajouter</button>
+            <button mat-raised-button color="primary" class="btn" (click)="openFullscreen(content)">Ajouter</button>
         </div>
     </div>
     <div class="all col-2 pb-4" *ngFor="let item of articleSliste">
         <mat-card class="example-card">
             <div style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
-                <img mat-card-image [src]="item.image"alt="Photo of a Shiba Inu" style="width: 100%;">
+                <img mat-card-image src="http://127.0.0.1:8000/api/images/{{item.image.substring(6)}}" alt="Photo of a Shiba Inu" style="width: 100%;">
             </div>
             <mat-card-content class="py-2">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span> -->
@@ -87,24 +87,71 @@
 
 <!-- Ajout article -->
 <ng-template #content let-modal style="">
-    <div class="modal-header">
-        <h4 class="modal-title" style="padding: 0 0%;">Ajout d'article</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <!-- <div class="header py-1 px-3 text-end">
+    </div> -->
+    <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
     </div>
-    <div class="modal-body" style="margin: 0px 0%;">
+    
+    <div class="modal-body" style="padding: 0;">
+        <form class="example-form">
+            <input type="text" [(ngModel)]="titre" name="titre">
+            <input type="file" (change)="getFile($event)" accept="image/*">
+        </form>
+        <i class="bouton-close fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"></i>
         <editor [init]="{
           base_url: '/tinymce',
-          suffix: '.min'       
-        }" [(ngModel)]="contenu"></editor>
+          height: editorHeight,
+          toolbar: 'undo redo | bold italic underline strikethrough | link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code',
+        }" [(ngModel)]="contenu" style="border-radius: 0 !important; height: 100%;"></editor>
+        {{contenu}}
     </div>
+    <div class="modal-footer" *ngIf="step == 1">
+        <button mat-raised-button (click)="etape2()" style="background-color: #4CAF50;">Fermer</button>
+    </div>  
     <div class="modal-footer">
-        <button mat-raised-button color="primary" (click)="ajouterArticle()" (click)="modal.close('Close click')">Publié</button>
+        <button mat-raised-button (click)="etape1()" color="warn">Retour</button>
+        <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')" style="background-color: #4CAF50;">Publié</button>
     </div>  
 </ng-template>
+
 <!-- Fin ajout article -->
 
 <!-- </section> -->
 <style>
+    .example-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        padding: 0 30%;
+        }
+
+    .example-full-width {
+    width: 100%;
+}
+    .first {
+        /* border: 2px solid black; */
+    }
+
+    .header {
+        background-color: #4CAF50;
+        ;
+    }
+    .bouton-close {
+        font-size: 20px; 
+        cursor: pointer; 
+        padding: 2px;
+        position: fixed;
+        z-index: 999;
+        left: calc(100% - 130px);
+        margin-top: 3px;
+        padding-bottom: 6px;
+        padding-left: 100px;
+        padding-right: 10px;
+        padding-top : 10px;
+        background-color: white;
+    }
     .example-card {
         box-shadow: 0 0 6px 1px #292d2654;
     }

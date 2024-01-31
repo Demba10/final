@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   // Debut des propriétés de l'utilisateur
   prenom!: string
   nom!: string
-  image!: any
+  image!: File
   adresse!: string
   telephone!: string
   email!: string
@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
   }
   ajoutUtilisateur() {
     let formData = new FormData();
-    formData.append("image", this.image);
+    formData.append("image", this.image as Blob);
     formData.append("prenom", this.prenom);
     formData.append("nom", this.nom);
     formData.append("adresse", this.adresse);
@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
-        // this.router.navigate(['/login'])
+        this.router.navigate(['/login'])
       }
     )
   }

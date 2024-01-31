@@ -21,11 +21,14 @@ export class AstucesComponent {
   displayedColumns: string[] = ['#', 'image', 'user_name', 'like', 'comment', 'titre'];
   dataSource = new MatTableDataSource<any>(ASTUCES);
   articleSliste!: any[];
+  fullScreenPopup: boolean = false;
+  content: string = 'content';
 
   // Les propriétés
   titre!: string;
-  image!: any;
+  image!: File;
   contenu!: string;
+  editorHeight!: number;
   
   extractTitle() : string {
     let a = this.contenu.indexOf('<')
@@ -38,6 +41,7 @@ export class AstucesComponent {
   ) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  step: number = 1;
 
   ngOnInit(): void {
     this.dataSource.data = this.articles.astuces;
@@ -46,8 +50,16 @@ export class AstucesComponent {
     });
     this.listeArticles();
     this.titre = this.contenu;
+    this.editorHeight = window.innerHeight * 1 - 70;
   }
   // Issue des service
+
+  etape1() {
+    this.step = 1;
+  }
+  etape2() {
+    this.step = 2;
+  }
   
   listeArticles() {
     this.art.getArticles().subscribe(
@@ -66,24 +78,35 @@ export class AstucesComponent {
 
     let t = this.contenu.indexOf('>');
     let l = this.contenu.substring(t).indexOf('<')
-    let k = this.contenu.substring(t).indexOf('>')
+    var tempDiv = document.createElement('div');
+    tempDiv.innerHTML = this.contenu.substring(t + 1, l + 2);
+    
+    let tm = this.contenu.search(/<img src="/);
+    // this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10
+    const nA = new FormData();
+    nA.append('titre', this.titre);
+    nA.append('image', this.image as Blob);
+    nA.append('contenue', this.contenu);
 
-    const nouvelArticle: Article = {
-      titre: this.contenu.substring(t+1, l-1),
-      image: "chemin/vers/l/image.png",
-      contenue: this.contenu
-    };
-
-    this.art.createArticle(nouvelArticle).subscribe(
+    this.art.createArticle(nA).subscribe(
       response => {
-        alert(t)
-        this.articleSliste.push(nouvelArticle);
+        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm+10));
+        this.articleSliste.push(nA);
         console.log(response);
         Swal.fire({
           title: 'Success',
           text: response.message,
           icon: 'success'
         })
+      }, 
+      error => {
+        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm+10));
+        Swal.fire({
+          title: 'error',
+          text: error.error.error,
+          icon: 'error'
+        })
+        l
       }
     )
   }
@@ -94,6 +117,9 @@ export class AstucesComponent {
 
   openXl(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl' });
+  }
+  openFullscreen(full: TemplateRef<any>) {
+    this.modalService.open(full, { fullscreen: true });
   }
 
   filtrer() {

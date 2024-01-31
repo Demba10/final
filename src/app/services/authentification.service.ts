@@ -22,30 +22,32 @@ export class AuthentificationService {
       response => {
         this.tokenService.saveToken(response.authorization.token);
         console.log(response.user.role);
-        Swal.fire({
-          title: 'Connexion réussie',
-          text: '',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-        if (response.user.role == 'admin') {
-          this.route.navigate(['/administrateur'])
-        }  
-        if (response.user.role == 'clients') {
-          this.route.navigate(['/']);
-        }
-        if (response.user.role == 'jardinier') {
-          this.route.navigate(['/']);
+        if (response) {
+          Swal.fire({
+            title: 'Connexion réussie',
+            text: '',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          if (response.user.role == 'admin') {
+            this.route.navigate(['/administrateur'])
+          }  
+          if (response.user.role == 'clients') {
+            this.route.navigate(['/']); 
+          }
+          if (response.user.role == 'jardinier') {
+            this.route.navigate(['user/espace-verte']);
+          }
+          localStorage.setItem('userOnline', JSON.stringify(response.user));
+        } else {
+          Swal.fire({
+            title: 'Echec de la connexion',
+            text: '',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       }, 
-      // error => {
-      //   Swal.fire({
-      //     title: 'Echec de la connexion',
-      //     text: '',
-      //     icon: 'error',
-      //     confirmButtonText: 'OK'
-      //   });
-      // }
     )
   }
 }

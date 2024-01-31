@@ -5,14 +5,16 @@
     <div class="col-4" *ngFor="let item of articleList">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">
-                <div class="date">12 Fev 2021</div>
+                <div class="date">{{ item.created_at | date:'dd MMMM yyyy' }}</div>
             </div>
-            <img src="assets/images/conseils/conseil-1.png" class="card-img-top" alt="">
+            <div class="img">
+                <img src="http://127.0.0.1:8000/api/images/{{item.image.substring(5)}}" class="card-img-top" alt="">
+            </div>
             <div class="card-body">
-                <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span>
+                <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
                 <h6 class="card-text fw-bold">{{item.titre}}</h6>
                 <div class="d-flex justify-content-between">
-                    <a class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;" (click)="openFullscreen(detail)" (click)="details(item.id)">Lire plus<i
+                    <a class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;" (click)="openFullscreen(content)" (click)="details(item.id)">Lire plus<i
                             class="fa-solid fa-arrow-right"></i></a>
                     <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
                         <span>
@@ -27,7 +29,7 @@
         </div>
     </div>
 </section>
-<ng-template #detail let-modal>
+<ng-template #content let-modal style="position: relative; z-index: 100;">
     <!-- <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
     </div> -->
@@ -55,5 +57,15 @@
         padding: 10px;
         margin: 8px;
         font-size: 12px;
+    }
+    .img {
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .img img {
+        height: 100%;
     }
 </style>

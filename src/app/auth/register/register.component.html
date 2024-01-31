@@ -40,9 +40,11 @@
                                     placeholder="Entez votre mot de passe" [(ngModel)]="password">
                             </div>
                         </div>
+                        <!-- <div *ngIf="step == 3" class="etape">
+                            <file-upload [control]="fileUploadControl" (change)="getFile($event)" style="width: 100%; height: 100%;"accept="image/*"></file-upload>
+                        </div> -->
                         <div *ngIf="step == 3" class="etape">
-                            <file-upload [control]="fileUploadControl" (change)="getFile($event)" style="width: 100%; height: 100%;" [(ngModel)]="image"></file-upload>
-                            <!-- <input type="file" (change)="getFile($event)" [(ngModel)]="image"> -->
+                            <input type="file" (change)="getFile($event)" accept="image/*">
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Précédent" style="opacity: 0.4;" (click)="goStep2()" *ngIf="step == 1" disabled>

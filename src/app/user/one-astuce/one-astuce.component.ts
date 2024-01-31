@@ -33,12 +33,5 @@ export class OneAstuceComponent implements OnInit {
   }
   details(id: any) {
     localStorage.setItem('id', id);
-    this.astuces.getArticleById(id).subscribe(
-      response => {
-        this.articleOne = response;
-        localStorage.setItem('article', JSON.stringify(response));
-      }
-    )
-    
   }
 }

@@ -15,6 +15,7 @@ export class AstucesComponent implements OnInit {
   private offcanvasService = inject(NgbOffcanvas);  
   articleOne: any;
   id!: any;
+  astuc !: any;
   details: any;
 
   constructor(
@@ -22,12 +23,17 @@ export class AstucesComponent implements OnInit {
     private articles: ArticlesService
   ) { }
   ngOnInit(): void {
-    this.details = JSON.parse(localStorage.getItem('article') || '[]')?.article;
-    console.log(this.details);
+    this.id = localStorage.getItem('id');
+    this.articles.getArticleById(this.id).subscribe(
+      response => {
+        this.details = response.article;
+        alert(this.details.contenue)
+      }
+    )
 
-    document.querySelector('.astuces')!.innerHTML = this.details.contenue
+    document.querySelector('.contenu')?.appendChild(this.details.contenue)
     console.log(
-      document.querySelector('.astuces')!.textContent 
+      document.querySelector('.contenu')!.textContent 
     );
     
   }

@@ -1,9 +1,8 @@
 <!-- <app-share-banner></app-share-banner> -->
 <section class="astuces">
-    <!-- <h2 style="color: #4CAF50; font-size: 48px;" class="fw-semibold mb-3"></h2> -->
-    <!-- <h4 class="fw-light"></h4> -->
-    <!-- {{details.contenue}} -->
-    <!-- <div class="user d-flex gap-4">
+    <h2 style="color: #4CAF50; font-size: 48px;" class="fw-semibold mb-3">{{details.titre}}</h2>
+    <!-- <h4 class="fw-light">{{astuce?.titre}}</h4> -->
+    <div class="user d-flex gap-4">
         <div class="img">
             <img [src]="astuce?.user_image" alt="">
         </div>
@@ -12,7 +11,7 @@
             <div style="font-size: 13px;" class="d-flex gap-2 align-items-center fw-semibold">
                 <span>Lecture en 5 min</span>
                 <i class="fa-solid fa-circle" style="font-size: 8px;"></i>
-                <span>Publié le {{astuce?.date}}</span>
+                <span>Publié le {{details.created_at}}</span>
             </div>
         </div>
     </div>
@@ -26,23 +25,10 @@
     </span>
     <hr style="border-width: 2px;">
     <div class="image-article">
-        <img [src]="astuce?.image" alt="" class="">
+        <img src="http://127.0.0.1:8000/api/images/{{details.image.substring(5)}}" alt="" class="">
     </div>
     <div class="contenu">
-        <h4 class="astuce-title">1. Titre 1</h4>
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-        gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-        accusam et justo duo dolores et ea rebum.</p>
-        <h4 class="astuce-title">2. Titre 2</h4>
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-        gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-        accusam et justo duo dolores et ea rebum.</p>
-        <img src="assets/images/conseils/conseil-7.png" alt="">
-    </div> -->
+    </div>
 </section>
 <!-- modele open -->
 <ng-template #content let-offcanvas>

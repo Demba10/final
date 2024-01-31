@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class  UsersService {
   private apiUrl = this.apiUrl2.getApi();
 
   constructor(
@@ -21,6 +21,18 @@ export class UsersService {
   // Fonction pour récupérer les clients depuis l'API Laravel
   getClients(): Observable<any> {
     const resource = 'listClients';
+    return this.http.get<any>(`${this.apiUrl}${resource}`);
+  }
+
+  // Fonction pour récupérer les clients depuis l'API Laravel
+  getProduits(): Observable<any> {
+    const resource = 'ListerProduit';
+    return this.http.get<any>(`${this.apiUrl}${resource}`);
+  }
+
+  // Fonction pour récupérer les Jardiniers depuis l'API Laravel
+  getJardiniers(): Observable<any> {
+    const resource = 'listJardinier';
     return this.http.get<any>(`${this.apiUrl}${resource}`);
   }
   

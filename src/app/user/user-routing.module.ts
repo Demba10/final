@@ -7,6 +7,7 @@ import { EchoppeVerteComponent } from './echoppe-verte/echoppe-verte.component';
 import { ContactComponent } from './contact/contact.component';
 import { JardinotequeComponent } from './jardinoteque/jardinoteque.component';
 import { OneAstuceComponent } from './one-astuce/one-astuce.component';
+import { EspaceCreatifComponent } from './espace-creatif/espace-creatif.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'jardinotheque', 
         component: JardinotequeComponent
+      },
+      {
+        path: 'espace-creatif',
+        component: EspaceCreatifComponent
       },
       {
         path: '**',

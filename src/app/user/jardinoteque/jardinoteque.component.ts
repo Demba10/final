@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-jardinoteque',
@@ -9,8 +10,10 @@ import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service
   styleUrls: ['./jardinoteque.component.scss']
 })
 export class JardinotequeComponent implements OnInit {
+  jardiniers!: any[];
   constructor(
-    private jardiniers : JardiniersService
+    // private jardiniers: JardiniersService,
+    private userService: UsersService
   ) { }
   
   displayedColumns: string[] = ['id', 'image', 'nom', 'lien', 'adresse', 'produits'];
@@ -22,6 +25,16 @@ export class JardinotequeComponent implements OnInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
     });
+    this.listerJardiniers();  
+  }
+  
+  listerJardiniers() {
+    this.userService.getJardiniers().subscribe(
+      response => {
+        this.jardiniers = response;
+        console.log(this.jardiniers);
+      }
+    )
   }
   
   ngAfterViewInit() {
