@@ -17,12 +17,16 @@
             <button style="background-color: transparent; border: none;" routerLink="../auth">
                 <span><i class="fa-solid fa-magnifying-glass"></i></span>
             </button>
-            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"><i class="fa-regular fa-user"></i></button>
+            <button mat-raised-button color="primary" [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine == 'undefined'"><i class="fa-regular fa-user"></i></button>
+            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine != 'undefined'" style="font-size: 16px;font-weight: bold;" (click)="derouler()" >{{userOnLine.prenom}} {{userOnLine.nom}} &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;" style="transform: rotate(180deg);"></i></button>
             <ng-template #menu>
-                <div class="example-menu" cdkMenu>
-                    <button class="example-menu-item" cdkMenuItem routerLink="/login">Se connecter</button>
-                    <!-- <button class="example-menu-item" cdkMenuItem>Espace créatif</button>
-                    <button class="example-menu-item" cdkMenuItem>Déconnexion</button> -->
+                <div class="example-menu" cdkMenu *ngIf="userOnLine == 'undefined'">
+                    <button class="example-menu-item" cdkMenuItem routerLink="auth">Se connecter</button>
+                </div>
+                <div class="example-menu" cdkMenu *ngIf="userOnLine != 'undefined'">
+                    <button class="example-menu-item" cdkMenuItem>Profil</button>
+                    <button class="example-menu-item" cdkMenuItem routerLink="espace-creatif">Espace créatif</button>
+                    <button class="example-menu-item" cdkMenuItem>Déconnexion</button>
                 </div>
             </ng-template>
         </div>

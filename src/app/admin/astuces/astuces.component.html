@@ -9,15 +9,18 @@
     </div>
     <div class="all col-2 pb-4" *ngFor="let item of articleSliste">
         <mat-card class="example-card">
-            <div style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
-                <img mat-card-image src="http://127.0.0.1:8000/api/images/{{item.image.substring(6)}}" alt="Photo of a Shiba Inu" style="width: 100%;">
+            <div
+                style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
+                <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu"
+                    style="width: 100%;">
             </div>
             <mat-card-content class="py-2">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span> -->
                 <h6>{{item.titre}}</h6>
             </mat-card-content>
             <mat-card-actions class="d-flex justify-content-between">
-                <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;" class="fw-bold">Détails</button>
+                <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;"
+                    class="fw-bold">Détails</button>
                 <span class="d-flex gap-3" style="font-size: 0.8em; opacity: 0.8;">
                     <span>
                         <i class="fa-solid fa-thumbs-up"></i> {{item.id}}
@@ -42,25 +45,26 @@
     </div>
     <div class="p-3">
         <table mat-table [dataSource]="dataSource">
-    
+
             <!-- Position Column -->
             <ng-container matColumnDef="#">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
-    
+
             <!-- Name Column -->
             <ng-container matColumnDef="image">
                 <th mat-header-cell *matHeaderCellDef> Image </th>
-                <td mat-cell *matCellDef="let element"> <span style="width: 100%;"><img [src]="element.image" alt="" style="width: 30px;" ></span></td>
+                <td mat-cell *matCellDef="let element"> <span style="width: 100%;"><img [src]="element.image" alt=""
+                            style="width: 30px;"></span></td>
             </ng-container>
-    
+
             <!-- Weight Column -->
             <ng-container matColumnDef="titre">
                 <th mat-header-cell *matHeaderCellDef> Titre </th>
                 <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
             </ng-container>
-    
+
             <!-- Symbol Column -->
             <ng-container matColumnDef="user_name">
                 <th mat-header-cell *matHeaderCellDef> Publier par </th>
@@ -75,12 +79,13 @@
                 <th mat-header-cell *matHeaderCellDef> Commentaire </th>
                 <td mat-cell *matCellDef="let element"> {{element.like}} </td>
             </ng-container>
-    
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </mat-card>
@@ -91,7 +96,7 @@
     </div> -->
     <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
     </div>
-    
+
     <div class="modal-body" style="padding: 0;">
         <form class="example-form">
             <input type="text" [(ngModel)]="titre" name="titre">
@@ -107,11 +112,12 @@
     </div>
     <div class="modal-footer" *ngIf="step == 1">
         <button mat-raised-button (click)="etape2()" style="background-color: #4CAF50;">Fermer</button>
-    </div>  
+    </div>
     <div class="modal-footer">
         <button mat-raised-button (click)="etape1()" color="warn">Retour</button>
-        <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')" style="background-color: #4CAF50;">Publié</button>
-    </div>  
+        <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
+            style="background-color: #4CAF50;">Publié</button>
+    </div>
 </ng-template>
 
 <!-- Fin ajout article -->
@@ -125,11 +131,12 @@
         width: 100%;
         justify-content: center;
         padding: 0 30%;
-        }
+    }
 
     .example-full-width {
-    width: 100%;
-}
+        width: 100%;
+    }
+
     .first {
         /* border: 2px solid black; */
     }
@@ -138,9 +145,10 @@
         background-color: #4CAF50;
         ;
     }
+
     .bouton-close {
-        font-size: 20px; 
-        cursor: pointer; 
+        font-size: 20px;
+        cursor: pointer;
         padding: 2px;
         position: fixed;
         z-index: 999;
@@ -149,35 +157,43 @@
         padding-bottom: 6px;
         padding-left: 100px;
         padding-right: 10px;
-        padding-top : 10px;
+        padding-top: 10px;
         background-color: white;
     }
+
     .example-card {
         box-shadow: 0 0 6px 1px #292d2654;
     }
+
     .all {
         animation: 600ms display;
     }
+
     @keyframes display {
         from {
             transform: scale(0.7);
         }
+
         to {
             transform: scale(1);
         }
     }
-    .example-card:hover{
+
+    .example-card:hover {
         animation: 200ms transform;
         animation-fill-mode: forwards;
     }
+
     @keyframes transform {
         from {
             transform: scale(1);
         }
+
         to {
             transform: scale(1.1);
         }
     }
+
     ul {
         list-style-type: none;
         display: flex;
@@ -185,15 +201,18 @@
         padding: 0;
         font-size: 24px;
     }
+
     ul li {
-        cursor: pointer ;
+        cursor: pointer;
     }
+
     mat-card-content h6 {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 95%;
     }
+
     .input-title {
         width: 100%;
         font-size: 24px;

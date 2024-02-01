@@ -25,6 +25,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,12 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     MatTableModule,
     MatCardModule,
     MatInputModule,
-    EditorModule
+    EditorModule,
+    MatButtonModule, 
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FileUploadModule
   ]
 })
 export class UserModule { }

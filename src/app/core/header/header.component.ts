@@ -8,14 +8,15 @@ import { LinkDataService } from 'src/app/services/lien/link-data.service';
 })
 export class HeaderComponent implements OnInit {
   color!: string;
+  userOnLine!: any;
+  change: boolean = false;
 
   constructor(
     private link_data : LinkDataService
   ) { }
 
   ngOnInit(): void {
-    // this.activerLien();
-    // alert(this.baseUrl)
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || 'undefined');  
   }
   
   sidebar_data = this.link_data.sidebar_data;
@@ -29,9 +30,15 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  // baseUrl = this.link_data.url().subscribe(
-  //   response => {}
-  // )
+  derouler() {
+    let a = document.getElementById("deroule");
+    this.change = !this.change;
+    if (!this.change) {
+      a!.style.rotate = '0deg';
+    } else {
+      a!.style.rotate = '180deg';
+    }
+  }
   
   changeColor(id: any) {
     this.link_data.changeColor(id).subscribe(

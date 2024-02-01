@@ -29,6 +29,12 @@ export class AccueilComponent implements OnInit {
         console.log(response);
       }
     )
+    this.apiUser.getJardiniers().subscribe(
+      response => {
+        console.log((response));
+        
+      }
+    )
   }
   
   currentProduct() {

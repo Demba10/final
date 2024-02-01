@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProduitsService } from 'src/app/services/produits/produits.service';
+import { ImageService } from 'src/app/services/image.service';
+import { ProduitsService } from 'src/app/services/produits.service';
  
 @Component({
   selector: 'app-echoppe-verte',
@@ -10,18 +11,28 @@ import { ProduitsService } from 'src/app/services/produits/produits.service';
 })
 export class EchoppeVerteComponent implements OnInit {
  
-  displayedColumns: string[] = ['image', 'libelle', 'note', 'selected'];
-  mesProduits = new MatTableDataSource<any>();
+  produits!: any;
+  imageUrl!: any;
+  // displayedColumns: string[] = ['image', 'libelle', 'note', 'selected'];
+  // mesProduits = new MatTableDataSource<any>();
  
-  constructor(private produits: ProduitsService) { }
+  constructor(
+    // private produits: ProduitsService,
+    private produitService: ProduitsService,
+    private imageService: ImageService
+  ) { }
  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
  
   ngOnInit(): void {
-    // Initialisez vos données ici
-    this.mesProduits.data = this.produits.produits;
-    setTimeout(() => {
-      this.mesProduits.paginator = this.paginator;
-    });
+    this.listerProduits();
+  }
+  listerProduits() {
+    this.produitService.getProduits().subscribe(
+      response => {
+        console.log(response);
+        this.produits = response;
+      }
+    )
   }
 }

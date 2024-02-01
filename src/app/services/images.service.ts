@@ -17,7 +17,7 @@ export class ImagesService {
 
 
   getImage(filename: string): Observable<Blob> {
-    return this.http.get(this.apiUrl + filename, { responseType: 'blob' });
+    return this.http.get('http://127.0.0.1:8000/api/images/' + filename, { responseType: 'blob' });
   }
 
 

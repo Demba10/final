@@ -11,7 +11,7 @@
             <div style="font-size: 13px;" class="d-flex gap-2 align-items-center fw-semibold">
                 <span>Lecture en 5 min</span>
                 <i class="fa-solid fa-circle" style="font-size: 8px;"></i>
-                <span>Publié le {{details.created_at}}</span>
+                <span>Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
             </div>
         </div>
     </div>
@@ -19,22 +19,41 @@
         <span>
             <i class="fa-solid fa-thumbs-up"></i> {{astuce?.like}}
         </span>
-        <span  (click)="openEnd(content)" style="cursor: pointer;">
-            <i class="fa-solid fa-comment"></i> {{astuce?.message}}
+        <span  (click)="openEnd(content)" (click)="listerCommentaire(details.id)" style="cursor: pointer;">
+            <i class="fa-solid fa-comment"></i>{{nbComents}}
         </span>
     </span>
     <hr style="border-width: 2px;">
     <div class="image-article">
         <img src="http://127.0.0.1:8000/api/images/{{details.image.substring(5)}}" alt="" class="">
     </div>
-    <div class="contenu">
+    <div class="contenu" id="contenu">
     </div>
 </section>
 <!-- modele open -->
 <ng-template #content let-offcanvas>
     <div class="offcanvas-header">
-        <h4 class="offcanvas-title">Commentaires ({{astuce?.message}})</h4>
+        <h4 class="offcanvas-title">Commentaires ({{nbComents}})</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body">
+        <mat-card class="p-1">
+            <h6 class="my-2" *ngIf="userOnLine.role !== 'jardinier'">{{userOnLine.prenom}} {{userOnLine.nom}} </h6>
+            <form class="example-form w-100">
+                <mat-form-field class="example-full-width w-100" style="background-color: white;">
+                    <mat-label>Laisez un commentaire</mat-label>
+                    <textarea matInput placeholder="Ecrivez ici ..." name="contenue" [(ngModel)]="contenue"></textarea>
+                </mat-form-field>
+                <div class="bouton d-flex justify-content-end gap-2">
+                    <button mat-button style="color: rgb(0, 0, 0);">Annuler</button>
+                    <button mat-raised-button style="background-color: #292D26; color: white;" (click)="ajouterCommentaire()" >Poster</button>
+                </div>
+            </form>
+        </mat-card>
+        <mat-card class="my-3 p-3" *ngFor="let item of commentaires">
+            <p>{{item.id}}</p>
+            <p>{{item.contenue}}</p>
+        </mat-card>
     </div>
 </ng-template>
 <style>
@@ -77,9 +96,13 @@
     .astuce-title + p {
         padding-left: 10px;
     }
+
     /* .offcanvas-header button::after,
     .offcanvas-header button:focus,
     .offcanvas-header button:visited {
         border: 0;
     } */
+    .example-full-width {
+        height: 200px;
+    }
 </style>

@@ -24,13 +24,13 @@ export class ProduitsService {
 
   // Récupérer un produit par son ID
   getproduitById(id: number): Observable<any> {
-    const url = `${this.apiUrl}VoirDetailproduit/${id}`;
+    const url = `${this.apiUrl}VoirDetailProduits/${id}`;
     return this.http.get<any>(url);
   }
 
   // Créer un nouvel produit
   createproduit(produit: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'createproduit', produit);
+    return this.http.post<any>(this.apiUrl + 'PublierProduits', produit);
   }
 
   // Mettre à jour un produit existant
