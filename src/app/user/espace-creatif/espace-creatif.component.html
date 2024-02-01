@@ -50,6 +50,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterProduits()">Valider</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="modifierProduit(detail.id)" (click)="d('Cross click')">Modifier</button>
     </div>
 </ng-template>
 
@@ -58,7 +59,7 @@
 <section class="boutique">
     <div class="jardiniers-box row">
         <div class="col-4" *ngFor="let item of produits">
-            <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card" (click)="openLg(content)" (click)="detailsProduit(item.id)">
+            <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card" (click)="openLg(con)" (click)="detailsProduit(item.id)">
                 <div class="row g-0" style="">
                     <div class="col-md-4">
                         <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
@@ -80,25 +81,38 @@
                 </div>
             </div>
             <!-- Details boutique -->
-            <ng-template #content let-modal>
+            <ng-template #con let-modal class="">
                 <!-- <div class="modal-header">
                     <h4 class="modal-title">Modal title</h4>
                 </div> -->
                 <!-- <div class="modal-body"> -->
-                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-                    <div class="card" style="">
+                    <div class="card" >
+                            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')" style="position: absolute; left:  95%; margin-top: 10px;"></button>
                         <div class="row g-0">
-                            <div class="left-detail col-md-6" style="display: flex; justify-content: center; align-items: center;">
-                                <div style="width: 200px;">
+                            <div class="left-detail col-md-6" style="display: flex; justify-content: center; align-items: center; ">
+                                <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
                                     <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt="" style="width: 100%;">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                                        content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <h2 class="card-title">{{detail.nom}}</h2>
+                                    <h5>Description</h5>
+                                    <p class="card-text">{{detail.description}} </p>
+                                    <table>
+                                        <tr>
+                                            <td>Catégorie</td>
+                                            <td>&nbsp;-&nbsp;</td>
+                                            <td>{{detail.categorie.nom}}</td>
+                                        </tr>
+                                    </table>
+                                    <h5 class="mt-4">Jardinier</h5>
+                                    <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
+
+                                    <div class="d-flex gap-3 mt-5">
+                                        <button mat-mini-fab color="accent" (click)="SupprimerProduit(detail.id)" (click)="modal.dismiss('Cross click')"><i class="fa-solid fa-trash"></i></button>
+                                        <button mat-mini-fab color="warn" (click)="openEditProduit(detail.id)" (click)="open(content)"><i class="fa-solid fa-pen"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +132,11 @@
 <style>
     .left-detail {
         background-image: url("/assets/images/boutique/detail-bg.svg");
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-        height: 60vh;
+        height: 70vh;
     }
 </style>

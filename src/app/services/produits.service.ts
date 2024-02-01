@@ -35,13 +35,13 @@ export class ProduitsService {
 
   // Mettre à jour un produit existant
   updateproduit(id: number, produit: any): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put<any>(url, produit);
+    const url = `${this.apiUrl}ModifierProduits/${id}`;
+    return this.http.post<any>(url, produit);
   }
 
   // Supprimer un produit par son ID
   deleteproduit(id: number): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}SupprimerProduits/${id}`;
     return this.http.delete<any>(url);
   }
 }

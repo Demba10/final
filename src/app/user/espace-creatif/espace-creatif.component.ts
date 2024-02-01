@@ -49,14 +49,14 @@ export class EspaceCreatifComponent implements OnInit {
     this.modalService.open(content);
   }
   openLg(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true, size: 'lg' });
+    this.modalService.open(content, { centered: true, size: 'lg'});
   }
 
 
   lister() {
     this.userService.getProduits().subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.produits = response;
       }
     )
@@ -70,14 +70,41 @@ export class EspaceCreatifComponent implements OnInit {
     
     this.produitService.createproduit(newProduit).subscribe(
       response => {
-        // console.log(response);    
+        this.lister();   
+      }
+    )
+  }
+  SupprimerProduit(id: any) {
+    this.produitService.deleteproduit(id).subscribe(
+      response => {
+        console.log(response);
+        this.lister();
+      }
+    )
+  }
+  openEditProduit(id: any) {
+    this.detailsProduit(id);
+    this.nom = this.detail.nom;
+    this.description = this.detail.description;
+    this.image = this.description.image;
+  }
+  modifierProduit(id: any) {
+    const newProduit = new FormData();
+    newProduit.append('image', this.image as Blob);
+    newProduit.append('nom', this.nom);
+    newProduit.append('description', this.description);
+    newProduit.append('categories_id', this.categories_id);
+    this.produitService.updateproduit(id, newProduit).subscribe(
+      response => {
+        // console.log(response); 
+        this.lister();
       }
     )
   }
   detailsProduit(id: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.detail = response.article;
       }
     )
