@@ -5,8 +5,8 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item text-black" *ngFor="let item of sidebar_data">
-                        <a class="nav-link" [routerLink]="item.lien" routerLinkActive="active" [style.color]="item.isActive"
-                            (click)="changeColor(item.id)">
+                        <a class="nav-link" [routerLink]="item.lien" routerLinkActive="active"
+                            [style.color]="item.isActive" (click)="changeColor(item.id)">
                             {{item.title}}
                         </a>
                     </li>
@@ -17,15 +17,19 @@
             <button style="background-color: transparent; border: none;" routerLink="../auth">
                 <span><i class="fa-solid fa-magnifying-glass"></i></span>
             </button>
-            <button mat-raised-button color="primary" [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine == 'undefined'"><i class="fa-regular fa-user"></i></button>
-            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine != 'undefined'" style="font-size: 16px;font-weight: bold;" (click)="derouler()" >{{userOnLine.prenom}} {{userOnLine.nom}} &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;" style="transform: rotate(180deg);"></i></button>
+            <button mat-raised-button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"
+                *ngIf="!userOnLine"><i class="fa-regular fa-user"></i></button>
+            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine"
+                style="font-size: 16px;font-weight: bold;" (click)="derouler()">{{userOnLine.prenom}} {{userOnLine.nom}}
+                &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;"
+                    style="transform: rotate(180deg);"></i></button>
             <ng-template #menu>
-                <div class="example-menu" cdkMenu *ngIf="userOnLine == 'undefined'">
+                <div class="example-menu" cdkMenu *ngIf="!userOnLine">
                     <button class="example-menu-item" cdkMenuItem routerLink="auth">Se connecter</button>
                 </div>
-                <div class="example-menu" cdkMenu *ngIf="userOnLine != 'undefined'">
+                <div class="example-menu" cdkMenu *ngIf="userOnLine">
                     <button class="example-menu-item" cdkMenuItem>Profil</button>
-                    <button class="example-menu-item" cdkMenuItem routerLink="espace-creatif">Espace créatif</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()">Espace créatif</button>
                     <button class="example-menu-item" cdkMenuItem>Déconnexion</button>
                 </div>
             </ng-template>
@@ -43,6 +47,7 @@
         padding: 0 10%;
         height: 60px;
     }
+
     .navbar-brand {
         display: flex;
         justify-content: center;
@@ -50,17 +55,20 @@
         overflow: hidden;
         height: 54px;
     }
+
     .navbar-brand img {
         height: 100%;
     }
-    .nav-link  {
-        font-weight: 600; 
+
+    .nav-link {
+        font-weight: 600;
         opacity: 0.8d;
     }
 
     .nav-link:hover {
         color: #4CAF50 !important;
     }
+
     .nav-link:hover {
         color: #4CAF50 !important;
     }
@@ -69,37 +77,38 @@
         display: flex;
         gap: 16px;
     }
+
     .acive {
         color: #4CAF50;
     }
 
     /* dropdown */
     .example-menu {
-    display: inline-flex;
-    flex-direction: column;
-    min-width: 180px;
-    max-width: 280px;
-    background-color: rgba(255, 255, 255);
-    padding: 6px 0;
-    position: relative;
-    top: 20px;
+        display: inline-flex;
+        flex-direction: column;
+        min-width: 180px;
+        max-width: 280px;
+        background-color: rgba(255, 255, 255);
+        padding: 6px 0;
+        position: relative;
+        top: 20px;
     }
 
     .example-menu-item,
     .example-standalone-trigger {
-    background-color: transparent;
-    cursor: pointer;
-    border: none;
+        background-color: transparent;
+        cursor: pointer;
+        border: none;
 
-    user-select: none;
-    min-width: 64px;
-    line-height: 36px;
-    padding: 0 16px;
+        user-select: none;
+        min-width: 64px;
+        line-height: 36px;
+        padding: 0 16px;
 
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex: 1;
     }
 
     .example-menu-item:hover {
@@ -107,16 +116,18 @@
     }
 
     .example-menu-item:active {
-    background-color: rgb(170, 170, 170);
+        background-color: rgb(170, 170, 170);
     }
 
     .example-standalone-item {
-    background-color: rgb(239, 239, 239);
+        background-color: rgb(239, 239, 239);
     }
+
     .example-standalone-item:hover {
-    background-color: rgb(208, 208, 208);
+        background-color: rgb(208, 208, 208);
     }
+
     .example-standalone-item[aria-expanded='true'] {
-    background-color: rgb(208, 208, 208);
+        background-color: rgb(208, 208, 208);
     }
 </style>

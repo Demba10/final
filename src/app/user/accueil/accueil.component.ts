@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
-import { ProduitsService } from 'src/app/services/produits/produits.service';
+import { ProduitsService } from 'src/app/services/produits.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -10,40 +10,80 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit {
-
+  jdn!: any[];
+  jdnSome!: any[];
+  user: any;
   constructor(
     private articles: AstucesService,
     private jardiniers: JardiniersService,
-    private produits: ProduitsService,
-    private apiUser: UsersService
+    private jardierService: UsersService,
+    // private produits: ProduitsService,
+    private produitService: ProduitsService,
+    private apiUser: UsersService,
   ) { }
-  
+
+  detail: any;
+  produits!: any[];
+  idProduit = 4;
   mesArticles = this.articles.astuces;
   mesJardiniers = this.jardiniers.jardiniers.slice(0, 4);
-  mesProduits = this.produits.produits.slice(0, 6);
-  defaultProduct = this.produits.defaultProduct;
 
   ngOnInit(): void {
     this.apiUser.getClients().subscribe(
       response => {
         console.log(response);
+        this.lister();
       }
     )
+    this.listeJardiniers();
     this.apiUser.getJardiniers().subscribe(
       response => {
-        console.log((response));
-        
+        // console.log((response));
       }
     )
   }
-  
+
   currentProduct() {
     let cont = 0;
-    this.mesProduits.forEach(element => {
+    this.produits.forEach(element => {
       cont++;
       if (element.selected == true) {
         alert(cont);
       }
     });
+  }
+
+  listeJardiniers() {
+    this.jardierService.getJardiniers().subscribe(
+      response => {
+        // console.log(response);
+        this.jdn = response;
+        this.jdnSome = this.jdn.slice(0, 5);
+      }
+    )
+  }
+
+  settIdProduit(id: any = this.idProduit) {
+    this.idProduit = id;
+    this.produitService.getproduitById(this.idProduit).subscribe(
+      response => {
+        console.log(response.article);
+        this.detail = response.article;
+        this.user = this.jdn.find(ele => ele.id == this.detail.user_id);
+        console.log(this.user);
+      }
+    )
+  }
+  // getIdProduit() {
+  //   return JSON.parse(localStorage.getItem("idprodui") || '');
+  // }
+  // Les produits
+  lister() {
+    this.produitService.getProduits().subscribe(
+      response => {
+        console.log(response);
+        this.produits = response.slice(0, 5);
+      }
+    )
   }
 }

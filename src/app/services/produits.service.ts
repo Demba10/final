@@ -19,7 +19,7 @@ export class ProduitsService {
 
   // Récupérer tous les produits
   getProduits(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'ListerProduits'); 
+    return this.http.get<any[]>(this.apiUrl + 'ListerProduit'); 
   }
 
   // Récupérer un produit par son ID

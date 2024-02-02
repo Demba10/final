@@ -39,6 +39,7 @@ export class AuthentificationService {
             this.route.navigate(['user/espace-verte']);
           }
           localStorage.setItem('userOnline', JSON.stringify(response.user));
+          localStorage.setItem('time', '90');
         } else {
           Swal.fire({
             title: 'Echec de la connexion',

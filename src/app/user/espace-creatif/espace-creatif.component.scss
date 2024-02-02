@@ -1,3 +1,24 @@
+.side {
+    position: fixed;
+    z-index: 99;
+    padding: 20px 10px;
+    border-radius: 34px;
+    width: min-content;
+    border: 0;
+    background-color: white;
+    left: calc(10%);
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+// 
 .file-upload-form {
     width: 100%;
     height: fit-content;
@@ -50,7 +71,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 40px 10%;
+    padding: 40px 10% 40px calc(10% + 106px);
 }
 
 .jardiniers-box img {

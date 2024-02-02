@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LinkDataService } from 'src/app/services/lien/link-data.service';
 
 @Component({
@@ -12,19 +13,20 @@ export class HeaderComponent implements OnInit {
   change: boolean = false;
 
   constructor(
-    private link_data : LinkDataService
+    private link_data: LinkDataService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || 'undefined');  
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
   }
-  
+
   sidebar_data = this.link_data.sidebar_data;
 
   sidebar_cta = [
     {
       icon: "fa-solid fa-magnifying-glass"
-    }, 
+    },
     {
       icon: "fa-regular fa-user"
     }
@@ -39,7 +41,10 @@ export class HeaderComponent implements OnInit {
       a!.style.rotate = '180deg';
     }
   }
-  
+  redirectToEspace() {
+    this.router.navigate(['../user/espace-creatif', this.userOnLine.id]);
+  }
+
   changeColor(id: any) {
     this.link_data.changeColor(id).subscribe(
       response => {

@@ -44,7 +44,7 @@ const routes: Routes = [
         component: JardinotequeComponent
       },
       {
-        path: 'espace-creatif',
+        path: 'espace-creatif/:id',
         component: EspaceCreatifComponent
       },
       {

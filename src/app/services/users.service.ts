@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class  UsersService {
+export class UsersService {
   private apiUrl = this.apiUrl2.getApi();
 
   constructor(
@@ -32,10 +32,10 @@ export class  UsersService {
 
   // Fonction pour récupérer les Jardiniers depuis l'API Laravel
   getJardiniers(): Observable<any> {
-    const resource = 'listJardinier';
+    const resource = 'ListJardiniers';
     return this.http.get<any>(`${this.apiUrl}${resource}`);
   }
-  
+
   getToken() {
     let headers = new HttpHeaders();
     headers = headers.set('token', '' + localStorage.getItem("token"));
