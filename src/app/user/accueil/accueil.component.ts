@@ -17,7 +17,6 @@ export class AccueilComponent implements OnInit {
     private articles: AstucesService,
     private jardiniers: JardiniersService,
     private jardierService: UsersService,
-    // private produits: ProduitsService,
     private produitService: ProduitsService,
     private apiUser: UsersService,
   ) { }
@@ -26,7 +25,6 @@ export class AccueilComponent implements OnInit {
   produits!: any[];
   idProduit = 4;
   mesArticles = this.articles.astuces;
-  mesJardiniers = this.jardiniers.jardiniers.slice(0, 4);
 
   ngOnInit(): void {
     this.apiUser.getClients().subscribe(
@@ -58,7 +56,7 @@ export class AccueilComponent implements OnInit {
       response => {
         // console.log(response);
         this.jdn = response;
-        this.jdnSome = this.jdn.slice(0, 5);
+        this.jdnSome = this.jdn.slice(0, 4);
       }
     )
   }
@@ -82,7 +80,7 @@ export class AccueilComponent implements OnInit {
     this.produitService.getProduits().subscribe(
       response => {
         console.log(response);
-        this.produits = response.slice(0, 5);
+        this.produits = response.slice(0, 6);
       }
     )
   }

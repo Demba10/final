@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -11,37 +12,52 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class JardinotequeComponent implements OnInit {
   jardiniers!: any[];
+  jardinier!: any;
+  jar_id!: any;
+  private modalService = inject(NgbModal);
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService
   ) { }
-  
+
   displayedColumns: string[] = ['id', 'image', 'nom', 'lien', 'adresse', 'produits'];
   dataSource = new MatTableDataSource<Jardinier>(jardinier);
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
     this.dataSource.data = jardinier;
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
     });
-    this.listerJardiniers();  
+    this.listerJardiniers();
+    this.jar_id = localStorage.getItem('id_jar');
   }
-  
+  openXl(content: TemplateRef<any>, id: any) {
+    this.modalService.open(content, { size: 'xl', scrollable: true });
+    localStorage.setItem('id_jar', (id));
+  }
+  consulterProfil(id: any) {
+    this.userService.getProfil(id).subscribe(
+      response => {
+        // console.log(response);
+      }
+    )
+  }
   listerJardiniers() {
     this.userService.getJardiniers().subscribe(
       response => {
         this.jardiniers = response;
-        console.log(this.jardiniers);
+        // this.jardinier = this.jardiniers.find(ele => ele.id == this.jar_id)
+        // console.log(this.jardiniers);
       }
     )
   }
-  
+
   ngAfterViewInit() {
-    
+    this.listerJardiniers();
   }
 }
- 
+
 export interface Jardinier {
   id: number;
   image: string;

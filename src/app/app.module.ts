@@ -15,8 +15,8 @@ import { TokenInterceptorProvider } from './services/token.interceptor';
 import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableDataSource } from '@angular/material/table';
 
-import { EditorModule } from '@tinymce/tinymce-angular';
 
 registerLocaleData(fr);
 
@@ -37,7 +37,7 @@ registerLocaleData(fr);
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
   ],
   providers: [TokenInterceptorProvider],
   bootstrap: [AppComponent]

@@ -36,6 +36,11 @@ export class UsersService {
     return this.http.get<any>(`${this.apiUrl}${resource}`);
   }
 
+  getProfil(id: any): Observable<any> {
+    const resource = 'ConsulterProfile'; 
+    return this.http.get<any>(`${this.apiUrl}${resource}/${id}`);
+  }
+
   getToken() {
     let headers = new HttpHeaders();
     headers = headers.set('token', '' + localStorage.getItem("token"));

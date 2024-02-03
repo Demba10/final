@@ -28,6 +28,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { CatgoriesComponent } from '../shared/catgories/catgories.component';
+import { DetailsJardinierComponent } from './details-jardinier/details-jardinier.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { FileUploadModule } from '@iplab/ngx-file-upload';
     BannerUserComponent,
     RechercheSectionComponent,
     JardinotequeComponent,
-    OneAstuceComponent
+    OneAstuceComponent,
+    CatgoriesComponent,
+    DetailsJardinierComponent
   ],
   imports: [
     CommonModule,

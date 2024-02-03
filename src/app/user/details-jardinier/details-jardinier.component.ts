@@ -1,21 +1,19 @@
-import { Component, Input, OnInit, TemplateRef, inject } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component, TemplateRef } from '@angular/core';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProduitsService } from 'src/app/services/produits.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-espace-creatif',
-  templateUrl: './espace-creatif.component.html',
-  styleUrls: ['./espace-creatif.component.scss']
+  selector: 'app-details-jardinier',
+  templateUrl: './details-jardinier.component.html',
+  styleUrls: ['./details-jardinier.component.scss']
 })
-
-
-export class EspaceCreatifComponent implements OnInit {
+export class DetailsJardinierComponent {
 
   public fileUploadControl = new FileUploadControl(undefined, FileUploadValidators.filesLimit(2));
 
@@ -31,13 +29,15 @@ export class EspaceCreatifComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   categories_id: any = 2;
   prod!: any[];
+  id_jar: any;
+  jardiniers!: any[];
+  jardinier: any;
 
   constructor(
     private produitService: ProduitsService,
     private userService: UsersService,
     config: NgbModalConfig,
-    private modalService: NgbModal,
-    private sharedService: SharedService
+    private modalService: NgbModal
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -45,6 +45,7 @@ export class EspaceCreatifComponent implements OnInit {
 
   ngOnInit(): void {
     this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
+    this.id_jar = localStorage.getItem('id_jar');
     console.log(this.userOnline);
     this.lister();
   }
@@ -61,66 +62,23 @@ export class EspaceCreatifComponent implements OnInit {
   lister() {
     this.userService.getProduits().subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.produits = response;
-        this.prod = this.produits.filter(ele => ele.user_id == Number(this.userOnline.id));
+        this.prod = this.produits.filter(ele => ele.user_id == this.id_jar);
       }
     )
-  }
-  ajouterProduits() {
-    const newProduit = new FormData();
-    newProduit.append('image', this.image as Blob);
-    newProduit.append('nom', this.nom);
-    newProduit.append('description', this.description);
-    newProduit.append('categories_id', this.categories_id);
-
-    this.produitService.createproduit(newProduit).subscribe(
+    this.userService.getJardiniers().subscribe(
       response => {
-        this.sharedService.alert('Succes', response.message, 'success');
-        this.lister();
+        this.jardiniers = response;
+        this.jardinier = this.jardiniers.find(ele => ele.id == this.id_jar);
       }
     )
-  }
-  SupprimerProduit(id: any) {
-    Swal.fire({
-      title: "Etes-vous sure?",
-      text: "Ce produit sera supprimé définitivement!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Oui, supprimé",
-      cancelButtonText: "Annuler"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.produitService.deleteproduit(id).subscribe(
-          response => {
-            // console.log(response);
-            this.lister();
-            this.sharedService.alert('success', response.message, 'success');
-          }
-        )
-      }
-    });
   }
   openEditProduit(id: any) {
     this.detailsProduit(id);
     this.nom = this.detail.nom;
     this.description = this.detail.description;
     this.image = this.description.image;
-  }
-  modifierProduit(id: any) {
-    const newProduit = new FormData();
-    newProduit.append('image', this.image as Blob);
-    newProduit.append('nom', this.nom);
-    newProduit.append('description', this.description);
-    newProduit.append('categories_id', this.categories_id);
-    this.produitService.updateproduit(id, newProduit).subscribe(
-      response => {
-        // console.log(response); 
-        this.lister();
-      }
-    )
   }
   detailsProduit(id: any) {
     this.produitService.getproduitById(id).subscribe(
