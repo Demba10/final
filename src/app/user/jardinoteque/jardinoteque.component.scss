@@ -1,4 +1,4 @@
-.jardinier{
+.jardinier {
     // background-image: url('/assets/images/banner/banner-3.png');
     // background-position: center;
     // background-size: cover;
@@ -25,6 +25,23 @@
 }
 
 // fin jardinier
+
+// Modal
+.jard {
+    width: calc(100% - 94px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-left: 94px;
+}
+
+// modal end
+
+.jard a {
+    color: white;
+    background-color: #292D26;
+}
 
 .example-card {
     max-width: 400px;

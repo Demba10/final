@@ -23,13 +23,19 @@
 <!-- Details -->
 <ng-template #content let-modal>
     <div class="modal-header border border-bottom-0">
-        <h4 class="modal-title">{{jardinier?.prenom}} {{jardinier?.nom}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <app-details-jardinier></app-details-jardinier>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        <div class="jard">
+            <h5>{{jardinier?.prenom}} {{jardinier?.nom}}</h5>
+            <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
+            <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
+            <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
+            <a mat-raised-button><i class="fa-solid fa-comment"></i></a>
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
     </div>
 </ng-template>

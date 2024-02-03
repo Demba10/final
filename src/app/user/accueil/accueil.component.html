@@ -30,8 +30,8 @@
 </section>
 <section class="alaune">
     <app-titre class="text-center" sus_titre="Ce qui découle du contidien" titre="A la une"></app-titre>
-    <div class="alaune-all-box row mt-5 d-flex gap-5">
-        <div class="alaune-box col p-0">
+    <div class="alaune-all-box row mt-4">
+        <!-- <div class="alaune-box col p-0">
             <div class="alaune-box-card d-flex">
                 <img src="assets/images/alaune/alaune-1.png" alt="" class="img-fluid" style="max-height: 260px;">
                 <div class="all-box-typo">
@@ -48,6 +48,38 @@
                     <h5 class="card-title">Plante du jour</h5>
                     <p class="card-text">Ce qui découle du cotidien</p>
                     <app-button-one title="Voir"></app-button-one>
+                </div>
+            </div>
+        </div> -->
+        <div class="col">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="assets/images/alaune/alaune-1.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="assets/images/alaune/alaune-2.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,8 +117,8 @@
 <section class="jardinier">
     <app-titre class="text-center me-2" sus_titre="Le Coin des GreenThubs" titre="Nos jardiniers"></app-titre>
     <div class="jardiniers-box row">
-        <div class="jar-items col-3" *ngFor="let item of jdnSome">
-            <div class="card-sp card" style="margin: 12px 0; position: relative; z-index: 76; cursor: pointer;"
+        <div class="jar-items col-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let item of jdnSome">
+            <div class="card-sp card m-sm-0" style="margin: 12px 0; position: relative; z-index: 76; cursor: pointer;"
                 id="card-s">
                 <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt="">
                 <div class="card-body">
@@ -127,14 +159,18 @@
     <app-titre class="text-center me-2" sus_titre="La boutique des jardiniers" titre="Échoppe Verte"></app-titre>
     <div class="jardiniers-box row">
         <div class="jar-items col-3" style="">
-            <div class="card" style="height: calc(100% - 16px);">
+            <div style="height: calc(100% - 16px); background-color: #ffffff; display: flex; justify-content: center; align-items: center; padding: 40px; text-align: center; color: #292D26; border-radius: 6px; border: 4px solid #4CAF50; font-size: 20px; font-weight: 500;"
+                *ngIf="!detail">
+                <span>Cliquez sur un produit pour voir les details ici</span>
+            </div>
+            <div class="card" style="height: calc(100% - 16px);" *ngIf="detail">
                 <img src="http://127.0.0.1:8000/api/{{detail?.image}}" class="card-img-top" alt=""
                     style="width: 75%; margin-left: 12.5%;">
                 <div class="card-body text-center">
                     <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
                         {{detail?.nom}}
                     </h5>
-                    <span class="notes text-center d-flex justify-content-center mb-3">
+                    <span *ngIf="detail" class="notes text-center d-flex justify-content-center mb-3">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -148,7 +184,7 @@
                             </div>
                             <h6 class="text-black mt-2">{{detail?.user.prenom}} {{detail?.user.nom}}</h6>
                         </div>
-                        <a href="https://wa.me/221{{user?.telephone}}" target="_blank"><i
+                        <a href="https://wa.me/221{{user?.telephone}}" target="_blank" *ngIf="detail"><i
                                 class="fa-brands fa-square-whatsapp"></i></a>
                     </div>
                 </div>

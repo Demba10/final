@@ -66,13 +66,6 @@
             </div>
         </button> -->
         <div class="col-12">
-            <div class="jardinier">
-                <h5>{{jardinier.prenom}} {{jardinier.nom}}</h5>
-                <button mat-raised-button><i class="fa-brands fa-whatsapp"></i></button>
-                <button mat-raised-button><i class="fa-solid fa-location-dot"></i></button>
-                <button mat-raised-button><i class="fa-solid fa-phone-flip"></i></button>
-                <button mat-raised-button><i class="fa-solid fa-comment"></i></button>
-            </div>
             <div class="row">
                 <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
                 <div class="col-4" *ngFor="let item of prod">

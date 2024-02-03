@@ -40,17 +40,7 @@ export class AccueilComponent implements OnInit {
       }
     )
   }
-
-  currentProduct() {
-    let cont = 0;
-    this.produits.forEach(element => {
-      cont++;
-      if (element.selected == true) {
-        alert(cont);
-      }
-    });
-  }
-
+  
   listeJardiniers() {
     this.jardierService.getJardiniers().subscribe(
       response => {
