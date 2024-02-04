@@ -19,13 +19,13 @@
         <span>
             <i class="fa-solid fa-thumbs-up"></i> {{astuce?.like}}
         </span>
-        <span  (click)="openEnd(content)" (click)="listerCommentaire(details.id)" style="cursor: pointer;">
+        <span (click)="openEnd(content)" (click)="listerCommentaire(details.id)" style="cursor: pointer;">
             <i class="fa-solid fa-comment"></i> {{nbComents}}
         </span>
     </span>
     <hr style="border-width: 2px;">
     <div class="image-article">
-        <img src="http://127.0.0.1:8000/api/{{details.image}}" alt="" class="">
+        <img src="http://127.0.0.1:8000/api/{{details.image}}" alt="" class="img-fluid">
     </div>
     <div class="contenu" id="contenu">
     </div>
@@ -38,31 +38,35 @@
     </div>
     <div class="offcanvas-body">
         <mat-card class="p-1">
-            <h6 class="my-2" *ngIf="userOnLine.role !== 'jardinier'">{{userOnLine.prenom}} {{userOnLine.nom}} </h6>
+            <h6 class="my-2" *ngIf="userOnLine.role !== 'jardinier'"
+                style="padding-left: 10px; font-size: 13px; font-weight: 400;">{{userOnLine.prenom}}
+                {{userOnLine.nom}} </h6>
             <form class="example-form w-100">
-                <mat-form-field class="example-full-width w-100" style="background-color: white;">
-                    <mat-label>Laisez un commentaire</mat-label>
-                    <textarea matInput placeholder="Ecrivez ici ..." name="contenue" [(ngModel)]="contenue"></textarea>
-                </mat-form-field>
+                <textarea placeholder="Laissez un commentaire" name="" id="" cols="" rows="" name="contenue"
+                    [(ngModel)]="contenue" class="commentaire"></textarea>
                 <div class="bouton d-flex justify-content-end gap-2">
-                    <button mat-button style="color: rgb(0, 0, 0);">Annuler</button>
-                    <button mat-raised-button style="background-color: #292D26; color: white;" (click)="ajouterCommentaire()" >Poster</button>
+                    <button mat-button style="color: rgb(0, 0, 0);" (click)="viderChamps()">Annuler</button>
+                    <button mat-raised-button style="background-color: #4CAF50; color: white;"
+                        (click)="ajouterCommentaire()" class="p-0">Poster</button>
                 </div>
             </form>
         </mat-card>
-        <mat-card class="my-3 p-3" *ngFor="let item of commentaires">
+        <div class="com-user my-3 p-3" *ngFor="let item of commentaires">
             <p>{{item.id}}</p>
             <p>{{item.contenue}}</p>
-        </mat-card>
+        </div>
     </div>
 </ng-template>
+<app-footer></app-footer>
 <style>
     .astuces {
         padding: 60px 20%;
     }
+
     .user {
         margin: 30px 0;
     }
+
     .img {
         width: 50px;
         height: 50px;
@@ -72,28 +76,34 @@
         place-content: center;
         border-radius: 50%;
     }
+
     .img img {
         width: 100%;
     }
+
     .image-article {
-        height: 500px;
+        /* height: 500px; */
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
     }
+
     .image-article img {
         width: 100%;
         height: auto;
-    } 
+    }
+
     .contenu {
         margin: 40px 0;
     }
+
     .astuce-title {
         font-weight: 700;
         margin-top: 40px;
     }
-    .astuce-title + p {
+
+    .astuce-title+p {
         padding-left: 10px;
     }
 
@@ -104,5 +114,21 @@
     } */
     .example-full-width {
         height: 200px;
+    }
+
+    .commentaire {
+        width: 100%;
+        height: 180px;
+        border: 0px solid transparent;
+        outline: 0px solid transparent;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .com-user,
+    .button:only-child {
+        font-size: 13px;
+        font-weight: 400;
     }
 </style>

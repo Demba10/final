@@ -29,8 +29,8 @@ export class AstucesComponent {
   image!: File;
   contenu!: string;
   editorHeight!: number;
-  
-  extractTitle() : string {
+
+  extractTitle(): string {
     let a = this.contenu.indexOf('<')
     return this.contenu.charAt(a);
   }
@@ -50,7 +50,6 @@ export class AstucesComponent {
     });
     this.listeArticles();
     this.titre = this.contenu;
-    this.editorHeight = window.innerHeight * 1 - 70;
   }
   // Issue des service
 
@@ -60,13 +59,13 @@ export class AstucesComponent {
   etape2() {
     this.step = 2;
   }
-  
+
   listeArticles() {
     this.art.getArticles().subscribe(
       resoponse => {
         this.articleSliste = resoponse;
         console.log(resoponse);
-        
+
       }
     )
   }
@@ -74,13 +73,13 @@ export class AstucesComponent {
   ajouterArticle() {
 
     let formData = new FormData();
-    formData.append("image", this.image); 
+    formData.append("image", this.image);
 
     let t = this.contenu.indexOf('>');
     let l = this.contenu.substring(t).indexOf('<')
     var tempDiv = document.createElement('div');
     tempDiv.innerHTML = this.contenu.substring(t + 1, l + 2);
-    
+
     let tm = this.contenu.search(/<img src="/);
     // this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10
     const nA = new FormData();
@@ -90,7 +89,7 @@ export class AstucesComponent {
 
     this.art.createArticle(nA).subscribe(
       response => {
-        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm+10));
+        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
         this.articleSliste.push(nA);
         console.log(response);
         Swal.fire({
@@ -98,9 +97,9 @@ export class AstucesComponent {
           text: response.message,
           icon: 'success'
         })
-      }, 
+      },
       error => {
-        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm+10));
+        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
         Swal.fire({
           title: 'error',
           text: error.error.error,
@@ -119,7 +118,7 @@ export class AstucesComponent {
     this.modalService.open(content, { size: 'xl' });
   }
   openFullscreen(full: TemplateRef<any>) {
-    this.modalService.open(full, { fullscreen: true });
+    this.modalService.open(full, { size: 'xl' });
   }
 
   filtrer() {

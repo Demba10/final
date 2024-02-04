@@ -15,15 +15,13 @@
                     style="width: 100%;">
             </div>
             <mat-card-content class="py-2">
-                <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i>{{item.user_name}}</span> -->
-                <h6>{{item.titre}}</h6>
             </mat-card-content>
             <mat-card-actions class="d-flex justify-content-between">
                 <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;"
                     class="fw-bold">Détails</button>
                 <span class="d-flex gap-3" style="font-size: 0.8em; opacity: 0.8;">
                     <span>
-                        <i class="fa-solid fa-thumbs-up"></i> {{item.id}}
+                        <i class="fa-solid fa-star"></i> {{item.id}}
                     </span>
                     <span>
                         <i class="fa-solid fa-comment"></i> {{item.id}}
@@ -94,29 +92,31 @@
 <ng-template #content let-modal style="">
     <!-- <div class="header py-1 px-3 text-end">
     </div> -->
-    <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
-    </div>
+    <!-- <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
+    </div> -->
 
     <div class="modal-body" style="padding: 0;">
-        <form class="example-form">
+        <!-- <form class="example-form">
             <input type="text" [(ngModel)]="titre" name="titre">
             <input type="file" (change)="getFile($event)" accept="image/*">
-        </form>
+        </form> -->
         <i class="bouton-close fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"></i>
         <editor [init]="{
           base_url: '/tinymce',
-          height: editorHeight,
-          toolbar: 'undo redo | bold italic underline strikethrough | link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code',
+          height: '80vh',
+          toolbar: 'undo redo | formatselect | bold italic backcolor | \
+       alignleft aligncenter alignright alignjustify | \
+       bullist numlist outdent indent | removeformat | help',
+          plugins: 'lists checklist',
         }" [(ngModel)]="contenu" style="border-radius: 0 !important; height: 100%;"></editor>
-        {{contenu}}
     </div>
-    <div class="modal-footer" *ngIf="step == 1">
+    <!-- <div class="modal-footer" *ngIf="step == 1">
         <button mat-raised-button (click)="etape2()" style="background-color: #4CAF50;">Fermer</button>
-    </div>
+    </div> -->
     <div class="modal-footer">
-        <button mat-raised-button (click)="etape1()" color="warn">Retour</button>
+        <!-- <button mat-raised-button (click)="etape1()" color="warn">Retour</button> -->
         <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
-            style="background-color: #4CAF50;">Publié</button>
+            style="background-color: #4CAF50; color: white;">Publié</button>
     </div>
 </ng-template>
 
@@ -150,7 +150,7 @@
         font-size: 20px;
         cursor: pointer;
         padding: 2px;
-        position: fixed;
+        position: absolute;
         z-index: 999;
         left: calc(100% - 130px);
         margin-top: 3px;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticlesService } from 'src/app/services/articles.service';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
 import { ProduitsService } from 'src/app/services/produits.service';
@@ -14,8 +15,8 @@ export class AccueilComponent implements OnInit {
   jdnSome!: any[];
   user: any;
   constructor(
-    private articles: AstucesService,
-    private jardiniers: JardiniersService,
+    // private articles: AstucesService,
+    private articlesServices: ArticlesService,
     private jardierService: UsersService,
     private produitService: ProduitsService,
     private apiUser: UsersService,
@@ -24,7 +25,7 @@ export class AccueilComponent implements OnInit {
   detail: any;
   produits!: any[];
   idProduit = 4;
-  mesArticles = this.articles.astuces;
+  articles!: any;
 
   ngOnInit(): void {
     this.apiUser.getClients().subscribe(
@@ -40,7 +41,7 @@ export class AccueilComponent implements OnInit {
       }
     )
   }
-  
+
   listeJardiniers() {
     this.jardierService.getJardiniers().subscribe(
       response => {
@@ -71,6 +72,12 @@ export class AccueilComponent implements OnInit {
       response => {
         console.log(response);
         this.produits = response.slice(0, 6);
+      }
+    )
+    this.articlesServices.getArticles().subscribe(
+      response => {
+        console.log(response);
+        this.articles = response.slice(0, 6);
       }
     )
   }
