@@ -3,7 +3,7 @@
 </div>
 <div class="main">
     <app-navbar></app-navbar>
-    <div class="div" style="position: relative; top: 60px;">
+    <div class="div">
         <router-outlet></router-outlet>
     </div>
 </div>
@@ -15,7 +15,7 @@
         width: 200px;
         background-color: white !important;
         border-right: 1px solid #C1C1C1;
-        
+
         .active {
             background-color: #4CAF50;
         }
@@ -23,10 +23,11 @@
 
     .main {
         position: relative;
+        top: 58px;
         left: 200px;
         background-color: #F9F9F9;
         width: calc(100% - 200px);
         padding: 20px 20px;
-        height: 100vh;
+        min-height: calc(100vh - 60px);
     }
 </style>

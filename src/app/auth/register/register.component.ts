@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
-        this.router.navigate(['/login'])
+        this.router.navigate(['/auth'])
       }
     )
   }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AstucesComponent } from './astuces/astuces.component';
-import { ProduitsComponent } from './produits/produits.component';
+import { ProduitsComponent } from './produits/ProduitsComponent';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
 
@@ -22,7 +22,7 @@ const routes: Routes = [
         path: 'utilisateurs', component: UsersComponent
       },
       {
-        path: '**', redirectTo:'dashboard', pathMatch: 'full'
+        path: '**', redirectTo: 'dashboard', pathMatch: 'full'
       },
     ]
   }

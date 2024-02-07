@@ -1,47 +1,58 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h6 class="fw-bold">Utilisateurs</h6>
+    <div class="d-flex gap-3">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer" #input class="px-2 rounded-2">
+        <button mat-raised-button color="primary" (click)="openLg(add)">Ajouter</button>
+    </div>
+</div>
 <mat-card class="">
-    <div class="d-flex justify-content-between align-items-center p-3">
-        <h6 class="fw-bold">Liste des utilateur</h6>
-        <div class="d-flex gap-3">
-            <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer" #input class="px-2 rounded-2">
-            <button mat-raised-button color="primary" (click)="openLg(add)">Ajouter</button>
-        </div>
-    </div> 
     <table mat-table [dataSource]="dataSource" class="">
-    
+
         <ng-container matColumnDef="#">
             <th mat-header-cell *matHeaderCellDef> # </th>
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
-    
+
         <ng-container matColumnDef="utilisateur">
             <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
-            <td mat-cell *matCellDef="let element"> {{element.prenom}} {{element.nom}}  <br> </td>
+            <td mat-cell *matCellDef="let element"> {{element.prenom}} {{element.nom}} <br>
+                <span style="font-size: 13px; opacity: 0.7;">{{element.role}}</span>
+            </td>
         </ng-container>
-    
+
+        <ng-container matColumnDef="adresse">
+            <th mat-header-cell *matHeaderCellDef> Adresse </th>
+            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
-    
+
         <ng-container matColumnDef="création">
             <th mat-header-cell *matHeaderCellDef> Création </th>
-            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
         </ng-container>
-    
+
         <!-- Symbol Column -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element"> 
+            <td mat-cell *matCellDef="let element">
                 <div class="d-flex gap-3">
-                    <button mat-raised-button color="warn" (click)="openLg(content)">Détails</button>
-                    <button mat-raised-button color="primary">Désactiver</button>  
+                    <button mat-mini-fab color="" (click)="openLg(content)" style="background-color: #f1c01e;"><i
+                            class="fa-solid fa-circle-info"></i></button>
+                    <button mat-mini-fab color="warn" (click)="blouerUser(element.id)"
+                        *ngIf="element.is_bloquer == 0"><i class="fa-solid fa-box-archive"></i></button>
+                    <button mat-mini-fab (click)="debloquerUsers(element.id)" *ngIf="element.is_bloquer == 1"
+                        style="background-color: #4CAF50;"><i class="fa-solid fa-rotate-right"></i></button>
                 </div>
             </td>
         </ng-container>
-    
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
@@ -60,14 +71,19 @@
                 <div class="img">
                     <img src="assets/images/jardinier/jardinier-1.png" alt="">
                 </div>
-                <h5 class="my-4 d-flex align-items-center gap-2"><i class="fa-solid fa-user-tie"></i><span>Jardinier</span></h5>
+                <h5 class="my-4 d-flex align-items-center gap-2"><i
+                        class="fa-solid fa-user-tie"></i><span>Jardinier</span></h5>
                 <div>
-                    <button mat-raised-button color="" style="background-color: #4CAF50; color: white; height: 100%; padding: 4px;">Active</button>
-                    <button mat-raised-button color="primary" class="my-3" style="display: block; width: max-content;" style="background-color: #292D26; color: white; height: 100%; padding: 4px 10px;">Espace verte</button>
+                    <button mat-raised-button color=""
+                        style="background-color: #4CAF50; color: white; height: 100%; padding: 4px;">Active</button>
+                    <button mat-raised-button color="primary" class="my-3" style="display: block; width: max-content;"
+                        style="background-color: #292D26; color: white; height: 100%; padding: 4px 10px;">Espace
+                        verte</button>
                 </div>
             </div>
             <div class="right w-100">
-                <div class="top d-flex justify-content-between align-items-center pb-4" style="border-bottom: 3px solid #4CAF50;">
+                <div class="top d-flex justify-content-between align-items-center pb-4"
+                    style="border-bottom: 3px solid #4CAF50;">
                     <h4>Détals du profil</h4>
                     <button mat-raised-button color="warn">Désactiver</button>
                 </div>
@@ -124,7 +140,8 @@
                         <span class="input-group-text">
                             <i class="fa-solid fa-user-plus"></i>
                         </span>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Nom" required>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Nom"
+                            required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -150,12 +167,15 @@
     .left {
         width: min-content;
     }
+
     .user tr td {
         padding: 6px 0;
     }
+
     .user tr td:first-child {
         font-weight: 500;
     }
+
     .input-group-text {
         width: 40px;
     }

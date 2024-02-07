@@ -1,0 +1,147 @@
+.side {
+    position: fixed;
+    z-index: 99;
+    padding: 20px 10px;
+    border-radius: 34px;
+    width: min-content;
+    border: 0;
+    background-color: white;
+    // left: calc(10%);
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+// 
+.file-upload-form {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-upload-label input {
+    display: none;
+}
+
+.file-upload-label svg {
+    height: 50px;
+    fill: rgb(82, 82, 82);
+    margin-bottom: 20px;
+}
+
+.file-upload-label {
+    cursor: pointer;
+    background-color: #F5F5F5;
+    padding: 30px 70px;
+    border: 2px dashed rgb(82, 82, 82);
+    /* box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719); */
+}
+
+.file-upload-design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.browse-button {
+    background-color: rgb(82, 82, 82);
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s;
+}
+
+.browse-button:hover {
+    background-color: rgb(14, 14, 14);
+}
+
+.boutique,
+.alaune {
+    /* background-image: url('/assets/images/banner/banner-3.png'); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    // padding: 40px 10% 40px calc(10% + 106px);
+}
+
+.jardiniers-box img {
+    padding: 0;
+}
+
+.jar-items .img {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.jar-items a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 26px;
+}
+
+.blog-produits {
+    // border: 3px solid transparent;
+    cursor: pointer;
+    // background-color: #e4e4e460;
+}
+
+.blog-produits:hover {
+    box-sizing: border-box;
+    animation: pulse 2s linear infinite;
+}
+
+// @keyframes pulse {
+//     from {
+//         // transform: scale(1);
+//         border: 3px solid #FF8A00;
+//     }
+
+//     50% {
+//         // transform: scale(1.04);
+//         border: 3px solid #4CAF50;
+//     }
+
+//     to {
+//         transform: scale(1);
+//         border: 3px solid #FF8A00;
+//     }
+// }
+
+.notes {
+    display: flex;
+    gap: 3px;
+}
+
+.notes i {
+    font-size: 8px;
+    color: #FF8A00;
+}
+
+.notes i:last-child {
+    color: #d3d3d3;
+}
+
+.card-produit {
+    background-color: #292D26;
+    color: white;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+
+.pagination button {
+    width: 30px;
+    height: 30px;
+    border: 0px;
+}

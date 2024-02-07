@@ -18,7 +18,7 @@ export class ArticlesService {
 
   // Récupérer tous les articles
   getArticles(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl+'ListeArticle');
+    return this.http.get<any[]>(this.apiUrl + 'ListeArticle');
   }
 
   // Récupérer un article par son ID
@@ -29,18 +29,18 @@ export class ArticlesService {
 
   // Créer un nouvel article
   createArticle(article: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'createArticle', article);
+    return this.http.post<any>(this.apiUrl + 'createArticle', article);
   }
 
   // Mettre à jour un article existant
   updateArticle(id: number, article: any): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put<any>(url, article);
+    const url = `${this.apiUrl}updateArticle/${id}`;
+    return this.http.post<any>(url, article);
   }
 
   // Supprimer un article par son ID
   deleteArticle(id: number): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}destroyArticle/${id}`;
     return this.http.delete<any>(url);
   }
 }

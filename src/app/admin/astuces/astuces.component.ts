@@ -1,10 +1,16 @@
+import { formatDate } from '@angular/common';
 import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { concat } from 'rxjs';
 import { Article } from 'src/app/modele/article.modele';
 import { ArticlesService } from 'src/app/services/articles.service';
+import { CommentairesService } from 'src/app/services/commentaires.service';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
+import { PaginationService } from 'src/app/services/pagination/pagination.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,6 +35,18 @@ export class AstucesComponent {
   image!: File;
   contenu!: string;
   editorHeight!: number;
+  details: any;
+  utilisateurs: any[] = [];
+
+  // paginations 
+  // array of all items to be paged
+
+  // pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems!: any[];
+
 
   extractTitle(): string {
     let a = this.contenu.indexOf('<')
@@ -38,10 +56,15 @@ export class AstucesComponent {
   constructor(
     private articles: AstucesService,
     private art: ArticlesService,
+    private us: UsersService,
+    private pagerService: PaginationService,
+    private sharedService: SharedService,
+    private commentairesService: CommentairesService
   ) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  step: number = 1;
+  step: any;
+  commentaires!: any[];
 
   ngOnInit(): void {
     this.dataSource.data = this.articles.astuces;
@@ -50,8 +73,18 @@ export class AstucesComponent {
     });
     this.listeArticles();
     this.titre = this.contenu;
+    this.user();
   }
   // Issue des service
+
+  setPage(page: number) {
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.articleSliste.length, page);
+
+    // get current page of items
+    this.pagedItems = this.articleSliste.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.step = this.commentaires.length
+  }
 
   etape1() {
     this.step = 1;
@@ -64,16 +97,13 @@ export class AstucesComponent {
     this.art.getArticles().subscribe(
       resoponse => {
         this.articleSliste = resoponse;
-        console.log(resoponse);
-
+        // console.log(resoponse);
+        this.setPage(1);
       }
     )
   }
 
   ajouterArticle() {
-
-    let formData = new FormData();
-    formData.append("image", this.image);
 
     let t = this.contenu.indexOf('>');
     let l = this.contenu.substring(t).indexOf('<')
@@ -81,7 +111,6 @@ export class AstucesComponent {
     tempDiv.innerHTML = this.contenu.substring(t + 1, l + 2);
 
     let tm = this.contenu.search(/<img src="/);
-    // this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10
     const nA = new FormData();
     nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
@@ -89,14 +118,14 @@ export class AstucesComponent {
 
     this.art.createArticle(nA).subscribe(
       response => {
-        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
-        this.articleSliste.push(nA);
-        console.log(response);
+        this.articleSliste.push(nA)
+        this.setPage(this.pager.pages.length)
         Swal.fire({
           title: 'Success',
           text: response.message,
           icon: 'success'
         })
+        this.contenu = '';
       },
       error => {
         alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
@@ -120,10 +149,117 @@ export class AstucesComponent {
   openFullscreen(full: TemplateRef<any>) {
     this.modalService.open(full, { size: 'xl' });
   }
+  openLg(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'lg', scrollable: true });
+  }
+  open(content: any) {
+    this.modalService.open(content);
+  }
+  detailArticle(id: any) {
+    this.art.getArticleById(id).subscribe(
+      response => {
+        // console.log(response.article);
+        this.details = response.article;
+        localStorage.setItem('id_article', response.article.id);
+        localStorage.setItem('titre_article', response.article.titre);
+        this.commentaires = this.details.commentaires;
+        this.contenu = this.details.contenue;
+      }
+    )
+  }
+  supprimerArticle(id: any) {
+    Swal.fire({
+      title: "Etes-vous sure?",
+      text: "Cet article sera supprimé définitivement!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, supprimé",
+      cancelButtonText: "Annuler"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.art.deleteArticle(id).subscribe(
+          response => {
+            // console.log(response);
+            // this.pagedItems = this.articleSliste.filter(ele => ele.id !== id);
+            this.listeArticles();
+            this.setPage(this.pager.currentPage)
+            this.sharedService.alert('', response.message, 'success');
+          }
+        )
+      }
+    });
+  }
+  modifierArticle() {
+    const nA = new FormData();
+    let temp = localStorage.getItem('id_article');
+    let tem = JSON.parse(localStorage.getItem('titre_article') || '');
+    nA.append('titre', tem);
+    nA.append('image', this.image as Blob);
+    nA.append('contenue', this.contenu);
+    this.art.updateArticle(Number(temp), nA).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
+  }
+  clients!: any[];
+  jardiniers!: any[];
+  cl: any;
+  jar: any;
+  user() {
+    this.us.getClients().subscribe(
+      response => {
+        this.clients = response;
+        // console.log(response);
+      }
+    )
+    this.us.getJardiniers().subscribe(
+      resposne => {
+        this.jardiniers = resposne;
+        // console.log(resposne);
+      }
+    )
+    // console.log(user);
 
+  }
+  userActif(id: any) {
+    this.cl = this.clients.find(ele => ele.id == id)
+  }
   filtrer() {
     this.filtre = !this.filtre;
   }
+  supprimerCommentaire(id: any) {
+    Swal.fire({
+      title: "Etes-vous sure?",
+      text: "C commentaire sera supprimé définitivement!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, supprimé",
+      cancelButtonText: "Annuler"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.commentairesService.supprimerComentaire(id).subscribe(
+          response => {
+            this.commentaires = this.commentaires.filter(ele => ele.id !== id);
+            this.sharedService.alert('', response.message, 'success');
+          }
+        )
+      }
+    }
+    )
+  }
+  // saveDatas(titre: any, image: File) {
+  //   const img = new FormData();
+  //   const i = img.append('img', image as Blob);
+  //   alert(img.get('img'))
+  //   localStorage.setItem('titre', titre)
+  //   localStorage.setItem('image', JSON.stringify(img.get('img')));
+  // }
+  
 }
 export interface Astuces {
   id: number,

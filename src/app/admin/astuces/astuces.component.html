@@ -4,27 +4,25 @@
         <div class="d-flex gap-3">
             <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
                 aria-describedby="addon-wrapping">
-            <button mat-raised-button color="primary" class="btn" (click)="openFullscreen(content)">Ajouter</button>
+            <button mat-raised-button color="primary" class="btn" (click)="open(first)">Ajouter</button>
         </div>
     </div>
-    <div class="all col-2 pb-4" *ngFor="let item of articleSliste">
+    <div class="all col-2 pb-4" *ngFor="let item of pagedItems">
         <mat-card class="example-card">
             <div
                 style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu"
                     style="width: 100%;">
             </div>
-            <mat-card-content class="py-2">
+            <mat-card-content class="pt-2">
+                <span class="text-titre" style="font-size: 13px;">{{item.titre}}</span>
             </mat-card-content>
             <mat-card-actions class="d-flex justify-content-between">
                 <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;"
-                    class="fw-bold">Détails</button>
+                    class="fw-bold" (click)="openLg(detail)" (click)="detailArticle(item.id)">Détails</button>
                 <span class="d-flex gap-3" style="font-size: 0.8em; opacity: 0.8;">
                     <span>
-                        <i class="fa-solid fa-star"></i> {{item.id}}
-                    </span>
-                    <span>
-                        <i class="fa-solid fa-comment"></i> {{item.id}}
+                        <i class="fa-solid fa-comment"></i> {{commentaires.length}}
                     </span>
                 </span>
             </mat-card-actions>
@@ -89,6 +87,37 @@
 </mat-card>
 
 <!-- Ajout article -->
+<ng-template #first>
+    <div class="modal-body">
+        <div class="form">
+            <label for="file" class="custum-file-upload">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
+                                fill=""></path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text">
+                    <span>Cliquez pour téléverser une image</span>
+                </div>
+                <input id="file" type="file" (change)="getFile($event)" accept="image/*" ngModel="image">
+            </label>
+            <!-- <input id="file" type="file" (change)="getFile($event)" accept="image/*" ngModel="image"> -->
+            <textarea placeholder="Le titre" name="" id="" cols="30" rows="" [(ngModel)]="titre" name="titre"
+                style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 10px;"></textarea>
+            <div class="d-flex gap-2 justify-content-end">
+                <button mat-raised-button color="link" class="mt-2">Annuler</button>
+                <button mat-raised-button color="primary" class="mt-2"
+                    (click)="openFullscreen(content)">Suivant</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
 <ng-template #content let-modal style="">
     <!-- <div class="header py-1 px-3 text-end">
     </div> -->
@@ -110,20 +139,119 @@
           plugins: 'lists checklist',
         }" [(ngModel)]="contenu" style="border-radius: 0 !important; height: 100%;"></editor>
     </div>
-    <!-- <div class="modal-footer" *ngIf="step == 1">
-        <button mat-raised-button (click)="etape2()" style="background-color: #4CAF50;">Fermer</button>
-    </div> -->
     <div class="modal-footer">
-        <!-- <button mat-raised-button (click)="etape1()" color="warn">Retour</button> -->
+        <button mat-raised-button (click)="modal.close('Close click')" style="background-color: #4CAF50; color: white;"
+            (click)="modifierArticle()">Modifier</button>
         <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
             style="background-color: #4CAF50; color: white;">Publié</button>
     </div>
 </ng-template>
-
-<!-- Fin ajout article -->
-
+<!-- Details articles -->
+<ng-template #detail let-modal>
+    <div class="modal-header" style="border-bottom: 0;">
+        <i class="fa-solid fa-circle-xmark me-1" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            style="cursor: pointer; font-size: 24px; right: 0; position: absolute"></i>
+    </div>
+    <div class="px-3">
+        <h4 class="mb-5" style="color: #292D26;"> {{details.titre}} </h4>
+        <span class="d-flex gap-3 align-items-center justify-content-between" style="font-size: 0.9em; opacity: 0.8;">
+            <span style="cursor: pointer;">
+                <i class="fa-solid fa-comment"></i> {{commentaires.length}}
+            </span>
+            <div style="font-size: 13px;" class="d-flex gap-2 align fw-semibold">
+                <span>Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
+            </div>
+            <span class="cta-details d-flex gap-3">
+                <button mat-flat-button color="warn" (click)="openFullscreen(content)">Modifier</button>
+                <button mat-flat-button color="accent" (click)="supprimerArticle(details.id)"
+                    (click)="modal.close('Close click')">Supprimer</button>
+            </span>
+        </span>
+        <hr>
+    </div>
+    <div class="modal-body">
+        <div class="comment" *ngFor="let item of commentaires">
+            <div class="comment-top">
+                <div class="img" style="width: 40px; height: 40px;"><img
+                        src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png" alt="dfljdfkjl"
+                        *ngIf="">sfdfhdfdjfg</div>
+            </div>
+            <div class="comment-body">
+                <p>{{item.contenue}}</p>
+                <i class="fa-solid fa-trash" (click)="supprimerCommentaire(item.id)"></i>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+    </div>
+</ng-template>
+<!-- pagination -->
+<div class="d-flex justify-content-center">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">Premier</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Précedent</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Suivant</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Dernier</a>
+        </li>
+    </ul>
+</div>
 <!-- </section> -->
 <style>
+    .cta-details button {
+        font-size: 13px;
+        height: min-content;
+        padding: 4px 8px;
+    }
+
+    .comment-body p {
+        font-size: 13px;
+        opacity: 0.9;
+    }
+
+    .comment-body i {
+        position: absolute;
+        right: 30px;
+        color: tomato;
+        cursor: pointer;
+        margin-top: -20px;
+    }
+
+    .text-titre {
+        display: inline-block;
+        width: 96%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .pagination {
+        border: 2px solid transparent;
+        background-color: #4caf4f16;
+        width: min-content;
+        padding: 0 12px 4px 12px;
+        border-radius: 20px;
+    }
+
+    .pagination ul {
+        border: 2px solid black;
+    }
+
+    .pagination a {
+        font-size: 14px;
+    }
+
     .example-form {
         display: flex;
         flex-direction: column;
@@ -218,5 +346,49 @@
         font-size: 24px;
         border: 0;
         outline: 0;
+    }
+</style>
+
+<style>
+    .custum-file-upload {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        gap: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #e8e8e8;
+        background-color: #212121;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0px 48px 35px -48px #e8e8e8;
+    }
+
+    .custum-file-upload .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .icon svg {
+        height: 80px;
+        fill: #e8e8e8;
+    }
+
+    .custum-file-upload .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .text span {
+        font-weight: 400;
+        color: #e8e8e8;
+    }
+
+    .custum-file-upload input {
+        display: none;
     }
 </style>

@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentairesService {
-  
+export class VideoService {
+
   private apiUrl = this.url.getApi();
 
   constructor(
@@ -16,9 +16,9 @@ export class CommentairesService {
   ) { }
 
 
-  // Récupérer les commentaires d'un article
-  getComments(id : any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `ListerCommentaires/${id}`);
+  // Récupérer tous les articles
+  getVideo(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'recupererVideo');
   }
 
   // Récupérer un article par son ID
@@ -27,20 +27,20 @@ export class CommentairesService {
     return this.http.get<any>(url);
   }
 
-  // Créer un nouveau commentaire
-  createComment(comment: any, id: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + `AjouterCommentaire/${id}`, comment);
+  // Créer un nouvel article
+  createArticle(article: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'createArticle', article);
   }
 
   // Mettre à jour un article existant
   updateArticle(id: number, article: any): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}updateArticle/${id}`;
     return this.http.put<any>(url, article);
   }
 
   // Supprimer un article par son ID
-  supprimerComentaire(id: number): Observable<any> {
-    const url = `${this.apiUrl}SupprimerCommentaire/${id}`;
+  deleteArticle(id: number): Observable<any> {
+    const url = `${this.apiUrl}destroyArticle/${id}`;
     return this.http.delete<any>(url);
   }
 }

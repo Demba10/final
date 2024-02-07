@@ -24,6 +24,16 @@ export class UsersService {
     return this.http.get<any>(`${this.apiUrl}${resource}`);
   }
 
+  bloquerUsers(id: any): Observable<any> {
+    const resource = 'blockUser';
+    return this.http.post<any>(`${this.apiUrl}${resource}/${id}`, null);
+  }
+
+  debloquerUsers(id: any): Observable<any> {
+    const resource = 'debloquerUser';
+    return this.http.post<any>(`${this.apiUrl}${resource}/${id}`, null);
+  }
+
   // Fonction pour récupérer les clients depuis l'API Laravel
   getProduits(): Observable<any> {
     const resource = 'ListerProduit';

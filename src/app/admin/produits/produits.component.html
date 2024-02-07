@@ -1,15 +1,23 @@
-<section class="boutique">
+<!-- <section class="boutique">
     <div class="jardiniers-box row">
-        <div class="col-3" *ngFor="let item of mesProduits.data">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 style="color: #2a3547; font-size: 18px; ">Liste des produits</h5>
+            <div class="d-flex gap-3">
+                <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
+                    aria-describedby="addon-wrapping">
+                <button mat-raised-button color="primary" class="btn">Ajouter</button>
+            </div>
+        </div>
+        <div class="col-3" *ngFor="let item of mesProduits">
             <mat-card class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img [src]="item.image" class="img-fluid rounded-start" alt="...">
+                        <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8 d-flex align-items-center">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
-                                {{item.libelle}}</h5>
+                                {{item.nom}}</h5>
                             <span class="notes">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
@@ -21,8 +29,6 @@
                     </div>
                 </div>
             </mat-card>
-            <!-- <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;">
-            </div> -->
         </div>
         <div class="pagination d-flex justify-content-center gap-2 m-3">
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
@@ -32,7 +38,6 @@
 
 <style>
     .boutique {
-        /* background-image: url('/assets/images/banner/banner-3.png'); */
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -104,5 +109,127 @@
         border: 2px solid white;
         box-sizing: border-box;
     }
+</style> -->
 
+<section class=" boutique">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 style="color: #2a3547; font-size: 18px; ">Produits</h5>
+        <div class="d-flex gap-3">
+            <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
+                aria-describedby="addon-wrapping" [(ngModel)]="searchTerm" (input)="filterItems()">
+        </div>
+    </div>
+    <div class="jardiniers-box row">
+        <div class="col-12">
+            <div class="row">
+                <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
+                <div class="col-3" *ngFor="let item of prod">
+                    <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
+                        (click)="openLg(con)" (click)="detailsProduit(item.id)" (click)="listerUsers(item.user_id)">
+                        <div class="row g-0" style="">
+                            <div class="col-md-4">
+                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                    [alt]="item.image">
+                            </div>
+                            <div class="col-md-7 d-flex align-items-center">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
+                                        {{item.nom}}</h5>
+                                    <span class="notes">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Details boutique -->
+                    <ng-template #con let-modal class="">
+                        <div class="card">
+                            <button type="button" class="btn-close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')"
+                                style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                            <div class="row g-0">
+                                <div class="left-detail col-md-6"
+                                    style="display: flex; justify-content: center; align-items: center; ">
+                                    <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
+                                        <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
+                                            style="width: 100%;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{detail.nom}}</h2>
+                                        <h5>Description</h5>
+                                        <p class="card-text">{{detail.description}} </p>
+                                        <table>
+                                            <tr>
+                                                <td>Catégorie</td>
+                                                <td>&nbsp;-&nbsp;</td>
+                                                <td>{{detail.categorie.nom}}</td>
+                                            </tr>
+                                        </table>
+                                        <h5 class="my-4">Jardinier</h5>
+                                        <div class="d-flex gap-1 align-items-center" style="cursor: pointer;">
+                                            <div class="img-details">
+                                                <img src="http://127.0.0.1:8000/api/{{us?.image}}" alt="">
+                                            </div>
+                                            <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
+                                        </div>
+
+                                        <div class="d-flex gap-3 mt-5">
+                                            <button mat-mini-fab color="accent" (click)="SupprimerProduit(detail.id)"
+                                                (click)="modal.dismiss('Cross click')"><i
+                                                    class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .addCategorie {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .addCategorie li {
+        display: flex;
+        gap: 10px;
+    }
+
+    .left-detail {
+        background-image: url("/assets/images/boutique/detail-bg.svg");
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 70vh;
+        min-height: 400px;
+    }
+
+    .img-details {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 100%;
+        }
+    }
 </style>

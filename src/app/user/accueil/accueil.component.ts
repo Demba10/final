@@ -4,6 +4,7 @@ import { AstucesService } from 'src/app/services/conseils/astuces.service';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
 import { ProduitsService } from 'src/app/services/produits.service';
 import { UsersService } from 'src/app/services/users.service';
+import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: 'app-accueil',
@@ -14,12 +15,15 @@ export class AccueilComponent implements OnInit {
   jdn!: any[];
   jdnSome!: any[];
   user: any;
+  videos!: any;
+  video!: any[];
   constructor(
     // private articles: AstucesService,
     private articlesServices: ArticlesService,
     private jardierService: UsersService,
     private produitService: ProduitsService,
     private apiUser: UsersService,
+    private videoService: VideoService
   ) { }
 
   detail: any;
@@ -78,6 +82,13 @@ export class AccueilComponent implements OnInit {
       response => {
         console.log(response);
         this.articles = response.slice(0, 6);
+      }
+    )
+    this.videoService.getVideo().subscribe(
+      response => {
+        this.videos = response;
+        this.video = this.videos.videos;
+        console.log(this.videos.videos);
       }
     )
   }
