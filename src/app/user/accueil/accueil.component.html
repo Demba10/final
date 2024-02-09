@@ -113,47 +113,34 @@
         <app-button-one title="Voir plus" class="text-center mt-4" routerLink="../jardinotheque"></app-button-one>
     </div>
 </section>
-<section class="panel">
-    <app-titre class="text-center" sus_titre="Laissez-nous vous guider" titre="Aller plus loin" color_one="#4CAF50"
-        color_two="#292D26"></app-titre>
-    <div class="alaune-all-box row mt-4">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="assets/images/alaune/alaune-1.png" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Plante du jour</h5>
-                            <p class="card-text">Ce qui découle du cotidien</p>
-                            <p class="card-text"><small class="text-muted">
-                                    <app-button-one title="Voir"></app-button-one>
-                                </small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="assets/images/alaune/alaune-2.png" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Plante du jour</h5>
-                            <p class="card-text">Ce qui découle du cotidien</p>
-                            <p class="card-text"><small class="text-muted">
-                                    <app-button-one title="Voir"></app-button-one>
-                                </small></p>
-                        </div>
-                    </div>
+<!--   -->
+<section class="conseils row">
+    <app-titre sus_titre="Le savoir faire des expérimentés" titre="Astuces en video" class="text-center"
+        color_one="#4CAF50" color_two="#292D26"></app-titre>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of videos">
+        <div class="card" style="margin: 12px 0;">
+            <video controls>
+                <source src="http://localhost:8000{{item?.video}}" type="video/mp4">
+                Vidéo non supporté
+            </video>
+            <div class="card-body">
+                <h6 class="card-text fw-bold">{{item?.titre}}</h6>
+                <div class="d-flex justify-content-between">
+                    <!-- <a href="#" class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;">Lire plus <i
+                            class="fa-solid fa-arrow-right"></i></a> -->
+                    <!-- <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
+                        <span>
+                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-comment"></i> {{item.like}}
+                        </span>
+                    </span> -->
                 </div>
             </div>
         </div>
     </div>
+    <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
 </section>
 <section class="boutique">
     <app-titre class="text-center me-2" sus_titre="La boutique des jardiniers" titre="Échoppe Verte"></app-titre>

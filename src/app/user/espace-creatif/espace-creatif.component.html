@@ -9,13 +9,6 @@
             <div class="mb-4">
                 <label for="file" class="file-upload-label" style="width: 100%;">
                     <div class="file-upload-design">
-                        <svg viewBox="0 0 640 512" height="1em">
-                            <path
-                                d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
-                            </path>
-                        </svg>
-                        <p>Glissez et déposez votre image</p>
-                        <p>ou</p>
                         <span class="browse-button">Téléverser une image</span>
                     </div>
                     <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
@@ -36,13 +29,62 @@
                 <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
                     name="description"></textarea>
             </mat-form-field>
+            <select name="" id="">
+                <option [value]="categorie.id" *ngFor="let categorie of categories"> {{categorie.nom}} </option>
+            </select>
         </form>
     </div>
     <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterProduits()"
+            *ngIf="option == 1">Valider</button>
         <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
-            (click)="ajouterProduits()">Valider</button>
+            (click)="modifierProduit(detail.id)" (click)="d('Cross click')" *ngIf="option == 2">Modifier</button>
+    </div>
+</ng-template>
+<!-- Ajout vidéo -->
+<ng-template #video let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ajout de vidéo!</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="example-form d-flex flex-column" style="width: 100%;">
+            <div class="mb-4">
+                <label for="file" class="file-upload-label" style="width: 100%;">
+                    <div class="file-upload-design">
+                        <!-- <svg viewBox="0 0 640 512" height="1em">
+                            <path
+                                d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
+                            </path>
+                        </svg>
+                        <p>Glissez et déposez votre vidéo</p>
+                        <p>ou</p> -->
+                        <span class="browse-button">Téléverser une vidéo</span>
+                    </div>
+                    <input id="file" type="file" (change)="getFile2($event)" accept="video/*" name="video" />
+                </label>
+            </div>
+            <!--  -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Nom</mat-label>
+                <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                    placeholder="300" [(ngModel)]="nom">
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Le nom est <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
+                    name="description"></textarea>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterVideo()"
+            *ngIf="option == 1">Valider</button>
         <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
-            (click)="modifierProduit(detail.id)" (click)="d('Cross click')">Modifier</button>
+            (click)="modifierProduit(detail.id)" (click)="d('Cross click')" *ngIf="option == 2">Modifier</button>
     </div>
 </ng-template>
 <!--  -->
@@ -59,16 +101,16 @@
                         class="fa-solid fa-basket-shopping"></i></button>
                 <span style="font-size: 12px;">Produit</span>
             </div>
-
+            <div>
+                <button mat-mini-fab style="background-color: #292D26;" (click)="open(video)"><i
+                        class="fa-solid fa-video" style="transform: scale(1);"></i></button>
+                <span style="font-size: 12px;">Vidéos</span>
+            </div>
             <div>
                 <button mat-mini-fab style="background-color: #292D26;" (click)="openSm(co)"><i
                         class="fa-solid fa-layer-group"></i>
                 </button>
                 <span style="font-size: 12px;">Catégories</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;"><i class="fa-solid fa-gear"
-                        style="transform: scale(1.3);"></i></button>
             </div>
         </button>
         <div class="" style="display: none;">
@@ -187,9 +229,6 @@
         </div>
         <div class="modal-body">
             <app-catgories></app-catgories>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
         </div>
     </ng-template>
     <!-- Fin ajout  catégories -->

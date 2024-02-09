@@ -58,7 +58,19 @@ export class UsersService {
   }
 
   // Méthode pour effectuer une requête POST
+  motDePasseOublier(email: string): Observable<any> {
+    const resource = "MotDepasseOublier";
+    return this.http.post(`${this.apiUrl}${resource}`, {email});
+  }
+
+  // Méthode pour effectuer une requête POST
   post(resource: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}${resource}`, data);
+  }
+
+  // Méthode pour effectuer une requête POST
+  deconnexion(data: any): Observable<any> {
+    const resource = 'logout'
     return this.http.post(`${this.apiUrl}${resource}`, data);
   }
 

@@ -47,6 +47,9 @@ export class JardinotequeComponent implements OnInit {
     this.userService.getJardiniers().subscribe(
       response => {
         this.jardiniers = response;
+        this.jardiniers = this.jardiniers.filter(ele => ele.is_bloquer == 0);
+        console.log(this.jardiniers);
+
         // this.jardinier = this.jardiniers.find(ele => ele.id == this.jar_id)
         // console.log(this.jardiniers);
       }

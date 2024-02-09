@@ -123,7 +123,7 @@
         <div class="col-12">
             <div class="row">
                 <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
-                <div class="col-3" *ngFor="let item of prod">
+                <div class="col-3" *ngFor="let item of pagedItems">
                     <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
                         (click)="openLg(con)" (click)="detailsProduit(item.id)" (click)="listerUsers(item.user_id)">
                         <div class="row g-0" style="">
@@ -194,6 +194,27 @@
             </div>
         </div>
     </div>
+    <!-- pagination -->
+    <div class="d-flex justify-content-center">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">Premier</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Précedent</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Suivant</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Dernier</a>
+            </li>
+        </ul>
+    </div>  
+
 </section>
 <style>
     .addCategorie {

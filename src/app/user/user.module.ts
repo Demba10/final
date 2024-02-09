@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { CatgoriesComponent } from '../shared/catgories/catgories.component';
 import { DetailsJardinierComponent } from './details-jardinier/details-jardinier.component';
+import { ProfilComponent } from '../profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { DetailsJardinierComponent } from './details-jardinier/details-jardinier
     JardinotequeComponent,
     OneAstuceComponent,
     CatgoriesComponent,
-    DetailsJardinierComponent
+    DetailsJardinierComponent,
+    ProfilComponent
   ],
   imports: [
     CommonModule,

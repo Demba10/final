@@ -1,0 +1,81 @@
+<div class="profil">
+    <mat-card class="box-top p-3">
+        <div class="user">
+            <div class="img"> <img src="" alt=""> </div>
+            <span>
+                <h4>{{userOnLine?.prenom}} {{userOnLine?.nom}}</h4>
+                <span>{{userOnLine?.role}}</span>
+            </span>
+        </div>
+        <div class="lien d-flex gap-2">
+            <span (click)="switch()">Apercu</span>
+            <span (click)="switch()">Paramettre</span>
+        </div>
+    </mat-card>
+    <mat-card class="box-bottom mt-4 p-3">
+        <h4>Details profil</h4>
+        <table>
+            <tr>
+                <td>Prénom</td>
+                <td *ngIf="profil">{{userOnLine?.prenom}}</td>
+                <td *ngIf="!profil"> <input type="text" class="d-flex"></td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td *ngIf="profil">{{userOnLine?.nom}}</td>
+                <td *ngIf="!profil"> <input type="text" class="d-flex"></td>
+            </tr>
+            <tr>
+                <td>Adresse Email</td>
+                <td *ngIf="profil">{{userOnLine?.email}}</td>
+                <td *ngIf="!profil"> <input type="text"> </td>
+            </tr>
+            <tr>
+                <td>Adresse</td>
+                <td *ngIf="profil">{{userOnLine?.adresse}}</td>
+                <td *ngIf="!profil"> <input type="text"> </td>
+            </tr>
+            <tr>
+                <td>Téléphone</td>
+                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
+                <td *ngIf="!profil"> <input type="text"> </td>
+            </tr>
+        </table>
+    </mat-card>
+</div>
+
+<style>
+    /* .box-top {
+
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+
+        .img {
+            width: 190px;
+            height: 300px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            place-content: center;
+
+            img {
+                width: 100%;
+            }
+        }
+    } */
+    .lien span {
+        cursor: pointer;
+        margin-top: 6px;
+    }
+
+    td {
+        height: 45px;
+    }
+
+    td input {
+        width: 70%;
+        border: 0px solid transparent;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.256);
+    }
+</style>

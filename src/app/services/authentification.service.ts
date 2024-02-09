@@ -31,9 +31,9 @@ export class AuthentificationService {
           });
           if (response.user.role == 'admin') {
             this.route.navigate(['/administrateur'])
-          }  
+          }
           if (response.user.role == 'clients') {
-            this.route.navigate(['/']); 
+            this.route.navigate(['/']);
           }
           if (response.user.role == 'jardinier') {
             this.route.navigate(['user/espace-verte']);
@@ -48,7 +48,7 @@ export class AuthentificationService {
             confirmButtonText: 'OK'
           });
         }
-      }, 
+      }
     )
   }
 }

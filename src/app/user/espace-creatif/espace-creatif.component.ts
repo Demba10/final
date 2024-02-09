@@ -3,9 +3,11 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { CategoriesService } from 'src/app/services/categories.service';
 import { ProduitsService } from 'src/app/services/produits.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
+import { VideoService } from 'src/app/services/video.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,6 +23,7 @@ export class EspaceCreatifComponent implements OnInit {
 
   // Produits 
   image!: File;
+  video!: File;
   nom!: any;
   description!: any;
   userOnline!: any;
@@ -31,13 +34,20 @@ export class EspaceCreatifComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   categories_id: any = 2;
   prod!: any[];
+  option: any = 1;
+  categories!: any[];
+  userOnLine: any;
+  cat: any;
+  dataSource: any;
 
   constructor(
+    config: NgbModalConfig,
     private produitService: ProduitsService,
     private userService: UsersService,
-    config: NgbModalConfig,
     private modalService: NgbModal,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private videoSeervice: VideoService,
+    private categorieService: CategoriesService
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -47,6 +57,8 @@ export class EspaceCreatifComponent implements OnInit {
     this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
     console.log(this.userOnline);
     this.lister();
+    this.listerVideo();
+    this.listerCategories();
   }
   open(content: any) {
     this.modalService.open(content);
@@ -67,7 +79,42 @@ export class EspaceCreatifComponent implements OnInit {
       }
     )
   }
+  listerVideo() {
+    this.videoSeervice.getVideo().subscribe(
+      response => {
+        console.log(response);
+
+      }
+    )
+  }
+  listerCategories() {
+    const id = this.userOnLine.id;
+    alert(id);
+    this.categorieService.getCategories(id).subscribe(
+      response => {
+        this.cat = response;
+        this.cat = this.cat.categories;
+        this.categories = this.cat;
+        // console.log(this.categories);
+      }
+    );
+  }
+  ajouterVideo() {
+    const newProduit = new FormData();
+    newProduit.append('video', this.video as Blob);
+    newProduit.append('titre', this.nom);
+    newProduit.append('description', this.description);
+    newProduit.append('user_id', this.userOnline.id);
+
+    this.videoSeervice.publierVideo(newProduit).subscribe(
+      response => {
+        this.sharedService.alert('Succes', response.message, 'success');
+        console.log(response);
+      }
+    )
+  }
   ajouterProduits() {
+    this.option = 1;
     const newProduit = new FormData();
     newProduit.append('image', this.image as Blob);
     newProduit.append('nom', this.nom);
@@ -78,6 +125,8 @@ export class EspaceCreatifComponent implements OnInit {
       response => {
         this.sharedService.alert('Succes', response.message, 'success');
         this.lister();
+        console.log(response);
+
       }
     )
   }
@@ -110,6 +159,7 @@ export class EspaceCreatifComponent implements OnInit {
     this.image = this.description.image;
   }
   modifierProduit(id: any) {
+    this.option = 2;
     const newProduit = new FormData();
     newProduit.append('image', this.image as Blob);
     newProduit.append('nom', this.nom);
@@ -133,6 +183,10 @@ export class EspaceCreatifComponent implements OnInit {
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+  }
+  getFile2(event: any) {
+    console.warn(event.target.files[0]);
+    this.video = event.target.files[0] as File;
   }
 
 }

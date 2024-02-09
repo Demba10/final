@@ -15,7 +15,6 @@ import { TokenInterceptorProvider } from './services/token.interceptor';
 import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableDataSource } from '@angular/material/table';
 
 
 registerLocaleData(fr);
@@ -23,7 +22,8 @@ registerLocaleData(fr);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // ProfilComponent
   ],
   imports: [
     BrowserModule,

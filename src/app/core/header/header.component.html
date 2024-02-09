@@ -28,13 +28,27 @@
                     <button class="example-menu-item" cdkMenuItem routerLink="auth">Se connecter</button>
                 </div>
                 <div class="example-menu" cdkMenu *ngIf="userOnLine">
-                    <button class="example-menu-item" cdkMenuItem>Profil</button>
-                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()">Espace créatif</button>
-                    <button class="example-menu-item" cdkMenuItem>Déconnexion</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="openXl(content)">Profil</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()"
+                        *ngIf="userOnLine.role == 'jardinier'">Espace créatif</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="deconnexon()">Déconnexion</button>
                 </div>
             </ng-template>
         </div>
     </div>
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <app-profil></app-profil>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </ng-template>
 </nav>
 <style>
     .navbar {

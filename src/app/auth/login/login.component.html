@@ -1,9 +1,10 @@
 <main>
     <div class="container-fluid">
-        <div class="row"> 
-            <div class="col-sm-6 login-section-wrapper">
+        <div class="row">
+            <div class="col-sm-6 login-section-wrapper" *ngIf="!reset">
                 <div class="brand-wrapper" style="cursor: pointer;">
-                    <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']" routerLinkActive="router-link-active">
+                    <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']"
+                        routerLinkActive="router-link-active">
                 </div>
                 <div class="login-wrapper my-auto">
                     <h1 class="login-title">Connexion</h1>
@@ -18,14 +19,36 @@
                             <input type="password" name="password" id="password" class="form-control"
                                 placeholder="votre mot de passe" [(ngModel)]="password">
                         </div>
-                        <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Connexion" (click)="connexion()">
+                        <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Connexion"
+                            (click)="connexion()">
                     </form>
-                    <a href="#!" class="forgot-password-link">Mot de passe oublié?</a>
-                    <p class="login-wrapper-footer-text">Vous n'avez pas de compte? <a routerLink="../register" class="text-reset">S'inscrire</a></p>
+                    <a class="forgot-password-link" style="cursor: pointer;" (click)="reseter()">Mot de passe
+                        oublié?</a>
+                    <p class="login-wrapper-footer-text">Vous n'avez pas de compte? <a routerLink="../register"
+                            class="text-reset">S'inscrire</a></p>
+                </div>
+            </div>
+            <div class="col-sm-6 login-section-wrapper" *ngIf="reset">
+                <div class="brand-wrapper" style="cursor: pointer;">
+                    <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']"
+                        routerLinkActive="router-link-active">
+                </div>
+                <div class="login-wrapper my-auto">
+                    <h1 class="login-title">Récupération mot de passe</h1>
+                    <form action="#!">
+                        <div class="form-group">
+                            <label for="email">Adresse Email</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                placeholder="email@example.com" [(ngModel)]="email">
+                        </div>
+                        <input name="login" id="login" class="btn btn-block login-btn mt-4" type="button"
+                            value="Envoyer" (click)="resetPass(email)">
+                    </form>
                 </div>
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block" style="overflow: hidden;;">
-                <img src="https://img.freepik.com/photos-gratuite/mains-coupant-branche-plante-pot_23-2149391922.jpg?size=626&ext=jpg&ga=GA1.1.735943258.1704851612&semt=sph" alt="login image" class="login-img">
+                <img src="https://img.freepik.com/photos-gratuite/mains-coupant-branche-plante-pot_23-2149391922.jpg?size=626&ext=jpg&ga=GA1.1.735943258.1704851612&semt=sph"
+                    alt="login image" class="login-img">
             </div>
         </div>
     </div>

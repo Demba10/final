@@ -82,8 +82,7 @@ export class UsersComponent implements OnInit {
         this.mergedUsers = this.mergedUsers.concat(clients);
         // console.log(this.mergedUsers);
         this.dataSource.data = this.mergedUsers;
-        console.log(this.dataSource.data);
-
+        // console.log(this.dataSource.data);
       });
     });
   }

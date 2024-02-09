@@ -52,6 +52,7 @@ export class AccueilComponent implements OnInit {
         // console.log(response);
         this.jdn = response;
         this.jdnSome = this.jdn.slice(0, 4);
+        this.jdnSome = this.jdnSome.filter(ele => ele.is_bloquer == 0)
       }
     )
   }
@@ -74,21 +75,22 @@ export class AccueilComponent implements OnInit {
   lister() {
     this.produitService.getProduits().subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.produits = response.slice(0, 6);
+        
       }
     )
     this.articlesServices.getArticles().subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.articles = response.slice(0, 6);
       }
     )
     this.videoService.getVideo().subscribe(
       response => {
         this.videos = response;
-        this.video = this.videos.videos;
-        console.log(this.videos.videos);
+        this.videos = this.videos.videos;
+        console.log(this.videos);
       }
     )
   }

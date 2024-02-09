@@ -252,13 +252,6 @@ export class AstucesComponent {
     }
     )
   }
-  // saveDatas(titre: any, image: File) {
-  //   const img = new FormData();
-  //   const i = img.append('img', image as Blob);
-  //   alert(img.get('img'))
-  //   localStorage.setItem('titre', titre)
-  //   localStorage.setItem('image', JSON.stringify(img.get('img')));
-  // }
   
 }
 export interface Astuces {

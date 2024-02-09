@@ -28,8 +28,8 @@ export class VideoService {
   }
 
   // Créer un nouvel article
-  createArticle(article: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'createArticle', article);
+  publierVideo(video: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'PublierVideo', video);
   }
 
   // Mettre à jour un article existant
@@ -39,8 +39,8 @@ export class VideoService {
   }
 
   // Supprimer un article par son ID
-  deleteArticle(id: number): Observable<any> {
-    const url = `${this.apiUrl}destroyArticle/${id}`;
+  supprimerVodeo(id: number): Observable<any> {
+    const url = `${this.apiUrl}supprimerVideo/${id}`;
     return this.http.delete<any>(url);
   }
 }

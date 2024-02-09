@@ -3,7 +3,7 @@
         <div class="col-4">
             <mat-card class="resume-card resume-card-1">
                 <div class="typo">
-                    <div class="h4">3000</div>
+                    <div class="h4">{{clients.length + jardiniers.length}}</div>
                     <h5>Utilisateurs</h5>
                 </div>
                 <i class="fa-solid fa-users"></i>
@@ -12,7 +12,7 @@
         <div class="col-4">
             <mat-card class="resume-card resume-card-2">
                 <div class="typo">
-                    <div class="h4">769</div>
+                    <div class="h4">{{produits.length}}</div>
                     <h5>Produits</h5>
                 </div>
                 <i class="fa-brands fa-shopify"></i>
@@ -21,7 +21,7 @@
         <div class="col-4">
             <mat-card class="resume-card resume-card-3">
                 <div class="typo">
-                    <div class="h4">1000</div>
+                    <div class="h4">{{articles.length}}</div>
                     <h5>Article</h5>
                 </div>
                 <i class="fa-solid fa-newspaper"></i>
@@ -80,6 +80,7 @@
     body {
         background-color: #F9F9F9;
     }
+
     /* .side-card  {
         animation: 2s slide;
     }
@@ -103,56 +104,69 @@
         background-position: center;
         cursor: pointer;
     }
+
     .resume-card-1 {
         background-image: url("/assets/images/stat/1.svg");
         animation: 300ms resume-1;
     }
+
     @keyframes resume-1 {
-    from {
-        transform: scale(0.9);
+        from {
+            transform: scale(0.9);
+        }
+
+        to {
+            transform: scale(1);
+        }
     }
-    to {
-        transform: scale(1);
-    }
-    } 
+
     .resume-card-2 {
         background-image: url("/assets/images/stat/2.svg");
         animation: 300ms resume-2;
     }
+
     @keyframes resume-2 {
-    from {
-        margin-top: -60px;
-       }
-       to {
-        margin-top: 0px;
-       }
+        from {
+            margin-top: -60px;
+        }
+
+        to {
+            margin-top: 0px;
+        }
     }
+
     .resume-card-3 {
         background-image: url("/assets/images/stat/3.svg");
         animation: 300ms resume-3;
     }
+
     @keyframes resume-3 {
-    from {
-        margin-left: 60px;
-       }
-       to {
-        margin-left: 0px;
-       }
+        from {
+            margin-left: 60px;
+        }
+
+        to {
+            margin-left: 0px;
+        }
     }
+
     .resume-card i {
         opacity: .7;
         font-size: 50px;
     }
+
     .resume-card .typo button {
         background-color: #292D26;
         border-radius: 16px;
         font-size: 12px;
         color: white;
     }
+
     .resume-card .typo h5 {
         font-size: 16px;
         opacity: 0.9;
     }
+
     .user-admin {
         display: flex;
         flex-direction: row;
@@ -160,6 +174,7 @@
         align-items: center;
         padding: 20px;
     }
+
     .user-admin .img {
         height: 50px;
         width: 50px;
@@ -169,6 +184,7 @@
         justify-content: center;
         align-items: center;
     }
+
     .user-admin .img img {
         height: 100%;
     }

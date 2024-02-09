@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Token } from '@angular/compiler';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LinkDataService } from 'src/app/services/lien/link-data.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +14,12 @@ export class HeaderComponent implements OnInit {
   color!: string;
   userOnLine!: any;
   change: boolean = false;
+  private modalService = inject(NgbModal);
 
   constructor(
     private link_data: LinkDataService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +36,9 @@ export class HeaderComponent implements OnInit {
       icon: "fa-regular fa-user"
     }
   ]
+  openXl(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'xl', scrollable: true });
+  }
 
   derouler() {
     let a = document.getElementById("deroule");
@@ -51,5 +59,12 @@ export class HeaderComponent implements OnInit {
         alert(response);
       }
     )
+  }
+
+  deconnexon() {
+    this.sharedService.alert('success', 'Déconnexion réussie', 'success');
+    this.router.navigate(['/auth']);
+    localStorage.setItem('userOnline', '');
+    localStorage.setItem('token', '');
   }
 }

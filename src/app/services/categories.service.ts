@@ -28,8 +28,8 @@ export class CategoriesService {
   }
 
   // Créer un nouvel produit
-  createproduit(produit: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'PublierProduits', produit);
+  ajouterCategorie(produit: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'AjouterCategorie', produit);
   }
 
   // Mettre à jour un produit existant

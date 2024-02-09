@@ -2,6 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PaginationService } from 'src/app/services/pagination/pagination.service';
 import { ProduitsService } from 'src/app/services/produits.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -57,12 +58,20 @@ export class ProduitsComponent {
     searchTerm: any;
     saveProd!: any[];
 
+    // paginations 
+    // pager object
+    pager: any = {};
+
+    // paged items
+    pagedItems!: any[];
+
     constructor(
         private produitService: ProduitsService,
         private userService: UsersService,
         config: NgbModalConfig,
         private modalService: NgbModal,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private pagerService: PaginationService
     ) {
         config.backdrop = 'static';
         config.keyboard = false;
@@ -82,13 +91,23 @@ export class ProduitsComponent {
     openSm(content: TemplateRef<any>) {
         this.modalService.open(content, { size: 'md', scrollable: true });
     }
+    // Methode de pagination
+    setPage(page: number) {
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.prod.length, page);
+
+        // get current page of items
+        this.pagedItems = this.prod.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        // this.step = this.commentaires.length
+    }
 
     lister() {
         this.userService.getProduits().subscribe(
             response => {
-                console.log(response);
+                // console.log(response);
                 this.prod = response;
                 this.saveProd = response;
+                this.setPage(1);
             }
         );
     }
@@ -139,8 +158,8 @@ export class ProduitsComponent {
     }
     // Méthode de filtrage
     filterItems() {
-        this.prod = this.saveProd;
-        this.prod = this.saveProd.filter(
-            ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()));
+        this.pager = this.saveProd;
+        this.pagedItems = this.saveProd.filter(
+            ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
     }
 }
