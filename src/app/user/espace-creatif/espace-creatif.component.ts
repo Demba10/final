@@ -21,7 +21,8 @@ export class EspaceCreatifComponent implements OnInit {
 
   public fileUploadControl = new FileUploadControl(undefined, FileUploadValidators.filesLimit(2));
 
-  // Produits 
+  titre: any = 'Produits';
+  changer: boolean = false;
   image!: File;
   video!: File;
   nom!: any;
@@ -40,6 +41,7 @@ export class EspaceCreatifComponent implements OnInit {
   cat: any;
   longueur!: any;
   dataSource: any;
+  videos: any;
 
   constructor(
     config: NgbModalConfig,
@@ -56,11 +58,11 @@ export class EspaceCreatifComponent implements OnInit {
 
   ngOnInit(): void {
     this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
-    console.log(this.userOnline);
+    // console.log(this.userOnline);
     this.lister();
     this.listerVideo();
-    this.listerCategories();
     this.longueur = this.categories.length;
+    this.listerCategories();
   }
   open(content: any) {
     this.modalService.open(content);
@@ -71,11 +73,17 @@ export class EspaceCreatifComponent implements OnInit {
   openSm(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'md', scrollable: true });
   }
-
+  switchProduit() {
+    this.changer = !this.changer;
+  }
+  vider() {
+    this.nom = '';
+    this.description = '';
+  }
   lister() {
     this.userService.getProduits().subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.produits = response;
         this.prod = this.produits.filter(ele => ele.user_id == Number(this.userOnline.id));
       }
@@ -84,20 +92,17 @@ export class EspaceCreatifComponent implements OnInit {
   listerVideo() {
     this.videoSeervice.getVideo().subscribe(
       response => {
-        console.log(response);
-
+        this.videos = response;
+        this.videos = this.videos.videos;
+        console.log(this.videos);
       }
     )
   }
   listerCategories() {
-    const id = this.userOnLine.id;
-    alert(id);
-    this.categorieService.getCategories(id).subscribe(
+    this.categorieService.getCategories(Number(this.userOnline.id)).subscribe(
       response => {
         this.cat = response;
         this.cat = this.cat.categories;
-        this.categories = this.cat;
-        // console.log(this.categories);
       }
     );
   }
@@ -111,7 +116,8 @@ export class EspaceCreatifComponent implements OnInit {
     this.videoSeervice.publierVideo(newProduit).subscribe(
       response => {
         this.sharedService.alert('Succes', response.message, 'success');
-        console.log(response);
+        // console.log(response);
+        this.vider();
       }
     )
   }
@@ -127,8 +133,8 @@ export class EspaceCreatifComponent implements OnInit {
       response => {
         this.sharedService.alert('Succes', response.message, 'success');
         this.lister();
-        console.log(response);
-
+        // console.log(response);
+        this.vider();
       }
     )
   }
@@ -171,6 +177,7 @@ export class EspaceCreatifComponent implements OnInit {
       response => {
         // console.log(response); 
         this.lister();
+        this.vider();
       }
     )
   }
@@ -190,7 +197,6 @@ export class EspaceCreatifComponent implements OnInit {
     console.warn(event.target.files[0]);
     this.video = event.target.files[0] as File;
   }
-
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

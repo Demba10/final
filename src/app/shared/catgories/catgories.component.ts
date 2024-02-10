@@ -48,7 +48,7 @@ export class CatgoriesComponent implements OnInit {
         this.cat = response;
         this.cat = this.cat.categories;
         this.dataSource.data = this.cat;
-        // console.log(this.categories);
+        console.log(this.dataSource.data);
       }
     );
   }

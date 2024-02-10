@@ -1,258 +1,263 @@
-<!-- Ajout produit -->
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Ajout de produit!</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <form class="example-form d-flex flex-column" style="width: 100%;">
-            <div class="mb-4">
-                <label for="file" class="file-upload-label" style="width: 100%;">
-                    <div class="file-upload-design">
-                        <span class="browse-button">Téléverser une image</span>
-                    </div>
-                    <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
-                        name="image" />
-                </label>
-            </div>
-            <!--  -->
-            <mat-form-field class="example-full-width">
-                <mat-label>Nom</mat-label>
-                <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                    placeholder="300" [(ngModel)]="nom">
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Le nom est <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <mat-label>Description</mat-label>
-                <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
-                    name="description"></textarea>
-            </mat-form-field>
-            <select name="" id="">
-                <option [value]="categorie.id" *ngFor="let categorie of categories"> {{categorie.nom}} </option>
-            </select>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
-            (click)="ajouterProduits()">Valider</button>
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
-            (click)="modifierProduit(detail.id)" (click)="d('Cross click')">Modifier</button>
-    </div>
-</ng-template>
-<!-- Ajout vidéo -->
-<ng-template #video let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Ajout de vidéo!</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <form class="example-form d-flex flex-column" style="width: 100%;">
-            <div class="mb-4">
-                <label for="file" class="file-upload-label" style="width: 100%;">
-                    <div class="file-upload-design">
-                        <!-- <svg viewBox="0 0 640 512" height="1em">
-                            <path
-                                d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
-                            </path>
-                        </svg>
-                        <p>Glissez et déposez votre vidéo</p>
-                        <p>ou</p> -->
-                        <span class="browse-button">Téléverser une vidéo</span>
-                    </div>
-                    <input id="file" type="file" (change)="getFile2($event)" accept="video/*" name="video" />
-                </label>
-            </div>
-            <!--  -->
-            <mat-form-field class="example-full-width">
-                <mat-label>Nom</mat-label>
-                <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                    placeholder="300" [(ngModel)]="nom">
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Le nom est <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <mat-label>Description</mat-label>
-                <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
-                    name="description"></textarea>
-            </mat-form-field>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterVideo()"
-            *ngIf="option == 1">Valider</button>
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
-            (click)="modifierProduit(detail.id)" (click)="d('Cross click')" *ngIf="option == 2">Modifier</button>
-    </div>
-</ng-template>
-<!--  -->
-<section class=" boutique">
-    <div class="jardiniers-box row">
-        <button class="mat-elevation-z4 side d-flex flex-column align-items-center gap-3">
-            <div>
-                <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-house"
-                        style="transform: scale(1.3);"></i></button>
-                <span style="font-size: 12px;">Bureau</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;" (click)="open(content)"><i
-                        class="fa-solid fa-basket-shopping"></i></button>
-                <span style="font-size: 12px;">Produit</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;" (click)="open(video)"><i
-                        class="fa-solid fa-video" style="transform: scale(1);"></i></button>
-                <span style="font-size: 12px;">Vidéos</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;" (click)="openSm(co)"><i
-                        class="fa-solid fa-layer-group"></i>
-                </button>
-                <span style="font-size: 12px;">Catégories</span>
-            </div>
-        </button>
-        <div class="" style="display: none;">
-            <mat-card class="example-card" style="">
-                <mat-card-header class="d-flex align-items-center gap-2 pb-2">
-                    <div
-                        style="overflow: hidden; height: 40px; width: 40px; background-color: black; border-radius: 50%;">
-                        <img src="http://127.0.0.1:8000/api/{{userOnline.image}}" alt="" style="width: 100%;">
-                    </div>
-                    <div class="">
-                        <mat-card-title>{{userOnline.prenom}} {{userOnline.nom}}</mat-card-title>
-                    </div>
-                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-                </mat-card-header>
-                <img mat-card-image src="http://127.0.0.1:8000/api/{{userOnline.image}}" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <div class="d-flex justify-content-center gap-4 py-4">
-                        <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-brands fa-whatsapp"
-                                style="transform: scale(1.5);"></i></button>
-                        <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-location-dot"
-                                style="transform: scale(1.5);"></i></button>
-                        <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-phone-flip"
-                                style="transform: scale(1.3);"></i></button>
-                        <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-comment"
-                                style="transform: scale(1.3);"></i></button>
-                    </div>
-                </mat-card-content>
-                <mat-card-actions class="d-flex justify-content-center">
-                    <button mat-button>PRODUITS</button>
-                    <span class="fw-bold">:</span>
-                    <button mat-button>{{prod.length}}</button>
-                </mat-card-actions>
-            </mat-card>
+<div class="corps">
+    <!-- Ajout produit -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Ajout de produit!</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
         </div>
-        <div class="col-12">
-            <div class="row">
-                <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
-                <div class="col-4" *ngFor="let item of prod">
-                    <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
-                        (click)="openLg(con)" (click)="detailsProduit(item.id)">
-                        <div class="row g-0" style="">
-                            <div class="col-md-4">
-                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
-                                    [alt]="item.image">
-                            </div>
-                            <div class="col-md-7 d-flex align-items-center">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
-                                        {{item.nom}}</h5>
-                                    <span class="notes">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </span>
+        <div class="modal-body">
+            <form class="example-form d-flex flex-column" style="width: 100%;">
+                <div class="mb-4">
+                    <label for="file" class="file-upload-label" style="width: 100%;">
+                        <div class="file-upload-design">
+                            <span class="browse-button">Téléverser une image</span>
+                        </div>
+                        <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
+                            name="image" />
+                    </label>
+                </div>
+                <!--  -->
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nom</mat-label>
+                    <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                        placeholder="300" [(ngModel)]="nom">
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Le nom est <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
+                        name="description"></textarea>
+                </mat-form-field>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="inputGroupSelect01">
+                        <option [value]="categorie.id" *ngFor="let categorie of cat"> {{categorie.nom}} </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
+                (click)="ajouterProduits()">Valider</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
+                (click)="modifierProduit(detail.id)" (click)="d('Cross click')">Modifier</button>
+        </div>
+    </ng-template>
+    <!-- Ajout vidéo -->
+    <ng-template #video let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Ajout de vidéo!</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form class="example-form d-flex flex-column" style="width: 100%;">
+                <div class="mb-4">
+                    <label for="file" class="file-upload-label" style="width: 100%;">
+                        <div class="file-upload-design">
+                            <!-- <svg viewBox="0 0 640 512" height="1em">
+                                <path
+                                    d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
+                                </path>
+                            </svg>
+                            <p>Glissez et déposez votre vidéo</p>
+                            <p>ou</p> -->
+                            <span class="browse-button">Téléverser une vidéo</span>
+                        </div>
+                        <input id="file" type="file" (change)="getFile2($event)" accept="video/*" name="video" />
+                    </label>
+                </div>
+                <!--  -->
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nom</mat-label>
+                    <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                        placeholder="300" [(ngModel)]="nom">
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Le nom est <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
+                        name="description"></textarea>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterVideo()"
+                *ngIf="option == 1">Valider</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
+                (click)="modifierProduit(detail.id)" (click)="d('Cross click')" *ngIf="option == 2">Modifier</button>
+        </div>
+    </ng-template>
+    <!--  -->
+    <section class=" boutique">
+        <div class="jardiniers-box row">
+            <button class="mat-elevation-z4 side d-flex flex-column align-items-center gap-3">
+                <div>
+                    <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-house"
+                            style="transform: scale(1.3);"></i></button>
+                    <span style="font-size: 12px;">Bureau</span>
+                </div>
+                <div>
+                    <button mat-mini-fab style="background-color: #292D26;" (click)="open(content)"><i
+                            class="fa-solid fa-basket-shopping" (click)="listerCategories()"></i></button>
+                    <span style="font-size: 12px;">Produit</span>
+                </div>
+                <div>
+                    <button mat-mini-fab style="background-color: #292D26;" (click)="open(video)"><i
+                            class="fa-solid fa-video" style="transform: scale(1);"></i></button>
+                    <span style="font-size: 12px;">Vidéos</span>
+                </div>
+                <div>
+                    <button mat-mini-fab style="background-color: #292D26;" (click)="openSm(co)"><i
+                            class="fa-solid fa-layer-group"></i>
+                    </button>
+                    <span style="font-size: 12px;">Catégories</span>
+                </div>
+            </button>
+
+            <div class="col-12" style="">
+                <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-3 shadow-sm" id="pillNav2"
+                    role="tablist"
+                    style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white); background-color: #4CAF50 !important; position: fixed; width: calc(80% - 106px); z-index: 888;">
+                    <li class="nav-item" role="presentation" (click)="switchProduit()">
+                        <button class="nav-link active" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
+                            aria-selected="true">Produits</button>
+                    </li>
+                    <li class="nav-item" role="presentation" (click)="switchProduit()">
+                        <button class="nav-link" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
+                            aria-selected="false">Vidéos</button>
+                    </li>
+                </ul>
+                <div class="row" style="position: relative; top: 60px;" *ngIf="!changer">
+                    <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
+                    <div class="col-4" *ngFor="let item of prod">
+                        <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
+                            (click)="openLg(con)" (click)="detailsProduit(item.id)">
+                            <div class="row g-0" style="">
+                                <div class="col-md-4">
+                                    <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                        [alt]="item.image">
+                                </div>
+                                <div class="col-md-7 d-flex align-items-center">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title"
+                                            style="font-size: 16px; color: #292d26bb; font-weight: 600;">
+                                            {{item.nom}}</h5>
+                                        <span class="notes">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Details boutique -->
-                    <ng-template #con let-modal class="">
-                        <div class="card">
-                            <button type="button" class="btn-close" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')"
-                                style="position: absolute; left:  95%; margin-top: 10px;"></button>
-                            <div class="row g-0">
-                                <div class="left-detail col-md-6"
-                                    style="display: flex; justify-content: center; align-items: center; ">
-                                    <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
-                                        <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
-                                            style="width: 100%;">
+                        <!-- Details boutique -->
+                        <ng-template #con let-modal class="">
+                            <div class="card">
+                                <button type="button" class="btn-close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')"
+                                    style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                                <div class="row g-0">
+                                    <div class="left-detail col-md-6"
+                                        style="display: flex; justify-content: center; align-items: center; ">
+                                        <div
+                                            style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
+                                            <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
+                                                style="width: 100%;">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <h2 class="card-title">{{detail.nom}}</h2>
-                                        <h5>Description</h5>
-                                        <p class="card-text">{{detail.description}} </p>
-                                        <table>
-                                            <tr>
-                                                <td>Catégorie</td>
-                                                <td>&nbsp;-&nbsp;</td>
-                                                <td>{{detail.categorie.nom}}</td>
-                                            </tr>
-                                        </table>
-                                        <h5 class="mt-4">Jardinier</h5>
-                                        <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
+                                    <div class="col-md-6">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{detail.nom}}</h2>
+                                            <h5>Description</h5>
+                                            <p class="card-text">{{detail.description}} </p>
+                                            <table>
+                                                <tr>
+                                                    <td>Catégorie</td>
+                                                    <td>&nbsp;-&nbsp;</td>
+                                                    <td>{{detail.categorie.nom}}</td>
+                                                </tr>
+                                            </table>
+                                            <h5 class="mt-4">Jardinier</h5>
+                                            <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
 
-                                        <div class="d-flex gap-3 mt-5">
-                                            <button mat-mini-fab color="accent" (click)="SupprimerProduit(detail.id)"
-                                                (click)="modal.dismiss('Cross click')"><i
-                                                    class="fa-solid fa-trash"></i></button>
-                                            <button mat-mini-fab color="warn" (click)="openEditProduit(detail.id)"
-                                                (click)="modal.dismiss('Cross click')" (click)="open(content)"><i
-                                                    class="fa-solid fa-pen"></i></button>
+                                            <div class="d-flex gap-3 mt-5">
+                                                <button mat-mini-fab color="accent"
+                                                    (click)="SupprimerProduit(detail.id)"
+                                                    (click)="modal.dismiss('Cross click')"><i
+                                                        class="fa-solid fa-trash"></i></button>
+                                                <button mat-mini-fab color="warn" (click)="openEditProduit(detail.id)"
+                                                    (click)="modal.dismiss('Cross click')" (click)="open(content)"><i
+                                                        class="fa-solid fa-pen"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-template>
+                        </ng-template>
+                    </div>
+                    <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div> -->
                 </div>
-                <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
-                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-                </div> -->
+                <div class="row" style="position: relative; top: 60px;" *ngIf="changer">
+                    <span class="text-center" *ngIf="videos.length == 0">Pas de produit pour le moment</span>
+                    <div class="col-4" *ngFor="let item of videos">
+                        <div class="" style="border: 12px;">
+                            <video controls style="width: 100%;">
+                                <source src="http://127.0.0.1:8000{{item.video}}">
+                            </video>
+                            <div class="px-2" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 14px;">{{item.titre}}</span>
+                                <span class="fw-bold">{{item.created_at | date
+                                    : 'dd/MM/yyyy'
+                                    }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Ajout categories -->
-    <ng-template #co let-modal style="max-height: 90vh;">
-        <div class="modal-header py-2 px-4" style="border-bottom: 0;">
-            <h4 class="modal-title" style="font-size: 18px;">Catégories ({{longueur}})</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-            <app-catgories></app-catgories>
-        </div>
-    </ng-template>
-    <!-- Fin ajout  catégories -->
-</section>
-<style>
-    .addCategorie {
-        display: flex;
-        flex-direction: column;
-        list-style-type: none;
-        padding: 0;
-    }
+        <!-- Ajout categories -->
+        <ng-template #co let-modal style="max-height: 90vh;">
+            <div class="modal-header py-2 px-4" style="border-bottom: 0;">
+                <h4 class="modal-title" style="font-size: 18px;">Catégories ({{longueur}})</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <app-catgories></app-catgories>
+            </div>
+        </ng-template>
+        <!-- Fin ajout  catégories -->
+    </section>
+    <style>
+        .addCategorie {
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            padding: 0;
+        }
 
-    .addCategorie li {
-        display: flex;
-        gap: 10px;
-    }
+        .addCategorie li {
+            display: flex;
+            gap: 10px;
+        }
 
-    .left-detail {
-        background-image: url("/assets/images/boutique/detail-bg.svg");
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        height: 70vh;
-    }
-</style>
+        .left-detail {
+            background-image: url("/assets/images/boutique/detail-bg.svg");
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+        }
+    </style>
+</div>
