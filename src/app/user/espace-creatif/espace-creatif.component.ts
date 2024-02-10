@@ -38,6 +38,7 @@ export class EspaceCreatifComponent implements OnInit {
   categories!: any[];
   userOnLine: any;
   cat: any;
+  longueur!: any;
   dataSource: any;
 
   constructor(
@@ -59,6 +60,7 @@ export class EspaceCreatifComponent implements OnInit {
     this.lister();
     this.listerVideo();
     this.listerCategories();
+    this.longueur = this.categories.length;
   }
   open(content: any) {
     this.modalService.open(content);
