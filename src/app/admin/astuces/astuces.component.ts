@@ -71,9 +71,9 @@ export class AstucesComponent {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
     });
-    this.listeArticles();
     this.titre = this.contenu;
     this.user();
+    this.listeArticles();
   }
   // Issue des service
 
@@ -97,20 +97,12 @@ export class AstucesComponent {
     this.art.getArticles().subscribe(
       resoponse => {
         this.articleSliste = resoponse;
-        // console.log(resoponse);
         this.setPage(1);
       }
     )
   }
 
   ajouterArticle() {
-
-    let t = this.contenu.indexOf('>');
-    let l = this.contenu.substring(t).indexOf('<')
-    var tempDiv = document.createElement('div');
-    tempDiv.innerHTML = this.contenu.substring(t + 1, l + 2);
-
-    let tm = this.contenu.search(/<img src="/);
     const nA = new FormData();
     nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
@@ -118,23 +110,26 @@ export class AstucesComponent {
 
     this.art.createArticle(nA).subscribe(
       response => {
-        this.articleSliste.push(nA)
-        this.setPage(this.pager.pages.length)
+        // this.setPage(this.pager.pages.length);
+        // this.listeArticles();
         Swal.fire({
           title: 'Success',
           text: response.message,
           icon: 'success'
         })
         this.contenu = '';
+        console.log("Success", response);
+
       },
       error => {
-        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
         Swal.fire({
           title: 'error',
           text: error.error.error,
           icon: 'error'
         })
-        l
+        console.log('Erreur ', error);
+        this.listeArticles();
+        this.contenu = ''
       }
     )
   }
@@ -252,7 +247,7 @@ export class AstucesComponent {
     }
     )
   }
-  
+
 }
 export interface Astuces {
   id: number,

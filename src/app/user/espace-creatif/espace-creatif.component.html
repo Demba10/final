@@ -122,11 +122,11 @@
                     role="tablist"
                     style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white); background-color: #4CAF50 !important; position: fixed; width: calc(80% - 106px); z-index: 888;">
                     <li class="nav-item" role="presentation" (click)="switchProduit()">
-                        <button class="nav-link active" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
-                            aria-selected="true">Produits</button>
+                        <button class="liens nav-link active" id="home-tab2" data-bs-toggle="tab" type="button"
+                            role="tab" aria-selected="true">Produits</button>
                     </li>
                     <li class="nav-item" role="presentation" (click)="switchProduit()">
-                        <button class="nav-link" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
+                        <button class="liens nav-link" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
                             aria-selected="false">Vidéos</button>
                     </li>
                 </ul>
@@ -212,7 +212,8 @@
                             <video controls style="width: 100%;">
                                 <source src="http://127.0.0.1:8000{{item.video}}">
                             </video>
-                            <div class="px-2" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="px-2"
+                                style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 14px;">{{item.titre}}</span>
                                 <span class="fw-bold">{{item.created_at | date
                                     : 'dd/MM/yyyy'
@@ -258,6 +259,13 @@
             background-size: cover;
             background-position: center;
             height: 70vh;
+        }
+        
+        .liens:active,
+        .liens:hover,
+        .liens:focus {
+            color: #4CAF50;
+
         }
     </style>
 </div>

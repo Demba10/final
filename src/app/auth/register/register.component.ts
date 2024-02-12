@@ -19,7 +19,9 @@ export class RegisterComponent implements OnInit {
   telephone!: string
   email!: string
   password!: string
-  step: number =  1;
+  step: number = 1;
+  isClient: boolean = true;
+  dispmiss: boolean = true;
   // Fin des propriétés de l'utilisateur
   public fileUploadControl = new FileUploadControl(undefined, FileUploadValidators.filesLimit(2));
 
@@ -41,6 +43,14 @@ export class RegisterComponent implements OnInit {
   }
   goStep3() {
     this.step = 3;
+  }
+  switchClient() {
+    this.isClient = true;
+    this.dispmiss = false;
+  }
+  switchJardinier() {
+    this.isClient = false;
+    this.dispmiss = false;
   }
   // Inscriptionde l'utilisateur
   validation() {
@@ -109,7 +119,7 @@ export class RegisterComponent implements OnInit {
           confirmButtonText: 'OK'
         });
         this.router.navigate(['/auth'])
-      }
+      },
     )
   }
   getFile(event: any) {

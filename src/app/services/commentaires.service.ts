@@ -33,9 +33,10 @@ export class CommentairesService {
   }
 
   // Mettre à jour un article existant
-  updateArticle(id: number, article: any): Observable<any> {
+  updateArticle(id: number): Observable<any> {
+    const comment = "ModifierCommentaire";
     const url = `${this.apiUrl}/${id}`;
-    return this.http.put<any>(url, article);
+    return this.http.put<any>(url, comment);
   }
 
   // Supprimer un article par son ID

@@ -15,6 +15,8 @@ export class JardinotequeComponent implements OnInit {
   jardinier!: any;
   jar_id!: any;
   private modalService = inject(NgbModal);
+  other!: any[];
+  searchTerm: any;
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService
@@ -48,12 +50,18 @@ export class JardinotequeComponent implements OnInit {
       response => {
         this.jardiniers = response;
         this.jardiniers = this.jardiniers.filter(ele => ele.is_bloquer == 0);
+        this.other = this.jardiniers.filter(ele => ele.is_bloquer == 0);
         console.log(this.jardiniers);
 
         // this.jardinier = this.jardiniers.find(ele => ele.id == this.jar_id)
         // console.log(this.jardiniers);
       }
     )
+  }
+  filterItems() {
+    this.jardiniers = this.other;
+    this.jardiniers = this.other.filter(
+      ele => ele.prenom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.nom.toLowerCase().includes(this.searchTerm) || ele.created_at.includes(this.searchTerm));
   }
 
   ngAfterViewInit() {

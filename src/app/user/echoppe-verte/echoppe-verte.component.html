@@ -1,34 +1,84 @@
 <app-share-banner></app-share-banner>
-<app-recherche-section></app-recherche-section>
-<section class="boutique">
+<!-- <app-recherche-section></app-recherche-section> -->
+
+<section class=" boutique">
+    <div class="d-flex justify-content-between align-items-end mb-2">
+        <app-titre sus_titre="La boutique des jardiniers" titre="La boutique des Jardiniers" class=""
+            color_one="#4CAF50" color_two="#292D26" id="article"></app-titre>
+        <input type="text" class="mb-3"
+            style="border: 0; border-bottom: 2px solid #292d2651; outline: 0; text-transform: italic;"
+            placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
+    </div>
     <div class="jardiniers-box row">
-        <div class="col-4" *ngFor="let item of produits">
-            <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8 d-flex align-items-center">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
-                                {{item.nom}}</h5>
-                            <span class="notes">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </span>
+        <div class="col-12" style="">
+            <div class="row" style="position: relative; top: 20px;">
+                <span class="text-center" *ngIf="produits.length == 0">Pas de produit pour le moment</span>
+                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let item of produits">
+                    <div class="blog-produits card card-produit" style="margin-bottom: 16px; overflow: hidden;"
+                        id="card" (click)="openLg(con)" (click)="detailsProduit(item.id)">
+                        <div class="row g-0" style="">
+                            <div class="col-md-4">
+                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                    [alt]="item.image">
+                            </div>
+                            <div class="col-md-7 d-flex align-items-center">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
+                                        {{item.nom}}</h5>
+                                    <span class="notes">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- Details boutique -->
+                    <ng-template #con let-modal class="">
+                        <div class="card">
+                            <button type="button" class="btn-close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')"
+                                style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                            <div class="row g-0">
+                                <div class="left-detail col-md-6"
+                                    style="display: flex; justify-content: center; align-items: center; ">
+                                    <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
+                                        <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
+                                            style="width: 100%;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{detail.nom}}</h2>
+                                        <h5>Description</h5>
+                                        <p class="card-text">{{detail.description}} </p>
+                                        <table>
+                                            <tr>
+                                                <td>Catégorie</td>
+                                                <td>&nbsp;-&nbsp;</td>
+                                                <td>{{detail.categorie.nom}}</td>
+                                            </tr>
+                                        </table>
+                                        <h5 class="mt-4">Jardinier</h5>
+                                        <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
                 </div>
+                <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div> -->
             </div>
-        </div>
-        <div class="pagination d-flex justify-content-center gap-2 m-3">
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </section>
+
+<app-footer></app-footer>
 
 <style>
     .boutique,
@@ -37,7 +87,8 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        padding: 40px 10%;
+        padding: 20px 10%;
+        margin-bottom: 40px;
     }
 
     .jardiniers-box img {
@@ -65,6 +116,13 @@
     .blog-produits:hover {
         box-sizing: border-box;
         animation: pulse 2s linear infinite;
+    }
+
+    .card-produit {
+        background-color: #F5F5F5;
+        color: white;
+        border: 2px solid white;
+        box-sizing: border-box;
     }
 
     @keyframes pulse {
@@ -98,16 +156,23 @@
         color: #d3d3d3;
     }
 
-    .card-produit {
-        background-color: #292D26;
-        color: white;
-        border: 2px solid white;
-        box-sizing: border-box;
-    }
-
     .pagination button {
         width: 30px;
         height: 30px;
         border: 0px;
+    }
+
+    .presentation i {
+        transform: rotate(-90deg);
+    }
+
+    .left-detail {
+        background-image: url("/assets/images/boutique/detail-bg.svg");
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 70vh;
     }
 </style>

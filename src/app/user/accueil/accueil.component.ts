@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable, map, of } from 'rxjs';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
@@ -17,8 +19,10 @@ export class AccueilComponent implements OnInit {
   user: any;
   videos!: any;
   video!: any[];
+  jdn_2: any;
   constructor(
     // private articles: AstucesService,
+    private http: HttpClient,
     private articlesServices: ArticlesService,
     private jardierService: UsersService,
     private produitService: ProduitsService,
@@ -30,6 +34,10 @@ export class AccueilComponent implements OnInit {
   produits!: any[];
   idProduit = 4;
   articles!: any;
+
+
+  private cache: { product: any, lastUpdate: number } = { product: null, lastUpdate: 0 };
+  private readonly cacheValidity = 24 * 60 * 60 * 1000;
 
   ngOnInit(): void {
     this.apiUser.getClients().subscribe(
@@ -51,6 +59,7 @@ export class AccueilComponent implements OnInit {
       response => {
         // console.log(response);
         this.jdn = response;
+        this.jdn = this.jdn.filter(ele => ele.is_bloquer == 0);
         this.jdnSome = this.jdn.slice(0, 4);
         this.jdnSome = this.jdnSome.filter(ele => ele.is_bloquer == 0)
       }
@@ -77,7 +86,7 @@ export class AccueilComponent implements OnInit {
       response => {
         // console.log(response);
         this.produits = response.slice(0, 6);
-        
+
       }
     )
     this.articlesServices.getArticles().subscribe(
@@ -93,5 +102,8 @@ export class AccueilComponent implements OnInit {
         console.log(this.videos);
       }
     )
+  }
+  details(id: any) {
+    localStorage.setItem('id', id);
   }
 }

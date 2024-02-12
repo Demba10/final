@@ -107,7 +107,6 @@
                 </div>
                 <input id="file" type="file" (change)="getFile($event)" accept="image/*" ngModel="image">
             </label>
-            <!-- <input id="file" type="file" (change)="getFile($event)" accept="image/*" ngModel="image"> -->
             <textarea placeholder="Le titre" name="" id="" cols="30" rows="" [(ngModel)]="titre" name="titre"
                 style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 10px;"></textarea>
             <div class="d-flex gap-2 justify-content-end">
@@ -119,16 +118,8 @@
     </div>
 </ng-template>
 <ng-template #content let-modal style="">
-    <!-- <div class="header py-1 px-3 text-end">
-    </div> -->
-    <!-- <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
-    </div> -->
 
     <div class="modal-body" style="padding: 0;">
-        <!-- <form class="example-form">
-            <input type="text" [(ngModel)]="titre" name="titre">
-            <input type="file" (change)="getFile($event)" accept="image/*">
-        </form> -->
         <i class="bouton-close fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"></i>
         <editor [init]="{
           base_url: '/tinymce',
@@ -297,7 +288,7 @@
         animation: 600ms display;
     }
 
-    @keyframes display {
+    /* @keyframes display {
         from {
             transform: scale(0.7);
         }
@@ -305,14 +296,14 @@
         to {
             transform: scale(1);
         }
-    }
+    } */
 
     .example-card:hover {
         animation: 200ms transform;
         animation-fill-mode: forwards;
     }
 
-    @keyframes transform {
+    /* @keyframes transform {
         from {
             transform: scale(1);
         }
@@ -320,7 +311,7 @@
         to {
             transform: scale(1.1);
         }
-    }
+    } */
 
     ul {
         list-style-type: none;

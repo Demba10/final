@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="footer-top d-flex justify-content-between align-items-center">
+    <div class="footer-top d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div class="log-medias">
             <h1 class="logo"><img src="assets/logo-2.svg" alt=""></h1>
             <div class="medias">
@@ -14,14 +14,14 @@
                 <label for="exampleFormControlInput1" class="form-label">S'inscrire au newslatters</label>
                 <div class="d-flex">
                     <input type="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="Entrez votre email">
-                    <button type="button" class="btn btn-primary">S'inscrire</button>
+                        placeholder="Entrez votre email" name="email" [(ngModel)]="email">
+                    <button type="button" class="btn btn-primary" (click)="inscriptionNewletters()">S'inscrire</button>
                 </div>
             </div>
         </div>
     </div>
     <ul class="liens">
-        <li class="lien" *ngFor="let item of lien">{{item.title}}</li>
+        <li class="lien" *ngFor="let item of lien" routerLink="../../{{item.lien}}">{{item.title}}</li>
     </ul>
     <div class="foot">
         <hr class="">
@@ -35,11 +35,13 @@
         padding: 30px 10%;
         border-top: 3px solid #D3D3D3;
     }
+
     .logo {
         height: 54px;
     }
+
     .logo img {
-        height: 100%    ;
+        height: 100%;
     }
 
     .medias,
@@ -65,10 +67,15 @@
     .liens {
         list-style-type: none;
         display: flex;
+        flex-wrap: wrap;
         gap: 20px;
         justify-content: center;
         margin: 20px 0;
         padding: 0;
+    }
+
+    @media screen and (max-width: 766.98px) {
+        .liens {}
     }
 
     .lien {

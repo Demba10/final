@@ -34,6 +34,18 @@
     gap: 10px;
 }
 
+@media screen and (max-width: 991.98px) {
+    .about {
+        grid-template-columns: 1fr;
+        margin: 20px 4%;
+    }
+
+    .about-content-img {
+        display: none;
+    }
+}
+
+// Fin about
 .alaune,
 .panel {
     padding: 20px 10%;
@@ -126,6 +138,12 @@
     text-decoration: none;
     color: #4CAF50;
     font-size: 26px;
+}
+
+@media screen and (max-width: 768px) {
+    .jar-d {
+        display: none;
+    }
 }
 
 // fin jardinier

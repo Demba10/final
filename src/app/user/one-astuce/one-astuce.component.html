@@ -1,7 +1,16 @@
 <app-share-banner></app-share-banner>
+<!-- <a href="#article"
+    style="display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 50px; height: 50px; border: 2px solid #4CAF50; color: #292D26; background-color: #ffffff; position: absolute; left: calc(50% - 25px); margin-top: -25px; cursor: pointer;">
+    <i class="fa-solid fa-caret-down"></i>
+</a> -->
 <section class="conseils row">
-    <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="text-center"
-        color_one="#4CAF50" color_two="#292D26"></app-titre>
+    <div class="d-flex justify-content-between align-items-end mb-2">
+        <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="" color_one="#4CAF50"
+            color_two="#292D26" id="article"></app-titre>
+        <input type="text" class="mb-3"
+            style="border: 0; border-bottom: 2px solid #292d2651; outline: 0; text-transform: italic;"
+            placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
+    </div>
     <div class="col-4" *ngFor="let item of articleList">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">

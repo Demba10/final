@@ -47,7 +47,7 @@ export class UsersService {
   }
 
   getProfil(id: any): Observable<any> {
-    const resource = 'ConsulterProfile'; 
+    const resource = 'ConsulterProfile';
     return this.http.get<any>(`${this.apiUrl}${resource}/${id}`);
   }
 
@@ -60,11 +60,17 @@ export class UsersService {
   // Méthode pour effectuer une requête POST
   motDePasseOublier(email: string): Observable<any> {
     const resource = "MotDepasseOublier";
-    return this.http.post(`${this.apiUrl}${resource}`, {email});
+    return this.http.post(`${this.apiUrl}${resource}`, { email });
   }
 
   // Méthode pour effectuer une requête POST
   post(resource: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}${resource}`, data);
+  }
+
+  // Méthode pour effectuer une requête POST
+  newlatters(data: string): Observable<any> {
+    const resource = "AjouterNewletters";
     return this.http.post(`${this.apiUrl}${resource}`, data);
   }
 

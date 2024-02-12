@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid header">
         <a class="navbar-brand text-black" routerLink=""><img src="assets/logo.svg" alt=""></a>
-        <div class="middle">
+        <div class="middle middle-1">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item text-black" *ngFor="let item of sidebar_data">
@@ -13,10 +13,7 @@
                 </ul>
             </div>
         </div>
-        <div class="header-cta">
-            <button style="background-color: transparent; border: none;" routerLink="../auth">
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
-            </button>
+        <div class="header-cta-1 header-cta">
             <button mat-raised-button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"
                 *ngIf="!userOnLine"><i class="fa-regular fa-user"></i></button>
             <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine"
@@ -35,6 +32,9 @@
                 </div>
             </ng-template>
         </div>
+        <div class="burger">
+            <img src="assets/images/hamburger.png" alt="" (click)="adapter()">
+        </div>
     </div>
 
     <ng-template #content let-modal>
@@ -49,99 +49,43 @@
             <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
         </div>
     </ng-template>
+    <div class="responsive" id="responsive">
+        <div class="middle middle-2">
+            <div class="collapse navbar-collapse" id="navbarColapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0 flex-column">
+                    <li class="nav-item text-black" *ngFor="let item of sidebar_data">
+                        <a class="nav-link" [routerLink]="item.lien" routerLinkActive="active"
+                            [style.color]="item.isActive" (click)="changeColor(item.id)">
+                            {{item.title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-cta-2 header-cta">
+            <button mat-raised-button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"
+                *ngIf="!userOnLine"><i class="fa-regular fa-user"></i></button>
+            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine"
+                style="font-size: 16px;font-weight: bold;" (click)="derouler()">{{userOnLine.prenom}} {{userOnLine.nom}}
+                &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;"
+                    style="transform: rotate(180deg);"></i></button>
+            <ng-template #menu>
+                <div class="example-menu" cdkMenu *ngIf="!userOnLine">
+                    <button class="example-menu-item" cdkMenuItem routerLink="auth">Se connecter</button>
+                </div>
+                <div class="example-menu" cdkMenu *ngIf="userOnLine">
+                    <button class="example-menu-item" cdkMenuItem (click)="openXl(content)">Profil</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()"
+                        *ngIf="userOnLine.role == 'jardinier'">Espace créatif</button>
+                    <button class="example-menu-item" cdkMenuItem (click)="deconnexon()">Déconnexion</button>
+                </div>
+            </ng-template>
+        </div>
+        <div class="close" (click)="adapter2()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
 </nav>
 <style>
-    .navbar {
-        background-color: #292D26;
-        height: 80px;
-    }
 
-    .header {
-        background-color: white;
-        padding: 0 10%;
-        height: 60px;
-    }
-
-    .navbar-brand {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        height: 54px;
-    }
-
-    .navbar-brand img {
-        height: 100%;
-    }
-
-    .nav-link {
-        font-weight: 600;
-        opacity: 0.8d;
-    }
-
-    .nav-link:hover {
-        color: #4CAF50 !important;
-    }
-
-    .nav-link:hover {
-        color: #4CAF50 !important;
-    }
-
-    .header-cta {
-        display: flex;
-        gap: 16px;
-    }
-
-    .acive {
-        color: #4CAF50;
-    }
-
-    /* dropdown */
-    .example-menu {
-        display: inline-flex;
-        flex-direction: column;
-        min-width: 180px;
-        max-width: 280px;
-        background-color: rgba(255, 255, 255);
-        padding: 6px 0;
-        position: relative;
-        top: 20px;
-    }
-
-    .example-menu-item,
-    .example-standalone-trigger {
-        background-color: transparent;
-        cursor: pointer;
-        border: none;
-
-        user-select: none;
-        min-width: 64px;
-        line-height: 36px;
-        padding: 0 16px;
-
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        flex: 1;
-    }
-
-    .example-menu-item:hover {
-        color: #4CAF50;
-    }
-
-    .example-menu-item:active {
-        background-color: rgb(170, 170, 170);
-    }
-
-    .example-standalone-item {
-        background-color: rgb(239, 239, 239);
-    }
-
-    .example-standalone-item:hover {
-        background-color: rgb(208, 208, 208);
-    }
-
-    .example-standalone-item[aria-expanded='true'] {
-        background-color: rgb(208, 208, 208);
-    }
 </style>

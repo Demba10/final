@@ -26,6 +26,15 @@ export class HeaderComponent implements OnInit {
     this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
   }
 
+  adapter() {
+    let a = document.getElementById('responsive');
+    a!.style.transition = 'display 2s linear 2s';
+    a!.style.display = 'block';
+  }
+  adapter2() {
+    let a = document.getElementById('responsive');
+    a!.style!.display = 'none';
+  }
   sidebar_data = this.link_data.sidebar_data;
 
   sidebar_cta = [
@@ -39,7 +48,6 @@ export class HeaderComponent implements OnInit {
   openXl(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl', scrollable: true });
   }
-
   derouler() {
     let a = document.getElementById("deroule");
     this.change = !this.change;
@@ -52,7 +60,6 @@ export class HeaderComponent implements OnInit {
   redirectToEspace() {
     this.router.navigate(['../user/espace-creatif', this.userOnLine.id]);
   }
-
   changeColor(id: any) {
     this.link_data.changeColor(id).subscribe(
       response => {
@@ -60,7 +67,6 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
-
   deconnexon() {
     this.sharedService.alert('success', 'Déconnexion réussie', 'success');
     this.router.navigate(['/auth']);

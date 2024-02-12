@@ -64,6 +64,7 @@ export class ProduitsComponent {
 
     // paged items
     pagedItems!: any[];
+    mergedUsers: any;
 
     constructor(
         private produitService: ProduitsService,
@@ -81,6 +82,17 @@ export class ProduitsComponent {
         this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
         console.log(this.userOnline);
         this.lister();
+        this.merger();
+    }
+    merger() {
+        this.userService.getJardiniers().subscribe(jardiniers => {
+            this.mergedUsers = this.mergedUsers.concat(jardiniers);
+
+            this.userService.getClients().subscribe(clients => {
+                this.mergedUsers = this.mergedUsers.concat(clients);
+                console.log(this.mergedUsers);
+            });
+        });
     }
     open(content: any) {
         this.modalService.open(content);
