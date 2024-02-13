@@ -31,6 +31,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CatgoriesComponent } from '../shared/catgories/catgories.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CatgoriesComponent } from '../shared/catgories/catgories.component';
     MdbCheckboxModule,
     FormsModule,
     NgbPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ]
 })
 export class AdminModule { }

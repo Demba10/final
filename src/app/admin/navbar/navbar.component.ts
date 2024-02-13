@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  constructor(
+    private sharedService: SharedService,
+    private router: Router
+  ) {}
 
+  deconnexon() {
+    this.sharedService.alert('success', 'Déconnexion réussie', 'success');
+    this.router.navigate(['/auth']);
+    localStorage.setItem('userOnline', '');
+    localStorage.setItem('token', '');
+  }
 }

@@ -12,82 +12,30 @@
             <div
                 style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu"
-                    style="width: 100%;">
+                    style="width: 100%; cursor: pointer;" (click)="openLg(detail)" (click)="detailArticle(item.id)">
             </div>
             <mat-card-content class="pt-2">
                 <span class="text-titre" style="font-size: 13px;">{{item.titre}}</span>
             </mat-card-content>
             <mat-card-actions class="d-flex justify-content-between">
                 <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;"
-                    class="fw-bold" (click)="openLg(detail)" (click)="detailArticle(item.id)">Détails</button>
+                    class="fw-bold" (click)="openLg(detail)" (click)="detailArticle(item.id)">détails</button>
                 <span class="d-flex gap-3" style="font-size: 0.8em; opacity: 0.8;">
-                    <span>
+                    <!-- <span>
                         <i class="fa-solid fa-comment"></i> {{commentaires?.length}}
-                    </span>
+                    </span> -->
                 </span>
             </mat-card-actions>
         </mat-card>
     </div>
 </section>
-<mat-card *ngIf="filtre">
-</mat-card>
-<mat-card *ngIf="!filtre">
-    <div class="persepective d-flex justify-content-end p-3 pb-0">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle (click)="filtrer()" value="bold"><i class="fa-solid fa-list"></i></mat-button-toggle>
-            <mat-button-toggle (click)="filtrer()" value="italic"><i
-                    class="fa-regular fa-credit-card"></i></mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-    <div class="p-3">
-        <table mat-table [dataSource]="dataSource">
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="#">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> Image </th>
-                <td mat-cell *matCellDef="let element"> <span style="width: 100%;"><img [src]="element.image" alt=""
-                            style="width: 30px;"></span></td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="titre">
-                <th mat-header-cell *matHeaderCellDef> Titre </th>
-                <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="user_name">
-                <th mat-header-cell *matHeaderCellDef> Publier par </th>
-                <td mat-cell *matCellDef="let element"> {{element.user_name}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="like">
-                <th mat-header-cell *matHeaderCellDef> Like </th>
-                <td mat-cell *matCellDef="let element"> {{element.like}} </td>
-            </ng-container>
-            <ng-container matColumnDef="comment">
-                <th mat-header-cell *matHeaderCellDef> Commentaire </th>
-                <td mat-cell *matCellDef="let element"> {{element.like}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
-        </mat-paginator>
-    </div>
-</mat-card>
 
 <!-- Ajout article -->
-<ng-template #first>
+<ng-template #first let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
     <div class="modal-body">
         <div class="form">
             <label for="file" class="custum-file-upload">
@@ -119,17 +67,8 @@
     </div>
 </ng-template>
 <ng-template #content let-modal style="">
-    <!-- <div class="header py-1 px-3 text-end">
-    </div> -->
-    <!-- <div class="modal-body" style="padding: 0;" *ngIf="step == 1">
-    </div> -->
-
     <div class="modal-body" style="padding: 0;">
-        <!-- <form class="example-form">
-            <input type="text" [(ngModel)]="titre" name="titre">
-            <input type="file" (change)="getFile($event)" accept="image/*">
-        </form> -->
-        <i class="bouton-close fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"></i>
+        <i class="bouton-close fa-solid fa-xmark" (click)="modal.dismiss('Cross click')" (click)="viderChapms()"></i>
         <editor [init]="{
           base_url: '/tinymce',
           height: '80vh',
@@ -143,20 +82,20 @@
         <button mat-raised-button (click)="modal.close('Close click')" style="background-color: #4CAF50; color: white;"
             (click)="modifierArticle()">Modifier</button>
         <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
-            style="background-color: #4CAF50; color: white;">Publié</button>
+            style="background-color: #4CAF50; color: white;" (click)="details.close('Save click')">Publié</button>
     </div>
 </ng-template>
 <!-- Details articles -->
-<ng-template #detail let-modal>
+<ng-template #detail let-detail>
     <div class="modal-header" style="border-bottom: 0;">
-        <i class="fa-solid fa-circle-xmark me-1" aria-label="Close" (click)="modal.dismiss('Cross click')"
+        <i class="fa-solid fa-circle-xmark me-1" aria-label="Close" (click)="detail.dismiss('Cross click')"
             style="cursor: pointer; font-size: 24px; right: 0; position: absolute"></i>
     </div>
     <div class="px-3">
         <h4 class="mb-5" style="color: #292D26;"> {{details.titre}} </h4>
         <span class="d-flex gap-3 align-items-center justify-content-between" style="font-size: 0.9em; opacity: 0.8;">
             <span style="cursor: pointer;">
-                <i class="fa-solid fa-comment"></i> {{commentaires.length}}
+                <i class="fa-solid fa-comment"></i> {{commentaires?.length}}
             </span>
             <div style="font-size: 13px;" class="d-flex gap-2 align fw-semibold">
                 <span>Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
@@ -164,7 +103,7 @@
             <span class="cta-details d-flex gap-3">
                 <button mat-flat-button color="warn" (click)="openFullscreen(content)">Modifier</button>
                 <button mat-flat-button color="accent" (click)="supprimerArticle(details.id)"
-                    (click)="modal.close('Close click')">Supprimer</button>
+                    (click)="detail.close('Close click')">Supprimer</button>
             </span>
         </span>
         <hr>
@@ -184,7 +123,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+        <button type="button" class="btn btn-secondary" (click)="details.close('Close click')">Fermer</button>
     </div>
 </ng-template>
 <!-- pagination -->

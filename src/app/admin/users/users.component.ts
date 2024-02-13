@@ -103,6 +103,7 @@ export class UsersComponent implements OnInit {
           response => {
             // console.log(response);
             this.sharedService.alert('', response.Message, 'success');
+            this.merger();
           }
         )
       }
@@ -124,6 +125,7 @@ export class UsersComponent implements OnInit {
           response => {
             // console.log(response);
             this.sharedService.alert('', response.Message, 'success');
+            this.merger();
           }
         )
       }

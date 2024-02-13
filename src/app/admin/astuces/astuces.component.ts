@@ -105,37 +105,33 @@ export class AstucesComponent {
 
   ajouterArticle() {
 
-    let t = this.contenu.indexOf('>');
-    let l = this.contenu.substring(t).indexOf('<')
-    var tempDiv = document.createElement('div');
-    tempDiv.innerHTML = this.contenu.substring(t + 1, l + 2);
-
-    let tm = this.contenu.search(/<img src="/);
     const nA = new FormData();
     nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
     nA.append('contenue', this.contenu);
 
-    this.art.createArticle(nA).subscribe(
-      response => {
-        this.setPage(this.pager.pages)
-        // Swal.fire({
-        //   title: 'Success',
-        //   text: response.message,
-        //   icon: 'success'
-        // })
-        this.contenu = '';
-      },
-      error => {
-        alert(this.contenu.substring(tm + 10, this.contenu.substring(tm + 10).indexOf('"') + tm + 10));
-        Swal.fire({
-          title: 'error',
-          text: error.error.error,
-          icon: 'error'
-        })
-        l
-      }
-    )
+    if (!this.titre || !this.contenu || !this.image) {
+      this.sharedService.alert('Vueillez remplir toutes les champs', '', 'error');
+    }
+    else if ((this.titre.trim().length < 6 || /^\s/.test(this.titre)) || (this.contenu.trim().length < 6 || /^\s/.test(this.contenu))) {
+      this.sharedService.alert('Titre ou contenu invalide', '', 'error');
+    }
+    else {
+      this.art.createArticle(nA).subscribe(
+        response => {
+          this.contenu = '';
+          this.listeArticles();
+          this.setPage(this.pager.totalPages)
+        },
+        error => {
+          Swal.fire({
+            title: 'error',
+            text: error.error.error,
+            icon: 'error'
+          })
+        }
+      )
+    }
   }
   getFile(event: any) {
     console.warn(event.target.files[0]);
@@ -181,10 +177,8 @@ export class AstucesComponent {
         this.art.deleteArticle(id).subscribe(
           response => {
             // console.log(response);
-            // this.pagedItems = this.articleSliste.filter(ele => ele.id !== id);
             this.listeArticles();
-            this.setPage(this.pager.currentPage)
-            this.sharedService.alert('', response.message, 'success');
+            this.setPage(this.pager.currentPage);
           }
         )
       }
@@ -251,7 +245,11 @@ export class AstucesComponent {
     }
     )
   }
-  
+  viderChapms() {
+    this.titre = "";
+    this.contenu = "";
+  }
+
 }
 export interface Astuces {
   id: number,

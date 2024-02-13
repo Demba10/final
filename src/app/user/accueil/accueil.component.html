@@ -85,7 +85,8 @@
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
                 <h6 class="card-text fw-bold">{{item.titre}}</h6>
                 <div class="d-flex justify-content-between">
-                    <a href="#" class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;" (click)="details(item.id)" routerLink="../astuce">Lire plus <i
+                    <a href="#" class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;"
+                        (click)="details(item.id)" routerLink="../astuce">Lire plus <i
                             class="fa-solid fa-arrow-right"></i></a>
                     <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
                         <span>
@@ -99,7 +100,7 @@
             </div>
         </div>
     </div>
-    <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
+    <app-button-one title="Lire plus" class="text-center mt-4" routerLink="../astuces"></app-button-one>
 </section>
 <section class="jardinier">
     <app-titre class="text-center me-2" sus_titre="Le Coin des GreenThubs" titre="Nos jardiniers"></app-titre>
