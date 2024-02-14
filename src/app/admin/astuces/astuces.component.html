@@ -82,7 +82,7 @@
         <button mat-raised-button (click)="modal.close('Close click')" style="background-color: #4CAF50; color: white;"
             (click)="modifierArticle()">Modifier</button>
         <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
-            style="background-color: #4CAF50; color: white;" (click)="details.close('Save click')">Publié</button>
+            style="background-color: #4CAF50; color: white;" (click)="modal.close('Save click')">Publié</button>
     </div>
 </ng-template>
 <!-- Details articles -->
@@ -123,7 +123,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="details.close('Close click')">Fermer</button>
+        <button type="button" class="btn btn-secondary" (click)="detail.close('Close click')">Fermer</button>
     </div>
 </ng-template>
 <!-- pagination -->

@@ -42,19 +42,25 @@ export class AuthentificationService {
           if (response.user.role == 'jardinier') {
             this.route.navigate(['user/espace-verte']);
           }
-        } else {
-          Swal.fire({
-            title: 'Echec de la connexion',
-            text: '',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
         }
+        // else {
+        //   Swal.fire({
+        //     title: 'Echec de la connexion',
+        //     text: '',
+        //     icon: 'error',
+        //     confirmButtonText: 'OK'
+        //   });
+        // }
       },
       error => {
         // this.sharedService.alert("error", error.error.message, "error")
         console.log('erreur ', error);
-        alert('erreur');
+        Swal.fire({
+          title: 'Echec',
+          text: 'Vueillez fournir un e-mail et un mot de passe valides',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     )
   }
