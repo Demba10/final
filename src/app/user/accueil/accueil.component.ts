@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, map, of } from 'rxjs';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
@@ -64,6 +65,11 @@ export class AccueilComponent implements OnInit {
         this.jdnSome = this.jdnSome.filter(ele => ele.is_bloquer == 0)
       }
     )
+  }
+  private modalService = inject(NgbModal);
+
+  openXl(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'xl', scrollable: true });
   }
 
   settIdProduit(id: any = this.idProduit) {

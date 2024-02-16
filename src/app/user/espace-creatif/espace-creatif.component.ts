@@ -99,7 +99,7 @@ export class EspaceCreatifComponent implements OnInit {
     )
   }
   listerCategories() {
-    this.categorieService.getCategories(Number(this.userOnline.id)).subscribe(
+    this.categorieService.getCategories().subscribe(
       response => {
         this.cat = response;
         this.cat = this.cat.categories;

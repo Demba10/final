@@ -45,7 +45,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AreaCharteComponent,
     ProduitsComponent,
     UsersComponent,
-    AddAstuceComponent
+    AddAstuceComponent,
+    CatgoriesComponent
   ],
   imports: [
     CommonModule,

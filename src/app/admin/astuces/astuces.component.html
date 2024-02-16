@@ -128,7 +128,13 @@
 </ng-template>
 <!-- pagination -->
 <div class="d-flex justify-content-center">
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold">Précédent</mat-button-toggle>
+        <mat-button-toggle value="italic">1</mat-button-toggle>
+        <mat-button-toggle value="underline">Suivant</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li [ngClass]="{disabled:pager.currentPage === 1}">
             <a (click)="setPage(1)">Premier</a>
         </li>
@@ -144,7 +150,7 @@
         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
             <a (click)="setPage(pager.totalPages)">Dernier</a>
         </li>
-    </ul>
+    </ul> -->
 </div>
 <!-- </section> -->
 <style>

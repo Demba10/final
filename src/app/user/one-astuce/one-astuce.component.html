@@ -19,7 +19,7 @@
             <img src="http://127.0.0.1:8000/api/{{item?.image}}" class="card-img-top" alt="" routerLink="../astuce">
             <div class="card-body">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
-                <h6 class="card-text fw-bold">{{item.titre}}</h6>
+                <h6 class="card-text fw-bold" [title]="item.titre">{{item.titre}}</h6>
                 <div class="d-flex justify-content-between">
                     <a class="btn p-0" style="color: #292D26; opacity: 0.8; font-size: 0.9em;" routerLink="../astuce"
                         (click)="details(item.id)">Lire plus<i class="fa-solid fa-arrow-right"></i></a>
@@ -57,6 +57,14 @@
     .conseils {
         padding: 20px 10%;
         /* background-color: #292D26; */
+    }
+
+    .card-body h6 {
+        display: inline-block;
+        width: 96%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .date {

@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   messageEmail: string = '';
   colorEmail = '#e7e7e7';
   colorPass = '#e7e7e7';
+  type: string = "password";
+  controle: boolean = true;
 
   constructor(
     private user: UsersService,
@@ -29,6 +31,14 @@ export class LoginComponent implements OnInit {
     this.user.getClients().subscribe();
   }
 
+  changeType() {
+    this.controle = !this.controle;
+    if (this.controle == true) {
+      this.type = "passsword";
+    } else {
+      this.type = "text";
+    }
+  }
   emailValidatiion() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(this.email)) {

@@ -31,6 +31,7 @@ export class AstucesComponent implements OnInit {
   client: any;
   comment: any;
   mergedUsers: any[] = [];
+  like: any;
 
   constructor(
     private astuces: AstucesService,
@@ -128,17 +129,32 @@ export class AstucesComponent implements OnInit {
       contenue: this.contenue,
       note: this.note
     }
-    this.commentaireService.createComment(newCommment, this.id).subscribe(
+    if (newCommment.contenue.length >= 2) {
+      this.commentaireService.createComment(newCommment, this.id).subscribe(
+        response => {
+          Swal.fire({
+            // title: 'Success',
+            text: response.message,
+            // icon: 'success'
+          })
+          console.log(response);
+          this.listerCommentaire(this.id);
+          this.nbComents++;
+          this.viderChamps();
+        }
+      )
+    } else {
+      alert('contenu inferieur a 2');
+    }
+  }
+  ajouterLike(id: any) {
+    const newCommment = {
+      contenue: '0',  
+      jaime: this.like
+    }
+    this.commentaireService.createComment(newCommment, id).subscribe(
       response => {
-        Swal.fire({
-          // title: 'Success',
-          text: response.message,
-          // icon: 'success'
-        })
         console.log(response);
-        this.listerCommentaire(this.id);
-        this.nbComents++;
-        this.viderChamps();
       }
     )
   }

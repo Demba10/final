@@ -28,9 +28,10 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
-import { CatgoriesComponent } from '../shared/catgories/catgories.component';
 import { DetailsJardinierComponent } from './details-jardinier/details-jardinier.component';
 import { ProfilComponent } from '../profil/profil.component';
+import { TalkjsComponent } from './talkjs/talkjs.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -51,9 +52,10 @@ import { ProfilComponent } from '../profil/profil.component';
     RechercheSectionComponent,
     JardinotequeComponent,
     OneAstuceComponent,
-    CatgoriesComponent,
     DetailsJardinierComponent,
-    ProfilComponent
+    ProfilComponent,
+    TalkjsComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,7 @@ import { ProfilComponent } from '../profil/profil.component';
     MatCardModule,
     MatInputModule,
     EditorModule,
-    MatButtonModule, 
+    MatButtonModule,
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,

@@ -17,8 +17,8 @@ export class CategoriesService {
 
 
   // Récupérer tous les produits
-  getCategories(id: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}listCategorie/${id}`);
+  getCategories(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}listCategorie`);
   }
 
   // Récupérer un produit par son ID

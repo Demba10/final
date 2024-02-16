@@ -90,7 +90,7 @@ export class EchoppeVerteComponent implements OnInit {
   detailsProduit(id: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
-        // console.log(response);
+        console.log(response);
         this.detail = response.article;
       }
     )

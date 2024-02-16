@@ -1,122 +1,12 @@
-<!-- <section class="boutique">
-    <div class="jardiniers-box row">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 style="color: #2a3547; font-size: 18px; ">Liste des produits</h5>
-            <div class="d-flex gap-3">
-                <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
-                    aria-describedby="addon-wrapping">
-                <button mat-raised-button color="primary" class="btn">Ajouter</button>
-            </div>
-        </div>
-        <div class="col-3" *ngFor="let item of mesProduits">
-            <mat-card class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8 d-flex align-items-center">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
-                                {{item.nom}}</h5>
-                            <span class="notes">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
-        <div class="pagination d-flex justify-content-center gap-2 m-3">
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
-    </div>
-</section>
-
-<style>
-    .boutique {
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        /* padding: 40px 10%; */
-    }
-
-    .jardiniers-box img {
-        padding: 0;
-    }
-
-    .jar-items .img {
-        width: 35px;
-        height: 35px;
-        overflow: hidden;
-        border-radius: 50%;
-    }
-
-    .jar-items a {
-        text-decoration: none;
-        color: #4CAF50;
-        font-size: 26px;
-    }
-
-    .blog-produits {
-        border: 3px solid transparent;
-        cursor: pointer;
-    }
-
-    .blog-produits:hover {
-        box-sizing: border-box;
-        /* animation: pulse 2s linear infinite; */
-        background-color: #f0f2ed;
-    }
-
-    /* @keyframes pulse {
-        from {
-            transform: scale(1);
-            border: 3px solid #FF8A00;
-        }
-
-        50% {
-            transform: scale(1.04);
-            border: 3px solid #4CAF50;
-        }
-
-        to {
-            transform: scale(1);
-            border: 3px solid #FF8A00;
-        }
-    } */
-
-    .notes {
-        display: flex;
-        gap: 3px;
-    }
-
-    .notes i {
-        font-size: 8px;
-        color: #FF8A00;
-    }
-
-    .notes i:last-child {
-        color: #d3d3d3;
-    }
-
-    .card-produit {
-        background-color: #292D26;
-        color: white;
-        border: 2px solid white;
-        box-sizing: border-box;
-    }
-</style> -->
-
 <section class=" boutique">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h5 style="color: #2a3547; font-size: 18px; ">Produits</h5>
         <div class="d-flex gap-3">
-            <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
-                aria-describedby="addon-wrapping" [(ngModel)]="searchTerm" (input)="filterItems()">
+            <input type="text" class="mb-0"
+                style="border: 0; border-bottom: 2px solid #3535357f; background-color: #F9F9F9; outline: 0; text-transform: italic; color: #353535;"
+                placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
+            <button mat-raised-button (click)="openSm(co)"
+                style="background-color: #4CAF50; color: white;">+catégorie</button>
         </div>
     </div>
     <div class="jardiniers-box row">
@@ -196,7 +86,12 @@
     </div>
     <!-- pagination -->
     <div class="d-flex justify-content-center">
-        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle value="bold">Précédent</mat-button-toggle>
+            <mat-button-toggle value="italic">1</mat-button-toggle>
+            <mat-button-toggle value="underline">Suivant</mat-button-toggle>
+        </mat-button-toggle-group>
+        <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li [ngClass]="{disabled:pager.currentPage === 1}">
                 <a (click)="setPage(1)">Premier</a>
             </li>
@@ -212,9 +107,19 @@
             <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                 <a (click)="setPage(pager.totalPages)">Dernier</a>
             </li>
-        </ul>
+        </ul> -->
     </div>
-
+    <!-- Ajout categories -->
+    <ng-template #co let-modal style="max-height: 90vh;">
+        <div class="modal-header py-2 px-4" style="border-bottom: 0;">
+            <h4 class="modal-title" style="font-size: 18px;">Catégories</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <app-catgories></app-catgories>
+        </div>
+    </ng-template>
+    <!-- Fin ajout  catégories -->
 </section>
 <style>
     .addCategorie {

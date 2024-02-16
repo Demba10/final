@@ -40,3 +40,118 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# code alternatif des produits
+<!-- <section class="boutique">
+    <div class="jardiniers-box row">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 style="color: #2a3547; font-size: 18px; ">Liste des produits</h5>
+            <div class="d-flex gap-3">
+                <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
+                    aria-describedby="addon-wrapping">
+                <button mat-raised-button color="primary" class="btn">Ajouter</button>
+            </div>
+        </div>
+        <div class="col-3" *ngFor="let item of mesProduits">
+            <mat-card class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 d-flex align-items-center">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
+                                {{item.nom}}</h5>
+                            <span class="notes">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="pagination d-flex justify-content-center gap-2 m-3">
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</section>
+
+<style>
+    .boutique {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        /* padding: 40px 10%; */
+    }
+
+    .jardiniers-box img {
+        padding: 0;
+    }
+
+    .jar-items .img {
+        width: 35px;
+        height: 35px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .jar-items a {
+        text-decoration: none;
+        color: #4CAF50;
+        font-size: 26px;
+    }
+
+    .blog-produits {
+        border: 3px solid transparent;
+        cursor: pointer;
+    }
+
+    .blog-produits:hover {
+        box-sizing: border-box;
+        /* animation: pulse 2s linear infinite; */
+        background-color: #f0f2ed;
+    }
+
+    /* @keyframes pulse {
+        from {
+            transform: scale(1);
+            border: 3px solid #FF8A00;
+        }
+
+        50% {
+            transform: scale(1.04);
+            border: 3px solid #4CAF50;
+        }
+
+        to {
+            transform: scale(1);
+            border: 3px solid #FF8A00;
+        }
+    } */
+
+    .notes {
+        display: flex;
+        gap: 3px;
+    }
+
+    .notes i {
+        font-size: 8px;
+        color: #FF8A00;
+    }
+
+    .notes i:last-child {
+        color: #d3d3d3;
+    }
+
+    .card-produit {
+        background-color: #292D26;
+        color: white;
+        border: 2px solid white;
+        box-sizing: border-box;
+    }
+</style> -->
+

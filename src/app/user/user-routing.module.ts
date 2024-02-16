@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { JardinotequeComponent } from './jardinoteque/jardinoteque.component';
 import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 import { EspaceCreatifComponent } from './espace-creatif/espace-creatif.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'jardinotheque', 
         component: JardinotequeComponent
+      },
+      {
+        path: 'chat', 
+        component: ChatComponent
       },
       {
         path: 'espace-creatif/:id',

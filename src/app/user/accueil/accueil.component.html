@@ -213,4 +213,32 @@
         <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
     </div>
 </section>
+
+<ng-template #chat let-chat>
+    <app-chat></app-chat>
+</ng-template>
+
+<button mat-mini-fab class="chat" (click)="openXl(chat)"><i class="fa-solid fa-message"></i></button>
+
 <app-footer></app-footer>
+
+<style>
+    .chat {
+        position: fixed;
+        top: 92vh;
+        z-index: 888;
+        left: calc(100vw - 80px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4CAF50;
+
+        i {
+            /* font-size: 50px; */
+            color: #ffffff;
+            position: relative;
+            top: 1px;
+        }
+    }
+</style>

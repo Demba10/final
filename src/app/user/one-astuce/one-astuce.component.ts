@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ArticlesService } from 'src/app/services/articles.service';
+import { CommentairesService } from 'src/app/services/commentaires.service';
 import { AstucesService } from 'src/app/services/conseils/astuces.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -18,11 +19,13 @@ export class OneAstuceComponent implements OnInit {
   other!: any[];
   mergedUsers: any[] = [];
   searchTerm: any;
+  like: any;
 
   constructor(
     private articles: AstucesService,
     private astuces: ArticlesService,
-    private users: UsersService
+    private users: UsersService,
+    private commentaireService: CommentairesService
   ) { }
 
   ngOnInit(): void {

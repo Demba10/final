@@ -43,7 +43,7 @@ export class CatgoriesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   listerCategories() {
-    this.categorieService.getCategories(this.userOnLine.id).subscribe(
+    this.categorieService.getCategories().subscribe(
       response => {
         this.cat = response;
         this.cat = this.cat.categories;
