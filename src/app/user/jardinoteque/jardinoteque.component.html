@@ -37,13 +37,60 @@
     </div>
     <div class="modal-footer">
         <div class="jard">
-            <h5>{{jardinier?.prenom}} {{jardinier?.nom}}</h5>
             <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
             <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
             <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
-            <a mat-raised-button><i class="fa-solid fa-comment"></i></a>
+            <a mat-raised-button (click)="openVerticallyCentered(message)" (click)="listerMesages(jar_id)"><i
+                    class="fa-solid fa-comment"></i></a>
         </div>
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
     </div>
 </ng-template>
+
+<!-- Message -->
+<ng-template #message let-modal style="height: 90vh;">
+    <div class="modal-header border border-bottom-0">
+        <div>
+            <span class="user-sms">
+                <img src="http://127.0.0.1:8000/storage/{{jar?.image}}" alt="">
+            </span>
+            <span> {{jar.prenom}} {{jar.nom}} </span>
+        </div>
+    </div>
+    <div class="modal-body">
+        <p *ngFor="let m of mes"> {{m.contenue}} </p>
+        <p *ngIf="smsLast" style="font-size: 13px;"> {{smsLast}} </p>
+        <form action="">
+            <div class="barre-sms">
+                <input name="message" class="message" placeholder="Tapez votre message" id="" [(ngModel)]="sms"
+                    style="width: 100%;" [(ngModel)]="sms">
+                <i class="fa-solid fa-paper-plane" style="cursor: pointer; color: #4CAF50;" (click)="sendMessage()"></i>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer border border-top-0">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+    </div>
+</ng-template>
+<!-- Fin message -->
 <app-footer></app-footer>
+<style>
+    .user-sms {
+        font-weight: 500;
+    }
+
+    .barre-sms {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.275);
+        background-color: white;
+        display: flex;
+        padding: 10px 0;
+        gap: 4px;
+    }
+
+    .message {
+        outline: 0;
+        border: 0;
+        font-size: 13px;
+        padding: 4px;
+    }
+</style>

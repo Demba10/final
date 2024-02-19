@@ -9,6 +9,7 @@ import { JardinotequeComponent } from './jardinoteque/jardinoteque.component';
 import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 import { EspaceCreatifComponent } from './espace-creatif/espace-creatif.component';
 import { ChatComponent } from './chat/chat.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'espace-creatif/:id',
+        canActivate: [authGuard],
         component: EspaceCreatifComponent
       },
       {

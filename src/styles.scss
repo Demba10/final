@@ -46,6 +46,9 @@ main {
     }
 }
 
+
+// login
+
 .login {
 
 
@@ -151,4 +154,10 @@ main {
         object-fit: cover;
         object-position: left;
     }
+}
+
+.btn-close:active,
+.btn-close:visited,
+.btn-close::after {
+    box-shadow: none;
 }

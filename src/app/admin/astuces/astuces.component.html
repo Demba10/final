@@ -2,10 +2,16 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h5 style="color: #2a3547; font-size: 18px; ">Liste des articles</h5>
         <div class="d-flex gap-3">
-            <input type="text" class="form-control rounded-1" placeholder="Filter" aria-label="Username"
-                aria-describedby="addon-wrapping">
-            <button mat-raised-button color="primary" class="btn" (click)="open(first)">Ajouter</button>
+            <input type="text" class="mb-0"
+                style="border: 0; border-bottom: 2px solid #3535357f; background-color: #F9F9F9; outline: 0; text-transform: italic; color: #353535;"
+                placeholder="Filtrer" name="searchTerm">
+            <button mat-raised-button style="background-color: #4CAF50; color: white;" class="btn"
+                (click)="open(first)">Ajouter</button>
         </div>
+    </div>
+    <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+        *ngIf="pagedItems.length == 0">
+        <span class="text-center" style="">Pas d' astuces pour le moment</span>
     </div>
     <div class="all col-2 pb-4" *ngFor="let item of pagedItems">
         <mat-card class="example-card">
@@ -32,24 +38,12 @@
 
 <!-- Ajout article -->
 <ng-template #first let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <div class="modal-header border border-bottom-0">
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <div class="form">
             <label for="file" class="custum-file-upload">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
-                                fill=""></path>
-                        </g>
-                    </svg>
-                </div>
                 <div class="text">
                     <span>Cliquez pour téléverser une image</span>
                 </div>
@@ -57,7 +51,7 @@
             </label>
             <!-- <input id="file" type="file" (change)="getFile($event)" accept="image/*" ngModel="image"> -->
             <textarea placeholder="Le titre" name="" id="" cols="30" rows="" [(ngModel)]="titre" name="titre"
-                style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 10px;"></textarea>
+                style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 10px; outline: 0; border: 1px solid #757575;"></textarea>
             <div class="d-flex gap-2 justify-content-end">
                 <button mat-raised-button color="link" class="mt-2">Annuler</button>
                 <button mat-raised-button color="primary" class="mt-2"
@@ -127,7 +121,7 @@
     </div>
 </ng-template>
 <!-- pagination -->
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" *ngIf="pagedItems.length">
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <mat-button-toggle value="bold">Précédent</mat-button-toggle>
         <mat-button-toggle value="italic">1</mat-button-toggle>
@@ -296,7 +290,7 @@
 
 <style>
     .custum-file-upload {
-        height: 200px;
+        height: 140px;
         display: flex;
         flex-direction: column;
         align-items: space-between;
@@ -304,8 +298,7 @@
         cursor: pointer;
         align-items: center;
         justify-content: center;
-        border: 2px dashed #e8e8e8;
-        background-color: #212121;
+        border: 2px dashed #757575;
         padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0px 48px 35px -48px #e8e8e8;
@@ -330,7 +323,7 @@
 
     .custum-file-upload .text span {
         font-weight: 400;
-        color: #e8e8e8;
+        color: #757575;
     }
 
     .custum-file-upload input {

@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
   }
   derouler() {
     let a = document.getElementById("deroule");
+    let b = document.body;
     this.change = !this.change;
     if (!this.change) {
       a!.style.rotate = '0deg';
@@ -67,10 +68,13 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
+  goLogin() {
+    alert('gfjglfgjl')
+  }
   deconnexon() {
     this.sharedService.alert('success', 'Déconnexion réussie', 'success');
     this.router.navigate(['/auth']);
-    localStorage.setItem('userOnline', '');
-    localStorage.setItem('token', '');
+    localStorage.removeItem('userOnline');
+    localStorage.removeItem('token');
   }
 }

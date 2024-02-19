@@ -12,7 +12,9 @@
     <div class="jardiniers-box row">
         <div class="col-12">
             <div class="row">
-                <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
+                <div style="height: 40vh; display: flex; align-items: center; justify-content: center;">
+                    <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
+                </div>
                 <div class="col-3" *ngFor="let item of pagedItems">
                     <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
                         (click)="openLg(con)" (click)="detailsProduit(item.id)" (click)="listerUsers(item.user_id)">
@@ -85,7 +87,7 @@
         </div>
     </div>
     <!-- pagination -->
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" *ngIf="prod.length">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="bold">Précédent</mat-button-toggle>
             <mat-button-toggle value="italic">1</mat-button-toggle>

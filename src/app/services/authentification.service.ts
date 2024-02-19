@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { UsersComponent } from '../admin/users/users.component';
 import { UsersService } from './users.service';
 import Swal from 'sweetalert2';
@@ -9,7 +9,8 @@ import { SharedService } from './shared.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthentificationService {
+export class AuthentificationService implements OnInit {
+  userOnLine: any;
 
   constructor(
     private user: UsersService,
@@ -17,6 +18,10 @@ export class AuthentificationService {
     private tokenService: TokenService,
     private sharedService: SharedService
   ) { }
+
+  ngOnInit(): void {
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
+  }
 
   connexion(email: string, password: string) {
     const auth = { email: email, password: password };
@@ -27,41 +32,29 @@ export class AuthentificationService {
         if (response) {
           localStorage.setItem('userOnline', JSON.stringify(response.user));
           localStorage.setItem('time', '90');
-          Swal.fire({
-            title: 'Connexion réussie',
-            text: '',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          if (response.user.role == 'admin') {
-            this.route.navigate(['/administrateur'])
+          console.log(response);
+          if (response.user.role_id == 1) {
+            this.route.navigate(['/administrateur']);
           }
-          if (response.user.role == 'clients') {
+          if (response.user.role_id == 3) {
             this.route.navigate(['/']);
           }
-          if (response.user.role == 'jardinier') {
-            this.route.navigate(['user/espace-verte']);
+          if (response.user.role_id == 2) {
+            this.route.navigate(['user/espace-creatif']);
           }
         }
-        // else {
-        //   Swal.fire({
-        //     title: 'Echec de la connexion',
-        //     text: '',
-        //     icon: 'error',
-        //     confirmButtonText: 'OK'
-        //   });
-        // }
       },
       error => {
-        // this.sharedService.alert("error", error.error.message, "error")
         console.log('erreur ', error);
         Swal.fire({
           title: 'Echec',
-          text: 'Vueillez fournir un e-mail et un mot de passe valides',
+          text: error.error.message,
           icon: 'error',
           confirmButtonText: 'OK'
         });
-      }
+      },
     )
+  }
+  lister() {
   }
 }

@@ -102,12 +102,12 @@
                 <div>
                     <button mat-mini-fab style="background-color: #292D26;" (click)="open(content)"><i
                             class="fa-solid fa-basket-shopping" (click)="listerCategories()"></i></button>
-                    <span style="font-size: 12px;">Produit</span>
+                    <span style="font-size: 12px;">+Produit</span>
                 </div>
                 <div>
                     <button mat-mini-fab style="background-color: #292D26;" (click)="open(video)"><i
                             class="fa-solid fa-video" style="transform: scale(1);"></i></button>
-                    <span style="font-size: 12px;">Vidéos</span>
+                    <span style="font-size: 12px;">+Vidéos</span>
                 </div>
             </button>
 
@@ -244,11 +244,9 @@
             height: 70vh;
         }
 
-        .liens:active,
-        .liens:hover,
-        .liens:focus {
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
             color: #4CAF50;
-
         }
     </style>
 </div>

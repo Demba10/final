@@ -1,7 +1,7 @@
 <main>
-    <div class="container-fluid" *ngIf="dispmiss" >
+    <div class="container-fluid" *ngIf="dispmiss">
         <div class="row">
-            <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
+            <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll;">
                 <div class="brand-wrapper">
                     <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']"
                         routerLinkActive="router-link-active">
@@ -9,10 +9,11 @@
                 <div class="login-wrapper my-auto">
                     <h1 class="login-title">Inscription</h1>
                     <form action="#!">
-                        <div class="d-flex justify-content-between mt-2">
+                        <div class="d-flex justify-content-between mt-2 gap-2" style="flex-wrap: wrap;">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Client"
+                                (click)="switchClient()" style="width: 130px;">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Client" (click)="switchClient()">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Jardinier" (click)="switchJardinier()">
+                                value="Jardinier" (click)="switchJardinier()" style="width: 130px;">
                         </div>
                     </form>
                     <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']"
@@ -25,7 +26,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" *ngIf="isClient">
+
+    <!-- Inscription du client -->
+    <div class="container-fluid" *ngIf="isClient == 1">
         <div class="row">
             <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
                 <div class="brand-wrapper">
@@ -33,7 +36,7 @@
                         routerLinkActive="router-link-active">
                 </div>
                 <div class="login-wrapper my-auto">
-                    <h1 class="login-title">Inscription</h1>
+                    <h1 class="login-title">Inscription client</h1>
                     <form action="#!">
                         <div *ngIf="step == 1" class="etape">
                             <div class="form-group">
@@ -76,14 +79,16 @@
                                 (click)="goStep2()" *ngIf="step == 1">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Précédent" (click)="goStep1()" *ngIf="step == 2">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Inscription"
-                                (click)="validation()" *ngIf="step == 2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
+                                value="Inscription" (click)="validation()" *ngIf="step == 2">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Précédent" (click)="goStep2()" *ngIf="step == 3">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Inscription" (click)="validation()" *ngIf="step == 3">
                         </div>
                     </form>
+                    <p><a routerLinkActive="router-link-active" class="text-reset" (click)="default()"
+                            style="text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Retourner</a></p>
                     <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']"
                             routerLinkActive="router-link-active" class="text-reset">Se connecter</a></p>
                 </div>
@@ -94,7 +99,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" *ngIf="!isClient">
+
+    <!-- Inscription du jardinier -->
+    <div class="container-fluid" *ngIf="isClient == 2">
         <div class="row">
             <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
                 <div class="brand-wrapper">
@@ -102,47 +109,99 @@
                         routerLinkActive="router-link-active">
                 </div>
                 <div class="login-wrapper my-auto">
-                    <h1 class="login-title">Inscription</h1>
+                    <h1 class="login-title">Inscription jardinier</h1>
                     <form action="#!">
                         <div *ngIf="step == 1" class="etape">
                             <div class="form-group">
                                 <label for="email">Prénom</label>
                                 <input type="text" name="prenom" id="prenom" class="form-control"
-                                    placeholder="Entez votre prénom" [(ngModel)]="prenom">
+                                    placeholder="Entez votre prénom" [(ngModel)]="prenom" (input)="testPrenom()"
+                                    [style.border-bottom-color]="colorPrenom">
+                                <span *ngIf="messagePrenom" [style.color]="colorPrenom" style="font-size: 12px;">
+                                    {{messagePrenom}} </span>
+                                <span *ngIf="!messagePrenom" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Nom</label>
                                 <input type="text" name="nom" id="nom" class="form-control"
-                                    placeholder="Entez votre nom" [(ngModel)]="nom">
+                                    placeholder="Entez votre nom" [(ngModel)]="nom" (input)="testNom()"
+                                    [style.border-bottom-color]="colorNom">
+                                <span *ngIf="messageNom" [style.color]="colorNom" style="font-size: 12px;">
+                                    {{messageNom}} </span>
+                                <span *ngIf="!messageNom" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Adresse</label>
                                 <input type="email" name="adresse" id="adresse" class="form-control"
-                                    placeholder="Entez votre adresse" [(ngModel)]="adresse">
+                                    placeholder="Entez votre adresse" [(ngModel)]="adresse"
+                                    [style.border-bottom-color]="colorAdresse" (input)="testAdresse()">
+                                <span *ngIf="messageAdresse" [style.color]="colorAdresse" style="font-size: 12px;">
+                                    {{messageAdresse}} </span>
+                                <span *ngIf="!messageAdresse" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                         </div>
                         <div *ngIf="step == 2" class="etape">
                             <div class="form-group">
                                 <label for="email">Adresse Email</label>
                                 <input type="email" name="email" id="email" class="form-control"
-                                    placeholder="email@example.com" [(ngModel)]="email">
+                                    placeholder="email@example.com" [(ngModel)]="email"
+                                    [style.border-bottom-color]="colorEmail" (input)="testEmail()">
+                                <span *ngIf="messageEmail" [style.color]="colorEmail" style="font-size: 12px;">
+                                    {{messageEmail}} </span>
+                                <span *ngIf="!messageEmail" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Téléphone</label>
                                 <input type="text" name="telephone" id="email" class="form-control"
-                                    placeholder="Entez votre numéro de téléphone" [(ngModel)]="telephone">
+                                    placeholder="Entez votre numéro de téléphone" [(ngModel)]="telephone"
+                                    [style.border-bottom-color]="colorTelephone" (input)="testTelephone()">
+                                <span *ngIf="messageTelephone" [style.color]="colorTelephone" style="font-size: 12px;">
+                                    {{messageTelephone}} </span>
+                                <span *ngIf="!messageTelephone" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password">Mot de passe</label>
                                 <input type="password" name="password" id="password" class="form-control"
-                                    placeholder="Entez votre mot de passe" [(ngModel)]="password">
+                                    placeholder="Entez votre mot de passe" [(ngModel)]="password"
+                                    [style.border-bottom-color]="colorPassword" (input)="testPassword()">
+                                <span *ngIf="messagePassword" [style.color]="colorPassword" style="font-size: 12px;">
+                                    {{messagePassword}} </span>
+                                <span *ngIf="!messagePassword" style="visibility: hidden;">
+                                    hidden </span>
                             </div>
                         </div>
-                        <!-- <div *ngIf="step == 3" class="etape">
-                            <file-upload [control]="fileUploadControl" (change)="getFile($event)" style="width: 100%; height: 100%;"accept="image/*"></file-upload>
-                        </div> -->
                         <div *ngIf="step == 3" class="etape">
-                            <input type="file" (change)="getFile($event)" accept="image/*">
+                            <!-- <input type="file" (change)="getFile($event)" accept="image/*" class="img-input"
+                                [style.border-bottom-color]> -->
+                            <label for="file" class="custum-file-upload">
+                                <div class="icon">
+                                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="text">
+                                    <span *ngIf="!image">Cliquez pour téléverser une image</span>
+                                    <span *ngIf="image">{{image}}</span>
+                                </div>
+                                <input id="file" type="file" (change)="getFile($event)" accept="image/*"
+                                    ngModel="image">
+                            </label>
+                            <span *ngIf="messageImage" [style.color]="colorImage" style="font-size: 12px;">
+                                {{messageImage}} </span>
+                            <span *ngIf="!messageImage" style="visibility: hidden;">
+                                hidden </span>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
@@ -155,16 +214,18 @@
                                 (click)="goStep3()" *ngIf="step == 2">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Précédent" (click)="goStep2()" *ngIf="step == 3">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Inscription" (click)="validation()" *ngIf="step == 3">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Terminé"
+                                (click)="validation()" *ngIf="step == 3">
                         </div>
                     </form>
+                    <p><a routerLinkActive="router-link-active" class="text-reset" (click)="default()"
+                            style="text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Retourner</a></p>
                     <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']"
                             routerLinkActive="router-link-active" class="text-reset">Se connecter</a></p>
                 </div>
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block" style="overflow: hidden;;">
-                <img src="https://img.freepik.com/photos-gratuite/mains-coupant-branche-plante-pot_23-2149391922.jpg?size=626&ext=jpg&ga=GA1.1.735943258.1704851612&semt=sph"
+                <img src="assets/images/login.png"
                     alt="login image" class="login-img">
             </div>
         </div>
@@ -176,10 +237,53 @@
 
 <style>
     .etape {
-        height: 200px;
+        height: 280px;
     }
 
     .login-section-wrapper::-webkit-scrollbar {
         width: 0;
+    }
+</style>
+<style>
+    .custum-file-upload {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        gap: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #e8e8e8;
+        background-color: #212121;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0px 48px 35px -48px #e8e8e8;
+    }
+
+    .custum-file-upload .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .icon svg {
+        height: 80px;
+        fill: #e8e8e8;
+    }
+
+    .custum-file-upload .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .text span {
+        font-weight: 400;
+        color: #e8e8e8;
+    }
+
+    .custum-file-upload input {
+        display: none;
     }
 </style>

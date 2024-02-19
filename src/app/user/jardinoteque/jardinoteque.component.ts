@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
+import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,13 +14,18 @@ import { UsersService } from 'src/app/services/users.service';
 export class JardinotequeComponent implements OnInit {
   jardiniers!: any[];
   jardinier!: any;
+  jar: any;
   jar_id!: any;
   private modalService = inject(NgbModal);
   other!: any[];
   searchTerm: any;
+  sms: any;
+  smsLast: any;
+  mes: any;
   constructor(
     // private jardiniers: JardiniersService,
-    private userService: UsersService
+    private userService: UsersService,
+    private messagerie: MessagerieService
   ) { }
 
   displayedColumns: string[] = ['id', 'image', 'nom', 'lien', 'adresse', 'produits'];
@@ -38,6 +44,35 @@ export class JardinotequeComponent implements OnInit {
     this.modalService.open(content, { size: 'xl', scrollable: true });
     localStorage.setItem('id_jar', (id));
   }
+
+  // Les messages
+  openVerticallyCentered(content: TemplateRef<any>) {
+    // this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { size: 'xl', scrollable: true });
+  }
+  listerMesages(id: any) {
+    this.messagerie.recuperMessageParId(id).subscribe(
+      response => {
+        console.log(response);
+        this.mes = response.message;
+      }
+    )
+  }
+  sendMessage() {
+    const contenue = this.sms;
+    this.messagerie.envyerMessage(this.jar_id, contenue).subscribe(
+      response => {
+        console.log(response);
+        this.smsLast = response.data.contenue
+        this.sms = ''
+      },
+      error => {
+        console.log(error);
+
+      }
+    )
+  }
+  // Fin des messages
   consulterProfil(id: any) {
     this.userService.getProfil(id).subscribe(
       response => {
@@ -52,6 +87,7 @@ export class JardinotequeComponent implements OnInit {
         this.jardiniers = this.jardiniers.filter(ele => ele.is_bloquer == 0);
         this.other = this.jardiniers.filter(ele => ele.is_bloquer == 0);
         console.log(this.jardiniers);
+        this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
 
         // this.jardinier = this.jardiniers.find(ele => ele.id == this.jar_id)
         // console.log(this.jardiniers);

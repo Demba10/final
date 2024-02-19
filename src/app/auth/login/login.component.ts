@@ -14,12 +14,13 @@ export class LoginComponent implements OnInit {
   email!: string;
   password!: string;
   reset: any = false;
-  messagePassword: string = ''
+  messagePassword: string = '';
   messageEmail: string = '';
   colorEmail = '#e7e7e7';
   colorPass = '#e7e7e7';
   type: string = "password";
   controle: boolean = true;
+  mergedUsers: any[] = [];
 
   constructor(
     private user: UsersService,
@@ -29,8 +30,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // this.reset = localStorage.setItem('reset', this.reset);
     this.user.getClients().subscribe();
+    this.merger();
   }
-
+  merger() {
+    this.user.getJardiniers().subscribe(jardiniers => {
+      this.mergedUsers = this.mergedUsers.concat(jardiniers);
+      this.user.getClients().subscribe(clients => {
+        this.mergedUsers = this.mergedUsers.concat(clients).map(ele => ele.email);
+        console.log(this.mergedUsers);
+      });
+    });
+  }
   changeType() {
     this.controle = !this.controle;
     if (this.controle == true) {
@@ -63,10 +73,13 @@ export class LoginComponent implements OnInit {
       this.colorPass = '#e7e7e7';
     }
   }
-
   reseter() {
     // this.reset = localStorage.getItem('reset');
     this.reset = !this.reset;
+    this.messageEmail = '';
+    this.colorEmail = '#e7e7e7';
+    this.messagePassword = '';
+    this.colorPass = '#e7e7e7';
     // this.reset = localStorage.setItem('reset', this.reset);
   }
   alerter() {
