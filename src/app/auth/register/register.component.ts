@@ -60,13 +60,17 @@ export class RegisterComponent implements OnInit {
     this.step = 1;
   }
   testNom() {
+    const valide = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-']*$/;
     if (/^\s/.test(this.nom)) {
       this.colorNom = "rgb(249, 67, 67)";
       this.messageNom = "Le nom ne peut pas commencer par un espace";
+    } else if (!valide.test(this.nom.trim())) {
+      this.colorNom = "#f4a332";
+      this.messageNom = "Format de nom invalide";
     } else if (this.nom.trim().length < 2) {
       this.colorNom = "#f4a332";
       this.messageNom = "Le nom doit comporter au minimum deux caractères";
-    } else if (!(this.nom.trim().length < 2)) {
+    } else {
       this.colorNom = "#4CAF50";
       this.messageNom = "Format valide";
       return true;
@@ -78,14 +82,17 @@ export class RegisterComponent implements OnInit {
     return false;
   }
   testPrenom() {
-    const valide = /^[A-Z][a-zÀ-ÿ]+(?:-[A-Z][a-zÀ-ÿ]+)?$/;
+    const valide = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-']*$/;
     if (/^\s/.test(this.prenom)) {
       this.colorPrenom = "rgb(249, 67, 67)";
       this.messagePrenom = "Le prénom ne peut pas commencer par un espace";
+    } else if (!valide.test(this.prenom.trim())) {
+      this.colorPrenom = "#f4a332";
+      this.messagePrenom = "Format de prénom invalide";
     } else if (this.prenom.trim().length < 2) {
       this.colorPrenom = "#f4a332";
       this.messagePrenom = "Le prénom doit comporter au minimum deux caractères";
-    } else if (!(this.prenom.trim().length < 2)) {
+    } else {
       this.colorPrenom = "#4CAF50";
       this.messagePrenom = "Format valide";
       return true;

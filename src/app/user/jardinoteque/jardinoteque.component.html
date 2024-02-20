@@ -13,7 +13,7 @@
         <div *ngFor="let item of jardiniers" class="col-3 " style="position: relative; top: 20px;">
             <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;"
                 (click)="openXl(content, item.id)" (click)="consulterProfil(item.id)">
-                <img mat-card-image src="http://127.0.0.1:8000/storage/{{item.image}}" alt="Photo of a Shiba Inu">
+                <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu">
                 <mat-card-content>
                     <h6 class="mt-3"> {{item.prenom}} {{item.nom}}</h6>
                 </mat-card-content>
@@ -50,26 +50,32 @@
 <!-- Message -->
 <ng-template #message let-modal style="height: 90vh;">
     <div class="modal-header border border-bottom-0">
-        <div>
-            <span class="user-sms">
-                <img src="http://127.0.0.1:8000/storage/{{jar?.image}}" alt="">
+        <div class="d-flex gap-2 align-items-center">
+            <span class="user-sms"
+                style="height: 40px; width: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 50%; align-items: center;">
+                <img src="http://127.0.0.1:8000/api/{{jar?.image}}" alt="" style="width: 100%;">
             </span>
-            <span> {{jar.prenom}} {{jar.nom}} </span>
+            <span style="font-weight: 500;"> {{jar.prenom}} {{jar.nom}} </span>
+        </div>
+        <i class="fa-solid fa-xmark" (click)="modal.close('Close click')"
+            style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
+    </div>
+    <div class="corps-message modal-body" style="height: 80vh; background-color: #292d261d;">
+        <div class="glob-sms" *ngFor="let m of mes">
+            <div class="mySms">
+                <p> {{m.contenue}} </p>
+            </div>
         </div>
     </div>
-    <div class="modal-body">
-        <p *ngFor="let m of mes"> {{m.contenue}} </p>
-        <p *ngIf="smsLast" style="font-size: 13px;"> {{smsLast}} </p>
-        <form action="">
+    <div class="modal-footer border border-top-0">
+        <form action="" class="w-100">
             <div class="barre-sms">
                 <input name="message" class="message" placeholder="Tapez votre message" id="" [(ngModel)]="sms"
                     style="width: 100%;" [(ngModel)]="sms">
-                <i class="fa-solid fa-paper-plane" style="cursor: pointer; color: #4CAF50;" (click)="sendMessage()"></i>
+                <button style="border: none; font-size: 13px; color: #4CAF50;" (click)="sendMessage()">Envoyer</button>
+                <!-- <i class="fa-solid fa-paper-plane" style="cursor: pointer; color: #4CAF50;"></i> -->
             </div>
         </form>
-    </div>
-    <div class="modal-footer border border-top-0">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
     </div>
 </ng-template>
 <!-- Fin message -->
@@ -81,16 +87,47 @@
 
     .barre-sms {
         border-bottom: 1px solid rgba(0, 0, 0, 0.275);
+        /* border-top: 1px solid rgba(0, 0, 0, 0.275); */
         background-color: white;
         display: flex;
         padding: 10px 0;
         gap: 4px;
     }
 
+    .corps-message::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+        background-color: #4CAF50;
+        /* padding: 0 2px; */
+        /* border-radius: 10px; */
+    }
+
+    .corps-message::-webkit-scrollbar {
+        width: 0px;
+        border-radius: 0px;
+    }
+
     .message {
         outline: 0;
         border: 0;
         font-size: 13px;
-        padding: 4px;
+        padding: 2px;
+    }
+
+    .glob-sms {
+        display: flex;
+        justify-content: end;
+    }
+
+    .mySms {
+        display: flex;
+        justify-content: flex-end;
+        /* border: 1px solid black; */
+        border-radius: 6px;
+        width: max-content;
+        max-width: 50%;
+        padding: 8px;
+        margin: 8px 0;
+        background-color: #abfeae;
+        font-size: 13px;
     }
 </style>

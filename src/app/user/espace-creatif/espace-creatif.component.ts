@@ -102,7 +102,8 @@ export class EspaceCreatifComponent implements OnInit {
     this.categorieService.getCategories().subscribe(
       response => {
         this.cat = response;
-        this.cat = this.cat.categories;
+        this.cat = this.cat;
+        console.log(this.cat);
       }
     );
   }

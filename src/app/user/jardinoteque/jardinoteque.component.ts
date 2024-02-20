@@ -22,6 +22,7 @@ export class JardinotequeComponent implements OnInit {
   sms: any;
   smsLast: any;
   mes: any;
+  userOnline: any;
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
@@ -39,10 +40,12 @@ export class JardinotequeComponent implements OnInit {
     });
     this.listerJardiniers();
     this.jar_id = localStorage.getItem('id_jar');
+    this.userOnline = localStorage.getItem('userOnline');
   }
   openXl(content: TemplateRef<any>, id: any) {
     this.modalService.open(content, { size: 'xl', scrollable: true });
-    localStorage.setItem('id_jar', (id));
+    // localStorage.setItem('id_jar', (id));
+    this.jar_id = localStorage.getItem('id_jar');
   }
 
   // Les messages
@@ -64,7 +67,8 @@ export class JardinotequeComponent implements OnInit {
       response => {
         console.log(response);
         this.smsLast = response.data.contenue
-        this.sms = ''
+        this.sms = '';
+        this.listerMesages(this.jar_id);
       },
       error => {
         console.log(error);
