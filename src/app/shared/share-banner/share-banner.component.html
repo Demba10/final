@@ -1,16 +1,20 @@
 <section class="banner">
-    <h3 class="titre" style="font-size: 42px;">
+    <h3 class="titre" style="">
         {{position | uppercase}}
     </h3>
     <span class="chemin">
-        <span style="cursor: pointer;" [routerLink]="['/../..']" routerLinkActive="router-link-active" >Accueil</span> <i class="fa-sharp fa-solid fa-play" style="font-size: 12px; margin: 0 12px;"></i> <span style="color: #4CAF50;">{{position | titlecase}}</span>
+        <span style="cursor: pointer;" [routerLink]="['/../..']" routerLinkActive="router-link-active">Accueil</span> <i
+            class="fa-sharp fa-solid fa-play" style="font-size: 12px; margin: 0 12px;"></i> <span
+            style="color: #4CAF50;">{{position | titlecase}}</span>
     </span>
 </section>
 <style>
     .titre {
         text-transform: uppercase;
         font-weight: 700;
+        font-size: 42px;
     }
+
     .banner {
         color: white;
         background-image: url('assets/images/banner/banner-2.svg');
@@ -24,6 +28,17 @@
         justify-content: center;
         align-items: center;
     }
+
+    @media screen and (max-width: 575.98px) {
+        .titre {
+            font-size: 32px;
+        }
+
+        .banner {
+            height: 180px;
+        }
+    }
+
     /* .router-link-active {
         color: gold;
     } */

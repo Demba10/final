@@ -7,6 +7,19 @@
     border: 0;
     background-color: white;
     left: calc(10%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-pills {
+    --bs-nav-link-color: var(--bs-white);
+    --bs-nav-pills-link-active-color: var(--bs-primary);
+    --bs-nav-pills-link-active-bg: var(--bs-white);
+    background-color: #4CAF50 !important;
+    position: fixed;
+    width: calc(80% - 106px);
+    z-index: 888;
 }
 
 .example-card {
@@ -72,6 +85,22 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 40px 10% 40px calc(10% + 106px);
+}
+
+@media screen and (max-width: 767.98px) {
+    .boutique {}
+
+    .side {
+        display: none;
+    }
+
+    .nav-pills {
+        width: 94%;
+    }
+
+    .boutique {
+        padding: 40px 3%;
+    }
 }
 
 .jardiniers-box img {

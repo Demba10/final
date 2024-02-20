@@ -33,7 +33,8 @@
             </ng-template>
         </div>
         <div class="burger">
-            <img src="assets/images/hamburger.png" alt="" (click)="adapter()">
+            <i class="fa fa-light fa-bars" style="font-size: 30px;" (click)="openEnd(responsive)"></i>
+            <!-- <img src="assets/images/hamburger.png" alt="" (click)="openEnd(responsive)"> -->
         </div>
     </div>
 
@@ -49,11 +50,34 @@
             <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
         </div>
     </ng-template>
-    <div class="responsive" id="responsive">
-        <div class="middle middle-2">
-            <div class="collapse navbar-collapse" id="navbarColapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0 flex-column">
-                    <li class="nav-item text-black" *ngFor="let item of sidebar_data">
+    <ng-template #responsive let-offcanvas>
+        <div class="offcanvas-body">
+            <div class="d-flex justify-content-between">
+                <div class="dropdown">
+                    <input id="toggle2" type="checkbox">
+                    <label for="" class="" *ngIf="!userOnLine" routerLink="/auth"
+                        (click)="offcanvas.close('Close click')">Se
+                        connecter</label>
+                    <label for="toggle2" class="animate" *ngIf="userOnLine">{{userOnLine.prenom}} {{userOnLine.nom}}<i
+                            class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i></label>
+                    <ul class="animate" style="padding: 0;">
+                        <li class="animate" (click)="openXl(content)" (click)="offcanvas.close('Close click')">Profil<i
+                                class="fa fa-solid fa-user float-right"></i></li>
+                        <li class="animate" (click)="redirectToEspace()" *ngIf="userOnLine.role_id == 2"
+                            (click)="offcanvas.close('Close click')">Espace
+                            créatif<i class="fa fa-solid fa-laptop float-right"></i></li>
+                        <li class="animate" (click)="deconnexon()" (click)="offcanvas.close('Close click')">
+                            Deconnexion<i class="fa fa-solid fa-right-from-bracket float-right"></i></li>
+                    </ul>
+                </div>
+                <i class="fa-solid fa-xmark" (click)="offcanvas.close('Close click')"
+                    style="font-size: 34px; cursor: pointer;"></i>
+            </div>
+            <!-- navbar-nav me-auto mb-2 mb-md-0 flex-column -->
+            <div style="text-align: center;">
+                <ul class="" style="list-style-type: none;  position: relative; top: 30px; padding: 0;">
+                    <li class="nav-item text-black mb-4" *ngFor="let item of sidebar_data"
+                        (click)="offcanvas.close('Close click')">
                         <a class="nav-link" [routerLink]="item.lien" routerLinkActive="active"
                             [style.color]="item.isActive" (click)="changeColor(item.id)">
                             {{item.title}}
@@ -62,29 +86,7 @@
                 </ul>
             </div>
         </div>
-        <div class="header-cta-2 header-cta">
-            <button mat-raised-button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"
-                *ngIf="!userOnLine"><i class="fa-regular fa-user"></i></button>
-            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine"
-                style="font-size: 16px;font-weight: bold;" (click)="derouler()">{{userOnLine.prenom}} {{userOnLine.nom}}
-                &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;"
-                    style="transform: rotate(180deg);"></i></button>
-            <ng-template #menu>
-                <div class="example-menu" cdkMenu *ngIf="!userOnLine">
-                    <button class="example-menu-item" cdkMenuItem routerLink="/auth">Se connecter</button>
-                </div>
-                <div class="example-menu" cdkMenu *ngIf="userOnLine">
-                    <button class="example-menu-item" cdkMenuItem (click)="openXl(content)">Profil</button>
-                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()"
-                        *ngIf="userOnLine.role_id == 2">Espace créatif</button>
-                    <button class="example-menu-item" cdkMenuItem (click)="deconnexon()">Déconnexion</button>
-                </div>
-            </ng-template>
-        </div>
-        <div class="close" (click)="adapter2()">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-    </div>
+    </ng-template>
 </nav>
 <style>
 

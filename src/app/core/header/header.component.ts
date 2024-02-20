@@ -1,7 +1,7 @@
 import { Token } from '@angular/compiler';
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { LinkDataService } from 'src/app/services/lien/link-data.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   userOnLine!: any;
   change: boolean = false;
   private modalService = inject(NgbModal);
+  private offcanvasService = inject(NgbOffcanvas);
 
   constructor(
     private link_data: LinkDataService,
@@ -76,5 +77,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/auth']);
     localStorage.removeItem('userOnline');
     localStorage.removeItem('token');
+  }
+  openEnd(content: TemplateRef<any>) {
+    this.offcanvasService.open(content, { position: 'end' });
   }
 }

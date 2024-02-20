@@ -33,9 +33,11 @@ export class EspaceCreatifComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
-  categories_id: any = 2;
+  categories_id: any = 1;
   prod!: any[];
   option: any = 1;
+  ajouter: any;
+  modifier: any;
   categories!: any[];
   userOnLine: any;
   cat: any;
@@ -66,6 +68,13 @@ export class EspaceCreatifComponent implements OnInit {
   }
   open(content: any) {
     this.modalService.open(content);
+    this.ajouter = true;
+    this.modifier = false;
+  }
+  open2(content: any) {
+    this.modalService.open(content);
+    this.ajouter = false;
+    this.modifier = true;
   }
   openLg(content: TemplateRef<any>) {
     this.modalService.open(content, { centered: true, size: 'lg' });

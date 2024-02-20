@@ -32,6 +32,9 @@ import { DetailsJardinierComponent } from './details-jardinier/details-jardinier
 import { ProfilComponent } from '../profil/profil.component';
 import { TalkjsComponent } from './talkjs/talkjs.component';
 import { ChatComponent } from './chat/chat.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -67,10 +70,13 @@ import { ChatComponent } from './chat/chat.component';
     MatInputModule,
     EditorModule,
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
-    FileUploadModule
+    FileUploadModule,
+    NgbDropdown
   ]
 })
 export class UserModule { }

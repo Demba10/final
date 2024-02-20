@@ -7,17 +7,29 @@ body {
     overflow-x: hidden;
 }
 
-// body::-webkit-scrollbar-thumb {
-//     background-color: #ffffff;
-//     background-color: #4CAF50;
-//     padding: 0 2px;
-//     // border-radius: 10px;
-// }
-// body::-webkit-scrollbar {
-//     width: 10px;
-//     // border-radius: 10px;
-//     background-color: #292D26;
-// }
+@media screen and (max-width: 768px) {
+    body::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+        // background-color: #4CAF50;
+        padding: 0 2px;
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar {
+        // border-radius: 10px;
+        // background-color: #292D26;
+    }
+
+    body {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 
 html,
 body {
@@ -160,4 +172,39 @@ main {
 .btn-close:visited,
 .btn-close::after {
     box-shadow: none;
+}
+
+
+// .text-titre,
+.nom-user {
+    display: inline-block;
+    width: 99%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Titre de page 
+
+.titre-truc {
+    // border: 2px solid black;
+}
+
+@media screen and (max-width: 575.98px) {
+    .jardinier {
+        padding: 20px 3%;
+    }
+
+    .titre-input {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 10px;
+
+        .titre-truc {}
+
+        .input {
+            width: 100%;
+        }
+    }
 }

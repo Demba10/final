@@ -1,5 +1,27 @@
 <app-header></app-header>
 <div class="main container-fluid p-0">
     <router-outlet></router-outlet>
+    <button mat-mini-fab class="chat"><i class="fa-solid fa-message"></i></button>
     <!-- <app-footer></app-footer> -->
 </div>
+
+<style>
+    .chat {
+        position: fixed;
+        top: 93vh;
+        z-index: 888;
+        left: calc(100vw - 50px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4CAF50;
+
+        i {
+            /* font-size: 50px; */
+            color: #ffffff;
+            position: relative;
+            top: 1px;
+        }
+    }
+</style>

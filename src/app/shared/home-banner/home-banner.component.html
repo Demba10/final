@@ -2,6 +2,7 @@
     <div class="banner-content">
         <span class="sus-titre">Jardinons Ensemble!</span>
         <h4 class="titre"><span class="two-first">Fl</span>orsen <br> Jardinez, Partagez, Grandissez!</h4>
+        <!-- <app-titre class="text-center me-2" sus_titre="Jardinons Ensemble!" titre="Florsen Jardinez, Partagez, Grandissez!"></app-titre> -->
         <div class="button-section">
             <!-- <app-button-one title="Click me" size="small"></app-button-one> -->
         </div>
@@ -28,6 +29,17 @@
         font-size: 48px;
         color: white;
         font-weight: bold;
+    }
+
+    @media screen and (max-width: 575.98px) {
+        .banner {
+            background-image: none;
+            background-color: #292D26;
+        }
+
+        .titre {
+            line-height: 1.6;
+        }
     }
 
     .banner-content {
