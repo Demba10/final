@@ -27,11 +27,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AddAstuceComponent } from './add-astuce/add-astuce.component';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CatgoriesComponent } from '../shared/catgories/catgories.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     NgbPaginationModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }

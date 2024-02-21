@@ -4,9 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProduitsService } from 'src/app/services/produits.service';
-import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details-jardinier',

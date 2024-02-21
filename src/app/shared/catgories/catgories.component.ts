@@ -35,7 +35,7 @@ export class CatgoriesComponent implements OnInit {
     private sharedService: SharedService
   ) { }
   ngOnInit(): void {
-    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '[]');
     this.listerCategories();
   }
   applyFilter(event: Event) {

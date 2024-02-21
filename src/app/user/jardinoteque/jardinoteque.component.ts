@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { interval } from 'rxjs';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -21,8 +22,10 @@ export class JardinotequeComponent implements OnInit {
   searchTerm: any;
   sms: any;
   smsLast: any;
-  mes: any;
+  mes!: any[];
   userOnline: any;
+  currentId: any;
+  websocket: boolean = false;
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
@@ -40,12 +43,14 @@ export class JardinotequeComponent implements OnInit {
     });
     this.listerJardiniers();
     this.jar_id = localStorage.getItem('id_jar');
-    this.userOnline = localStorage.getItem('userOnline');
+    this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
+    this.currentId = this.userOnline.id;
   }
   openXl(content: TemplateRef<any>, id: any) {
     this.modalService.open(content, { size: 'xl', scrollable: true });
-    // localStorage.setItem('id_jar', (id));
+    localStorage.setItem('id_jar', (id));
     this.jar_id = localStorage.getItem('id_jar');
+    this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
   }
 
   // Les messages
@@ -56,8 +61,11 @@ export class JardinotequeComponent implements OnInit {
   listerMesages(id: any) {
     this.messagerie.recuperMessageParId(id).subscribe(
       response => {
-        console.log(response);
         this.mes = response.message;
+        this.mes = this.mes.filter(ele => (ele.envoyeur_id == this.jar_id || ele.receveur_id == this.jar_id));
+        // this.mes = this.mes.filter(ele => ele.envoyeur_id !== ele.receveur_id);
+        this.websocket = true;
+        console.log(this.mes);
       }
     )
   }
@@ -68,11 +76,10 @@ export class JardinotequeComponent implements OnInit {
         console.log(response);
         this.smsLast = response.data.contenue
         this.sms = '';
-        this.listerMesages(this.jar_id);
+        this.listerMesages(this.userOnline.id);
       },
       error => {
         console.log(error);
-
       }
     )
   }
@@ -81,6 +88,7 @@ export class JardinotequeComponent implements OnInit {
     this.userService.getProfil(id).subscribe(
       response => {
         // console.log(response);
+        // this.jar_id = localStorage.setItem('id_jar', id);
       }
     )
   }
@@ -91,7 +99,7 @@ export class JardinotequeComponent implements OnInit {
         this.jardiniers = this.jardiniers.filter(ele => ele.is_bloquer == 0);
         this.other = this.jardiniers.filter(ele => ele.is_bloquer == 0);
         console.log(this.jardiniers);
-        this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
+        // this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
 
         // this.jardinier = this.jardiniers.find(ele => ele.id == this.jar_id)
         // console.log(this.jardiniers);

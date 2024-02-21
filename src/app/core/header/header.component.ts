@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '[]');
   }
 
   adapter() {

@@ -35,6 +35,7 @@ import { ChatComponent } from './chat/chat.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
     MatInputModule,
     ReactiveFormsModule,
     FileUploadModule,
-    NgbDropdown
+    NgbDropdown,
+    HttpClientModule
   ]
 })
 export class UserModule { }

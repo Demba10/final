@@ -16,6 +16,7 @@ import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { AdminModule } from './admin/admin.module';
 
 
 registerLocaleData(fr);
@@ -24,7 +25,6 @@ registerLocaleData(fr);
 @NgModule({
   declarations: [
     AppComponent,
-    // ProfilComponent
   ],
   imports: [
     BrowserModule,

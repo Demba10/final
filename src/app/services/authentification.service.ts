@@ -20,7 +20,7 @@ export class AuthentificationService implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
+    this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '[]');
   }
 
   connexion(email: string, password: string) {

@@ -3,14 +3,15 @@
 <!-- <button mat-raised-btn style="background-color: aqua;">Ajouter</button> -->
 <section class="jardinier">
     <div class="titre-input mb-2">
-        <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="titre-truc" color_one="#4CAF50"
-            color_two="#292D26" id="article"></app-titre>
+        <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="titre-truc"
+            color_one="#4CAF50" color_two="#292D26" id="article"></app-titre>
         <input type="text" class="mb-3 input"
             style=" border: 0; border-bottom: 2px solid #292d2651; outline: 0; text-transform: italic;"
             placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
     </div>
     <div class="jardiniers-box row">
-        <div *ngFor="let item of jardiniers" class="col-sm-6 col-6 col-md-6 col-lg-4" style="position: relative; top: 20px;">
+        <div *ngFor="let item of jardiniers" class="col-sm-6 col-6 col-md-6 col-lg-4"
+            style="position: relative; top: 20px;">
             <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;"
                 (click)="openXl(content, item.id)" (click)="consulterProfil(item.id)">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu">
@@ -30,20 +31,27 @@
 <!-- Details -->
 <ng-template #content let-modal>
     <div class="modal-header border border-bottom-0">
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <div class="d-flex gap-2 align-items-center">
+            <span class="user-sms"
+                style="height: 40px; width: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 50%; align-items: center;">
+                <img src="http://127.0.0.1:8000/api/{{jar?.image}}" alt="" style="width: 100%;">
+            </span>
+            <span style="font-weight: 600; font-size: 18px;"> {{jar.prenom}} {{jar.nom}} </span>
+        </div>
+        <i class="fa-solid fa-xmark" (click)="modal.close('Close click')"
+            style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
     </div>
     <div class="modal-body">
         <app-details-jardinier></app-details-jardinier>
     </div>
+    <div class="jard">
+        <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
+        <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
+        <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
+        <a mat-raised-button (click)="openVerticallyCentered(message)" (click)="listerMesages(userOnline.id)"><i
+                class="fa-solid fa-comment"></i></a>
+    </div>
     <div class="modal-footer">
-        <div class="jard">
-            <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
-            <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
-            <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
-            <a mat-raised-button (click)="openVerticallyCentered(message)" (click)="listerMesages(jar_id)"><i
-                    class="fa-solid fa-comment"></i></a>
-        </div>
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
     </div>
 </ng-template>
 
@@ -62,7 +70,10 @@
     </div>
     <div class="corps-message modal-body" style="height: 80vh; background-color: #292d261d;">
         <div class="glob-sms" *ngFor="let m of mes">
-            <div class="mySms">
+            <div class="hisSms" *ngIf="m.receveur_id == userOnline.id">
+                <p> {{m.contenue}} </p>
+            </div>
+            <div class="mySms" *ngIf="m.receveur_id == jar_id">
                 <p> {{m.contenue}} </p>
             </div>
         </div>
@@ -114,19 +125,29 @@
 
     .glob-sms {
         display: flex;
-        justify-content: end;
+        flex-direction: column;
+        /* justify-content: end; */
+    }
+
+    .hisSms {
+        text-align: left;
+        border-radius: 6px;
+        width: max-content;
+        max-width: 90%;
+        padding: 8px;
+        margin: 8px 0;
+        background-color: #ffffff;
+        font-size: 13px;
     }
 
     .mySms {
-        display: flex;
-        justify-content: flex-end;
-        /* border: 1px solid black; */
         border-radius: 6px;
         width: max-content;
-        max-width: 50%;
+        max-width: 90%;
         padding: 8px;
         margin: 8px 0;
         background-color: #abfeae;
         font-size: 13px;
+        align-self: flex-end;
     }
 </style>
