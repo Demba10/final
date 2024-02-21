@@ -9,7 +9,6 @@ import { ApiService } from './api.service';
 export class MessagerieService {
 
   private apiUrl = this.url.getApi();
-  websocket!: WebSocket;
 
   constructor(
     private url: ApiService,

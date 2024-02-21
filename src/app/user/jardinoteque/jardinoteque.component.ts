@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,7 @@ export class JardinotequeComponent implements OnInit {
   userOnline: any;
   currentId: any;
   websocket: boolean = false;
+  intervalId: any;
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
@@ -46,6 +47,7 @@ export class JardinotequeComponent implements OnInit {
     this.userOnline = JSON.parse(localStorage.getItem('userOnline') || '[]');
     this.currentId = this.userOnline.id;
   }
+
   openXl(content: TemplateRef<any>, id: any) {
     this.modalService.open(content, { size: 'xl', scrollable: true });
     localStorage.setItem('id_jar', (id));
@@ -63,7 +65,6 @@ export class JardinotequeComponent implements OnInit {
       response => {
         this.mes = response.message;
         this.mes = this.mes.filter(ele => (ele.envoyeur_id == this.jar_id || ele.receveur_id == this.jar_id));
-        // this.mes = this.mes.filter(ele => ele.envoyeur_id !== ele.receveur_id);
         this.websocket = true;
         console.log(this.mes);
       }
