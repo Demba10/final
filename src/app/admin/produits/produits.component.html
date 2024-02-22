@@ -12,8 +12,9 @@
     <div class="jardiniers-box row">
         <div class="col-12">
             <div class="row">
-                <div style="height: 40vh; display: flex; align-items: center; justify-content: center;">
-                    <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span>
+                <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+                    *ngIf="prod.length == 0">
+                    <span class="text-center">Pas de produit pour le moment</span>
                 </div>
                 <div class="col-3" *ngFor="let item of pagedItems">
                     <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
@@ -86,30 +87,10 @@
             </div>
         </div>
     </div>
-    <!-- pagination -->
-    <div class="d-flex justify-content-center" *ngIf="prod.length">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle value="bold">Précédent</mat-button-toggle>
-            <mat-button-toggle value="italic">1</mat-button-toggle>
-            <mat-button-toggle value="underline">Suivant</mat-button-toggle>
-        </mat-button-toggle-group>
-        <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                <a (click)="setPage(1)">Premier</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                <a (click)="setPage(pager.currentPage - 1)">Précedent</a>
-            </li>
-            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="setPage(page)">{{page}}</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                <a (click)="setPage(pager.currentPage + 1)">Suivant</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                <a (click)="setPage(pager.totalPages)">Dernier</a>
-            </li>
-        </ul> -->
+    <!-- Pagination -->
+    <div style="margin-top: 40px; display: flex; justify-content: center;">
+        <app-pagination-admin [totalItems]="prod.length" [itemsPerPage]="10" (pageChange)="onPageChange($event)">
+        </app-pagination-admin>
     </div>
     <!-- Ajout categories -->
     <ng-template #co let-modal style="max-height: 90vh;">

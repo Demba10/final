@@ -141,7 +141,7 @@ export class EspaceCreatifComponent implements OnInit {
 
     this.produitService.createproduit(newProduit).subscribe(
       response => {
-        this.sharedService.alert('Succes', response.message, 'success');
+        // this.sharedService.alert('Succes', response.message, 'success');
         this.lister();
         // console.log(response);
         this.vider();
@@ -179,7 +179,7 @@ export class EspaceCreatifComponent implements OnInit {
   modifierProduit(id: any) {
     this.option = 2;
     const newProduit = new FormData();
-    newProduit.append('image', this.image as Blob);
+    newProduit.append('image', this.image ? this.image : this.description.image as Blob);
     newProduit.append('nom', this.nom);
     newProduit.append('description', this.description);
     newProduit.append('categories_id', this.categories_id);

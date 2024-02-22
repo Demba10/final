@@ -5,23 +5,22 @@
             <input type="text" class="mb-0"
                 style="border: 0; border-bottom: 2px solid #3535357f; background-color: #F9F9F9; outline: 0; text-transform: italic; color: #353535;"
                 placeholder="Filtrer" name="searchTerm">
-            <button mat-raised-button style="background-color: #4CAF50; color: white;" class="btn"
-                (click)="open(first)">Ajouter</button>
+            <button mat-raised-button style="background-color: #4CAF50; color: white;" class="btn" (click)="open(first)"
+                (click)="actionner1()">Ajouter</button>
         </div>
     </div>
     <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
         *ngIf="pagedItems.length == 0">
         <span class="text-center" style="">Pas d' astuces pour le moment</span>
     </div>
-    <div class="all col-2 pb-4" *ngFor="let item of pagedItems">
+    <div class="all col-3 col-lg-3 col-md-3 pb-4" *ngFor="let item of paginatedProduits">
         <mat-card class="example-card">
-            <div
-                style="width: 100%; height: 80px; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
+            <div style="width: 100%; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu"
                     style="width: 100%; cursor: pointer;" (click)="openLg(detail)" (click)="detailArticle(item.id)">
             </div>
             <mat-card-content class="pt-2">
-                <span class="text-titre" style="font-size: 13px;">{{item.titre}}</span>
+                <span class="text-titre" style="font-size: 16px;">{{item.titre}}</span>
             </mat-card-content>
             <mat-card-actions class="d-flex justify-content-between">
                 <button mat-button style="background-color: #ffffff; color: rgb(0, 0, 0); font-size: 0.6em; padding: 0;"
@@ -35,11 +34,11 @@
         </mat-card>
     </div>
 </section>
-
 <!-- Ajout article -->
 <ng-template #first let-modal>
     <div class="modal-header border border-bottom-0">
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <i class="fa-solid fa-xmark" (click)="modal.close('Close click')" (click)="viderChapms()"
+            style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
     </div>
     <div class="modal-body">
         <div class="form">
@@ -54,8 +53,8 @@
                 style="width: 100%; border-radius: 6px; padding: 10px; margin-top: 10px; outline: 0; border: 1px solid #757575;"></textarea>
             <div class="d-flex gap-2 justify-content-end">
                 <button mat-raised-button color="link" class="mt-2">Annuler</button>
-                <button mat-raised-button color="primary" class="mt-2"
-                    (click)="openFullscreen(content)">Suivant</button>
+                <button mat-raised-button color="primary" class="mt-2" (click)="openFullscreen(content)"
+                    (click)="modal.dismiss('Cross click')">Suivant</button>
             </div>
         </div>
     </div>
@@ -74,9 +73,10 @@
     </div>
     <div class="modal-footer">
         <button mat-raised-button (click)="modal.close('Close click')" style="background-color: #4CAF50; color: white;"
-            (click)="modifierArticle()">Modifier</button>
+            (click)="modifierArticle()" *ngIf="etat == 2">Modifier</button>
         <button mat-raised-button (click)="ajouterArticle()" (click)="modal.close('Close click')"
-            style="background-color: #4CAF50; color: white;" (click)="modal.close('Save click')">Publié</button>
+            style="background-color: #4CAF50; color: white;" (click)="modal.close('Save click')"
+            *ngIf="etat == 1">Publié</button>
     </div>
 </ng-template>
 <!-- Details articles -->
@@ -95,7 +95,8 @@
                 <span>Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
             </div>
             <span class="cta-details d-flex gap-3">
-                <button mat-flat-button color="warn" (click)="openFullscreen(content)">Modifier</button>
+                <button mat-flat-button color="warn" (click)="openFullscreen(first)"
+                    (click)="actionner2()">Modifier</button>
                 <button mat-flat-button color="accent" (click)="supprimerArticle(details.id)"
                     (click)="detail.close('Close click')">Supprimer</button>
             </span>
@@ -120,33 +121,12 @@
         <button type="button" class="btn btn-secondary" (click)="detail.close('Close click')">Fermer</button>
     </div>
 </ng-template>
-<!-- pagination -->
-<div class="d-flex justify-content-center" *ngIf="pagedItems.length">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle value="bold">Précédent</mat-button-toggle>
-        <mat-button-toggle value="italic">1</mat-button-toggle>
-        <mat-button-toggle value="underline">Suivant</mat-button-toggle>
-    </mat-button-toggle-group>
-
-    <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">Premier</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Précedent</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Suivant</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Dernier</a>
-        </li>
-    </ul> -->
+<!-- Pagination -->
+<div style="margin-top: 40px; display: flex; justify-content: center;">
+    <app-pagination-admin [totalItems]="articleSliste.length" [itemsPerPage]="itemsPerPage"
+        (pageChange)="onPageChange($event)">
+    </app-pagination-admin>
 </div>
-<!-- </section> -->
 <style>
     .cta-details button {
         font-size: 13px;

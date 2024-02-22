@@ -174,4 +174,8 @@ export class ProduitsComponent {
         this.pagedItems = this.saveProd.filter(
             ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
     }
+    
+    onPageChange(pageNumber: number): void {
+        console.log('Page changed to: ', pageNumber);
+    }
 }

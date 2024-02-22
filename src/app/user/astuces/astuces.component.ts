@@ -165,4 +165,12 @@ export class AstucesComponent implements OnInit {
   openEnd(content: TemplateRef<any>) {
     this.offcanvasService.open(content, { position: 'end' });
   }
+
+  // La pagination 
+  totalItems = 100; 
+  itemsPerPage = 10;
+
+  onPageChange(pageNumber: number): void {
+    console.log('Page changed to: ', pageNumber);
+  }
 }

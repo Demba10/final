@@ -61,13 +61,20 @@ export class RegisterComponent implements OnInit {
   }
   testNom() {
     const valide = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-']*$/;
+    // const sansChiffres = /^\D*$/;
+
     if (/^\s/.test(this.nom)) {
       this.colorNom = "rgb(249, 67, 67)";
-      this.messageNom = "Le nom ne peut pas commencer par un espace";
+      this.messageNom = "Le nom ne peut pas commencer par un espace.";
     } else if (!valide.test(this.nom.trim())) {
-      this.colorNom = "#f4a332";
-      this.messageNom = "Format de nom invalide";
-    } else if (this.nom.trim().length < 2) {
+      this.colorNom = "rgb(249, 67, 67)";
+      this.messageNom = "Format invalide!";
+    }
+    // else if (!sansChiffres.test(this.nom.trim())) {
+    //   this.colorNom = "#f4a332";
+    //   this.messageNom = "Le nom ne peut pas comporter de chiffres";
+    // }
+    else if (this.nom.trim().length < 2) {
       this.colorNom = "#f4a332";
       this.messageNom = "Le nom doit comporter au minimum deux caractères";
     } else {
@@ -81,20 +88,28 @@ export class RegisterComponent implements OnInit {
     }
     return false;
   }
+
   testPrenom() {
     const valide = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-']*$/;
+    const sansChiffres = /^\D*$/;
+
     if (/^\s/.test(this.prenom)) {
       this.colorPrenom = "rgb(249, 67, 67)";
       this.messagePrenom = "Le prénom ne peut pas commencer par un espace";
     } else if (!valide.test(this.prenom.trim())) {
+      this.colorPrenom = "rgb(249, 67, 67)";
+      this.messagePrenom = "Format invalide!";
+    }
+    // else if (!sansChiffres.test(this.prenom.trim())) {
+    //   this.colorPrenom = "#f4a332";
+    //   this.messagePrenom = "Le prénom ne doit pas comporter de chiffres";
+    // }
+    else if (this.prenom.trim().length < 2) {
       this.colorPrenom = "#f4a332";
-      this.messagePrenom = "Format de prénom invalide";
-    } else if (this.prenom.trim().length < 2) {
-      this.colorPrenom = "#f4a332";
-      this.messagePrenom = "Le prénom doit comporter au minimum deux caractères";
+      this.messagePrenom = "Le prénom doit comporter au minimum deux caractères.";
     } else {
       this.colorPrenom = "#4CAF50";
-      this.messagePrenom = "Format valide";
+      this.messagePrenom = "Format valide!";
       return true;
     }
     if (this.prenom == '') {
@@ -103,16 +118,20 @@ export class RegisterComponent implements OnInit {
     }
     return false;
   }
+
   testAdresse() {
     if (/^\s/.test(this.adresse)) {
       this.colorAdresse = "rgb(249, 67, 67)";
-      this.messageAdresse = "Adresse ne peut pas commencer par un espace";
+      this.messageAdresse = "L'adresse ne peut pas commencer par un espace";
+    } else if (/^\d/.test(this.adresse)) {
+      this.colorAdresse = "rgb(249, 67, 67)";
+      this.messageAdresse = "L'adresse ne peut pas commencer par un chiffre";
     } else if (this.adresse.trim().length < 2) {
       this.colorAdresse = "#f4a332";
-      this.messageAdresse = "Au minimum deux caractères pour adresse";
-    } else if (!(this.adresse.trim().length < 2)) {
+      this.messageAdresse = "Au minimum deux caractères!";
+    } else {
       this.colorAdresse = "#4CAF50";
-      this.messageAdresse = "Format valide";
+      this.messageAdresse = "Format valide!";
       return true;
     }
     if (this.adresse == '') {
@@ -121,18 +140,19 @@ export class RegisterComponent implements OnInit {
     }
     return false;
   }
+
   goStep2() {
     if (!this.prenom) {
       this.colorPrenom = "rgb(249, 67, 67)";
-      this.messagePrenom = "Le prénom est requis";
+      this.messagePrenom = "Le prénom est requis.";
     }
     if (!this.nom) {
       this.colorNom = "rgb(249, 67, 67)";
-      this.messageNom = "Le nom est requis";
+      this.messageNom = "Le nom est requis.";
     }
     if (!this.adresse) {
       this.colorAdresse = "rgb(249, 67, 67)";
-      this.messageAdresse = "L' email est requis";
+      this.messageAdresse = "L' email est requis.";
     }
     if (this.testPrenom() && this.testAdresse() && this.testNom()) {
       this.step = 2;
@@ -144,7 +164,7 @@ export class RegisterComponent implements OnInit {
       this.messageEmail = "Vueillez fournir une adresse email valide";
       this.colorEmail = "rgb(249, 67, 67)";
     } else if (emailRegex.test(this.email)) {
-      this.messageEmail = "Format valide";
+      this.messageEmail = "Format valide!";
       this.colorEmail = "#4CAF50";
       return true;
     }
@@ -160,7 +180,7 @@ export class RegisterComponent implements OnInit {
     const tel = Number(this.telephone.slice(0, 2)) == 77 || Number(this.telephone.slice(0, 2)) == 78 || Number(this.telephone.slice(0, 2)) == 70 || Number(this.telephone.slice(0, 2)) == 76;
     if (val) {
       this.colorTelephone = "#4CAF5";
-      this.messageTelephone = "Format valide";
+      this.messageTelephone = "Format valide!";
       return true;
     }
     if (!val) {
@@ -187,10 +207,10 @@ export class RegisterComponent implements OnInit {
   testPassword() {
     if (this.password.length < 8) {
       this.colorPassword = "#f4a332";
-      this.messagePassword = "Au minimum huit caractères pour le mot de passe";
+      this.messagePassword = "Le mot de passe trop court.";
     } else if (this.password.length >= 8) {
       this.colorPassword = "#4CAF50";
-      this.messagePassword = "Format valide";
+      this.messagePassword = "Format valide!";
       return true;
     }
     if (this.password == '') {
@@ -202,18 +222,35 @@ export class RegisterComponent implements OnInit {
   goStep3() {
     this.colorTelephone = "rgb(249, 67, 67)";
     if (!this.telephone) {
-      this.messageTelephone = "Le téléphone est requis";
+      this.messageTelephone = "Le téléphone est requis.";
     }
     if (!this.password) {
       this.colorPassword = "rgb(249, 67, 67)";
-      this.messagePassword = "Le mot de passe est requis";
+      this.messagePassword = "Le mot de passe est requis.";
     }
     if (!this.email) {
       this.colorEmail = "rgb(249, 67, 67)";
-      this.messageEmail = "L' email est requis";
+      this.messageEmail = "L' email est requis.";
     }
     if (this.testEmail() && this.testTelephone() && this.testPassword()) {
       this.step = 3;
+    }
+  }
+  goStep32() {
+    this.colorTelephone = "rgb(249, 67, 67)";
+    if (!this.telephone) {
+      this.messageTelephone = "Le téléphone est requis.";
+    }
+    if (!this.password) {
+      this.colorPassword = "rgb(249, 67, 67)";
+      this.messagePassword = "Le mot de passe est requis.";
+    }
+    if (!this.email) {
+      this.colorEmail = "rgb(249, 67, 67)";
+      this.messageEmail = "L' email est requis.";
+    }
+    if (this.testEmail() && this.testTelephone() && this.testPassword()) {
+      this.ajoutUtilisateurClient();
     }
   }
   switchClient() {
@@ -270,6 +307,9 @@ export class RegisterComponent implements OnInit {
 
     this.ajoutUtilisateur();
   }
+  terminerUser() {
+    this.goStep32();
+  }
   showErrorAlert(errorMessage: string) {
     Swal.fire({
       title: 'Erreur',
@@ -301,7 +341,35 @@ export class RegisterComponent implements OnInit {
             confirmButtonText: 'OK'
           });
           this.router.navigate(['/auth'])
-        },
+        }, error => {
+          console.log(error);
+        }
+      )
+    }
+  }
+  ajoutUtilisateurClient() {
+    let formData = new FormData();
+    formData.append("image", this.image as Blob);
+    formData.append("prenom", this.prenom);
+    formData.append("nom", this.nom);
+    formData.append("adresse", this.adresse);
+    formData.append("telephone", this.telephone);
+    formData.append("email", this.email);
+    formData.append("password", this.password);
+    {
+      this.user.post('register', formData).subscribe(
+        response => {
+          console.log(response);
+          Swal.fire({
+            title: 'Inscription réussie',
+            text: 'Votre inscription a été enregistrée avec succès!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          this.router.navigate(['/auth'])
+        }, error => {
+          console.log(error);
+        }
       )
     }
   }
@@ -312,6 +380,12 @@ export class RegisterComponent implements OnInit {
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+  }
+
+  // show password
+  showPassword: boolean = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
   // Fin de l'inscription  = this.telephone.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4')
 }

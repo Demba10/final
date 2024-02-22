@@ -176,7 +176,8 @@ main {
 
 
 // .text-titre,
-.nom-user {
+.nom-user,
+.text-user-name {
     display: inline-block;
     width: 99%;
     white-space: nowrap;
@@ -191,7 +192,9 @@ main {
 }
 
 @media screen and (max-width: 575.98px) {
-    .jardinier {
+
+    .jardinier,
+    .astuces {
         padding: 20px 3%;
     }
 

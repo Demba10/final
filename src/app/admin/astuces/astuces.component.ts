@@ -39,20 +39,19 @@ export class AstucesComponent {
   utilisateurs: any[] = [];
 
   // paginations 
-  // array of all items to be paged
 
   // pager object
   pager: any = {};
 
   // paged items
   pagedItems!: any[];
-
+  etat!: any;
 
   extractTitle(): string {
     let a = this.contenu.indexOf('<')
     return this.contenu.charAt(a);
   }
-  // 
+  
   constructor(
     private articles: AstucesService,
     private art: ArticlesService,
@@ -85,14 +84,18 @@ export class AstucesComponent {
     this.pagedItems = this.articleSliste.slice(this.pager.startIndex, this.pager.endIndex + 1);
     this.step = this.commentaires.length
   }
-
   etape1() {
     this.step = 1;
   }
   etape2() {
     this.step = 2;
   }
-
+  actionner1() {
+    this.etat = 1;
+  }
+  actionner2() {
+    this.etat = 2;
+  }
   listeArticles() {
     this.art.getArticles().subscribe(
       resoponse => {
@@ -102,9 +105,7 @@ export class AstucesComponent {
       }
     )
   }
-
   ajouterArticle() {
-
     const nA = new FormData();
     nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
@@ -137,7 +138,6 @@ export class AstucesComponent {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
   }
-
   openXl(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl' });
   }
@@ -157,6 +157,7 @@ export class AstucesComponent {
         this.details = response.article;
         localStorage.setItem('id_article', response.article.id);
         localStorage.setItem('titre_article', response.article.titre);
+        this.titre = this.details.titre;
         this.commentaires = this.details.commentaires;
         this.contenu = this.details.contenue;
       }
@@ -187,13 +188,19 @@ export class AstucesComponent {
   modifierArticle() {
     const nA = new FormData();
     let temp = localStorage.getItem('id_article');
-    let tem = JSON.parse(localStorage.getItem('titre_article') || '');
-    nA.append('titre', tem);
+    alert("Andre Demba Ndione");
+    nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
     nA.append('contenue', this.contenu);
     this.art.updateArticle(Number(temp), nA).subscribe(
       response => {
         console.log(response);
+        setTimeout(() => {
+          this.sharedService.alert(response.message, '', "success");
+        }, 500);
+      },
+      error => {
+        console.log(error);
       }
     )
   }
@@ -250,6 +257,20 @@ export class AstucesComponent {
     this.contenu = "";
   }
 
+  // Pagination
+
+  onPageChange(pageNumber: number): void {
+    console.log('Page changed to: ', pageNumber);
+  }
+
+  itemsPerPage = 1;
+  currentPage = 1;
+
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.articleSliste.slice(startIndex, endIndex);
+  }
 }
 export interface Astuces {
   id: number,

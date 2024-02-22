@@ -80,7 +80,7 @@
             <div class="d-flex justify-content-end">
                 <div class="date">{{item.created_at | date:'dd MMMM yyyy'}}</div>
             </div>
-            <img src="http://127.0.0.1:8000/api/{{item?.image}}" class="card-img-top" alt="">
+            <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt="">
             <div class="card-body">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
                 <h6 class="card-text fw-bold">{{item.titre}}</h6>
@@ -105,12 +105,12 @@
 <section class="jardinier">
     <app-titre class="text-center me-2" sus_titre="Le Coin des GreenThubs" titre="Nos jardiniers"></app-titre>
     <div class="jardiniers-box row">
-        <div class="jar-items col-6 col-sm-6 col-md-3 col-lg-3" *ngFor="let item of jdnSome">
+        <div class="jar-items col-6 col-sm-12 col-12 col-md-3 col-lg-3" *ngFor="let item of jdnSome">
             <div class="card-sp card m-sm-0 mb-3"
                 style="margin: 12px 0; position: relative; z-index: 76; cursor: pointer;" id="card-s">
                 <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt="">
-                <div class="card-body" style="min-width: max-content;">
-                    <span class="">{{item.prenom}} {{item.nom}}</span>
+                <div class="card-body">
+                    <span class="text-user-name">{{item.prenom}} {{item.nom}}</span>
                 </div>
             </div>
         </div>
@@ -242,6 +242,7 @@
 </style>
 <style>
     @media screen and (max-width: 575.98px) {
+
         .about,
         .alaune,
         .conseils,
@@ -249,6 +250,7 @@
         .boutique {
             padding: 20px 2%;
         }
+
         .about {
             padding: 20px;
         }

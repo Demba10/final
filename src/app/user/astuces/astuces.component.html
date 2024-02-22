@@ -1,8 +1,8 @@
 <!-- <app-share-banner></app-share-banner> -->
 <section class="astuces">
-    <h2 style="color: #4CAF50; font-size: 48px;" class="fw-semibold mb-3">{{details.titre}}</h2>
+    <h2 class="titre-article fw-semibold mb-3">{{details.titre}}</h2>
     <!-- <h4 class="fw-light">{{astuce?.titre}}</h4> -->
-    <div class="user d-flex gap-4">
+    <div class="user gap-4">
         <div class="img">
             <img [src]="astuce?.user_image" alt="">
         </div>
@@ -34,7 +34,8 @@
 <ng-template #content let-offcanvas>
     <div class="offcanvas-header">
         <h4 class="offcanvas-title">Commentaires ({{nbComents}})</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+        <i class="fa-solid fa-xmark" (click)="offcanvas.close('Close click')"
+            style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
     </div>
     <div class="offcanvas-body">
         <mat-card class="p-1">
@@ -51,11 +52,11 @@
             </h6>
             <form class="example-form w-100">
                 <textarea placeholder="Laissez un commentaire" name="" id="" cols="" rows="" name="contenue"
-                    [(ngModel)]="contenue" class="commentaire"></textarea>
+                    [(ngModel)]="contenue" class="commentaire" style="resize: none;"></textarea>
                 <div class="bouton d-flex justify-content-end gap-2">
                     <button mat-button style="color: rgb(0, 0, 0);" (click)="viderChamps()">Annuler</button>
-                    <button mat-raised-button style="background-color: #4CAF50; color: white;"
-                        (click)="ajouterCommentaire()" class="p-0">Poster</button>
+                    <button mat-raised-button color="primary" (click)="ajouterCommentaire()" class="p-0"><i
+                            class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </form>
         </mat-card>
@@ -77,10 +78,35 @@
         </div>
     </div>
 </ng-template>
+
 <app-footer></app-footer>
 <style>
     .astuces {
         padding: 60px 20%;
+    }
+
+    .titre-article {
+        color: #4CAF50;
+        font-size: 48px;
+    }
+
+    .user {
+        display: flex;
+    }
+
+    @media screen and (max-width: 575.98px) {
+        .astuces {
+            padding: 20px 3%;
+        }
+
+        .titre-article {
+            font-size: 28px;
+            /* text-align: center; */
+        }
+
+        .user {
+            display: none;
+        }
     }
 
     .user {

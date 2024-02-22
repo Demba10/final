@@ -76,6 +76,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Pagination -->
+    <div style="margin-top: 40px; display: flex; justify-content: center;">
+        <app-pagination [totalItems]="produits.length" [itemsPerPage]="10" (pageChange)="onPageChange($event)">
+        </app-pagination>
+    </div>
 </section>
 
 <app-footer></app-footer>

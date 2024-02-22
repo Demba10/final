@@ -27,7 +27,7 @@
     </div>
 
     <!-- Inscription du client -->
-    <div class="container-fluid" *ngIf="isClient == 1">
+    <!-- <div class="container-fluid" *ngIf="isClient == 1">
         <div class="row">
             <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
                 <div class="brand-wrapper">
@@ -96,10 +96,10 @@
                 <img src="assets/images/login.png" alt="login image" class="login-img">
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Inscription du jardinier -->
-    <div class="container-fluid" *ngIf="isClient == 2">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
                 <div class="brand-wrapper">
@@ -107,7 +107,8 @@
                         routerLinkActive="router-link-active">
                 </div>
                 <div class="login-wrapper my-auto">
-                    <h1 class="login-title">Inscription jardinier</h1>
+                    <h1 class="login-title" *ngIf="isClient == 1">Inscription client</h1>
+                    <h1 class="login-title" *ngIf="isClient == 2">Inscription jardinier</h1>
                     <form action="#!">
                         <div *ngIf="step == 1" class="etape">
                             <div class="form-group">
@@ -164,13 +165,23 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password">Mot de passe</label>
-                                <input type="password" name="password" id="password" class="form-control"
-                                    placeholder="Entez votre mot de passe" [(ngModel)]="password"
-                                    [style.border-bottom-color]="colorPassword" (input)="testPassword()">
+                                <div class="input-group">
+                                    <input type="{{ showPassword ? 'text' : 'password' }}" name="password" id="password"
+                                        class="form-control" placeholder="Entez votre mot de passe"
+                                        [(ngModel)]="password" [style.border-bottom-color]="colorPassword"
+                                        (input)="testPassword()">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" style=""
+                                            (click)="togglePasswordVisibility()">
+                                            <i class="fa"
+                                                [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                                        </button>
+                                    </div>
+                                </div>
                                 <span *ngIf="messagePassword" [style.color]="colorPassword" style="font-size: 12px;">
-                                    {{messagePassword}} </span>
-                                <span *ngIf="!messagePassword" style="visibility: hidden;">
-                                    hidden </span>
+                                    {{messagePassword}}
+                                </span>
+                                <span *ngIf="!messagePassword" style="visibility: hidden;">hidden</span>
                             </div>
                         </div>
                         <div *ngIf="step == 3" class="etape">
@@ -201,7 +212,21 @@
                             <span *ngIf="!messageImage" style="visibility: hidden;">
                                 hidden </span>
                         </div>
-                        <div class="d-flex justify-content-between mt-2">
+                        <div class="d-flex justify-content-between mt-2" *ngIf="isClient == 1">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
+                                value="Précédent" style="opacity: 0.4;" (click)="goStep2()" *ngIf="step == 1" disabled>
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Suivant"
+                                (click)="goStep2()" *ngIf="step == 1">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
+                                value="Précédent" (click)="goStep1()" *ngIf="step == 2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Terminé"
+                                (click)="terminerUser()" *ngIf="step == 2">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
+                                value="Précédent" (click)="goStep2()" *ngIf="step == 3">
+                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
+                                value="Inscription" (click)="terminerUser()" *ngIf="step == 3">
+                        </div>
+                        <div class="d-flex justify-content-between mt-2" *ngIf="isClient == 2">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Précédent" style="opacity: 0.4;" (click)="goStep2()" *ngIf="step == 1" disabled>
                             <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Suivant"
@@ -239,6 +264,16 @@
 
     .login-section-wrapper::-webkit-scrollbar {
         width: 0;
+    }
+
+    .btn-outline-secondary {
+        border: 0px solid transparent;
+        position: absolute;
+        right: -6px;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: transparent;
     }
 </style>
 <style>

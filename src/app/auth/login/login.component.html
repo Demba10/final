@@ -21,10 +21,18 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="password">Mot de passe</label>
-                            <input type="password" name="password" id="password" class="form-control"
-                                placeholder="votre mot de passe" [(ngModel)]="password" (input)="passwordValidatiion()"
-                                [style.border-bottom-color]="colorPass">
-                            <span *ngIf="messagePassword" style="color: rgb(249, 67, 67); font-size: 12px;">
+                            <div style="">
+                                <input type="{{ showPassword ? 'text' : 'password' }}" name="password" id="password"
+                                    class="form-control" placeholder="votre mot de passe" [(ngModel)]="password"
+                                    (input)="passwordValidatiion()" [style.border-bottom-color]="colorPass">
+                                <button class="btn btn-secondary btnpass" type="button"
+                                    (click)="togglePasswordVisibility()">
+                                    <i class="fa"
+                                        [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                                </button>
+                            </div>
+                            <span *ngIf="messagePassword"
+                                style="position: relative; top: -36px; color: rgb(249, 67, 67); font-size: 12px;">
                                 {{messagePassword}} </span>
                             <span *ngIf="!messagePassword" style="visibility: hidden;">
                                 hidden </span>
@@ -52,8 +60,11 @@
                                 placeholder="email@example.com" [(ngModel)]="email">
                         </div>
                         <!-- <i class="fa-regular fa-eye"></i> -->
-                        <input name="login" id="login" class="btn btn-block login-btn mt-4" type="button"
-                            value="Envoyer" (click)="resetPass(email)">
+                        <div class="form-group">
+                            <input name="login" id="login" class="btn btn-block login-btn mt-4" type="button"
+                                value="Envoyer" (click)="resetPass(email)">
+
+                        </div>
                     </form>
                     <a class="forgot-password-link" style="cursor: pointer;" (click)="reseter()">Retour à la
                         connexion</a>

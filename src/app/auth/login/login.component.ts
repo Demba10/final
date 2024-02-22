@@ -104,4 +104,12 @@ export class LoginComponent implements OnInit {
       }
     )
   }
+
+  showPassword: boolean = false;
+  pass: string = '';
+
+  // Fonction pour activer/désactiver le bouton
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword; // Inversion de la valeur pour afficher ou masquer le mot de passe
+  }
 }

@@ -36,6 +36,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { HttpClientModule } from '@angular/common/http';
     DetailsJardinierComponent,
     ProfilComponent,
     TalkjsComponent,
-    ChatComponent
+    ChatComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,

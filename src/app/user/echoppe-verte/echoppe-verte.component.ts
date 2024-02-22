@@ -25,6 +25,9 @@ export class EchoppeVerteComponent implements OnInit {
   // paginations 
   // pager object
   pager: any = {};
+  // La pagination 
+  totalItems = 100;
+  itemsPerPage = 10;
 
   // paged items
   pagedItems!: any[];
@@ -94,5 +97,11 @@ export class EchoppeVerteComponent implements OnInit {
         this.detail = response.article;
       }
     )
+  }
+
+  // Pagination
+
+  onPageChange(pageNumber: number): void {
+    console.log('Page changed to: ', pageNumber);
   }
 }

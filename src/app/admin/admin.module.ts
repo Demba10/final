@@ -32,6 +32,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CatgoriesComponent } from '../shared/catgories/catgories.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
+import { PaginationAdminComponent } from '../pagination-admin/pagination-admin.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProduitsComponent,
     UsersComponent,
     AddAstuceComponent,
-    CatgoriesComponent
+    CatgoriesComponent,
+    PaginationAdminComponent
   ],
   imports: [
     CommonModule,

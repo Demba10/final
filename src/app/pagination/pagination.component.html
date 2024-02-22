@@ -1,0 +1,11 @@
+<div>
+    <button style="background-color: #656565;" (click)="onPreviousPage()">
+        <i class="fa-solid fa-backward"></i>
+    </button>
+    <button *ngFor="let pageNumber of pageNumbers" (click)="onPageChange(pageNumber)">
+        {{ pageNumber }}
+    </button>
+    <button style="background-color: #656565;" (click)="onNextPage()">
+        <i class="fa-solid fa-forward"></i>
+    </button>
+</div>

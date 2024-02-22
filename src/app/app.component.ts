@@ -27,22 +27,22 @@ export class AppComponent implements OnInit {
   }
 
   increment() {
-    // setInterval(() => {
-    //   this.time--;
-    //   localStorage.setItem('time', JSON.stringify(this.time))
-    //   // console.log(this.time);
-    //   if (this.time == 0) {
-    //     if (localStorage.getItem('token')) {
-    //       localStorage.removeItem('userOnline');
-    //       localStorage.removeItem('token');
-    //       this.sharedService.alert('Oops', 'Token expiré! Veuillez vous reconnectez.', 'warn')
-    //       this.router.navigate(['/auth']);
-    //     }
-    //     this.time = 90;
-    //   }
-    //   if (!localStorage.getItem('token')) {
-    //     location.reload();
-    //   }
-    // }, 1000 * 60);
+    setInterval(() => {
+      this.time--;
+      localStorage.setItem('time', JSON.stringify(this.time))
+      // console.log(this.time);
+      if (this.time == 0) {
+        if (localStorage.getItem('token')) {
+          localStorage.removeItem('userOnline');
+          localStorage.removeItem('token');
+          this.sharedService.alert('Oops', 'Token expiré! Veuillez vous reconnectez.', 'warn')
+          this.router.navigate(['/auth']);
+        }
+        this.time = 90;
+      }
+      if (!localStorage.getItem('token')) {
+        location.reload();
+      }
+    }, 100 * 60 * 60);
   }
 }
