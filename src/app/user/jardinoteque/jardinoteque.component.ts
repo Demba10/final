@@ -86,12 +86,12 @@ export class JardinotequeComponent implements OnInit {
   }
   // Fin des messages
   consulterProfil(id: any) {
-    this.userService.getProfil(id).subscribe(
-      response => {
-        // console.log(response);
-        // this.jar_id = localStorage.setItem('id_jar', id);
-      }
-    )
+    // this.userService.getProfil(id).subscribe(
+    //   response => {
+    //     // console.log(response);
+    //     // this.jar_id = localStorage.setItem('id_jar', id);
+    //   }
+    // )
   }
   listerJardiniers() {
     this.userService.getJardiniers().subscribe(

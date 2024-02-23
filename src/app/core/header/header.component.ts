@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   change: boolean = false;
   private modalService = inject(NgbModal);
   private offcanvasService = inject(NgbOffcanvas);
+  existing: boolean = true;
 
   constructor(
     private link_data: LinkDataService,
@@ -25,6 +26,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '[]');
+    if (localStorage.getItem('userOnline') == undefined || localStorage.getItem('userOnline') == null) {
+      this.existing = false;
+    } else {
+      this.existing = true;
+    }
   }
 
   adapter() {

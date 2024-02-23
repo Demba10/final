@@ -6,17 +6,46 @@
                     <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']"
                         routerLinkActive="router-link-active">
                 </div>
-                <div class="login-wrapper my-auto">
+                <div class="login-wrapper" style="width: 100%;">
                     <h1 class="login-title">Inscription</h1>
-                    <form action="#!">
+                    <p class="mb-3 fw-bold" style="color: #4CAF50;">Choissez un compte.</p>
+                    <div class="d-flex gap-3">
+                        <mat-card class="example-card" (click)="switchJardinier()">
+                            <mat-card-header>
+                                <mat-card-title>Compte jardinier</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p class="user-role mt-3">Que fait le jardinier ?</p>
+                                <ul class="libelle-user">
+                                    <li>Valorier ses création et ses compétences</li>
+                                    <li>Publier des produits</li>
+                                    <li>Publier des vidéos</li>
+                                    <li>Voir et commenter les articles</li>
+                                </ul>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="example-card" (click)="switchClient()">
+                            <mat-card-header>
+                                <mat-card-title>Compte client</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p class="user-role mt-3">Que fait le client ?</p>
+                                <ul class="libelle-user">
+                                    <li>Voir le profil d'un jardier</li>
+                                    <li>Contacter un jardier</li>
+                                </ul>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <!-- <form action="#!">
                         <div class="d-flex justify-content-between mt-2 gap-2" style="flex-wrap: wrap;">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Client"
                                 (click)="switchClient()" style="width: 130px;">
                             <input name="login" id="login" class="btn btn-block login-btn" type="button"
                                 value="Jardinier" (click)="switchJardinier()" style="width: 130px;">
                         </div>
-                    </form>
-                    <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']"
+                    </form> -->
+                    <p class="login-wrapper-footer-text mt-4">Vous avez un compte? <a [routerLink]="['../login']"
                             routerLinkActive="router-link-active" class="text-reset">Se connecter</a></p>
                 </div>
             </div>
@@ -25,81 +54,8 @@
             </div>
         </div>
     </div>
-
-    <!-- Inscription du client -->
-    <!-- <div class="container-fluid" *ngIf="isClient == 1">
-        <div class="row">
-            <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
-                <div class="brand-wrapper">
-                    <img src="assets/logo.svg" alt="logo" class="logo" style="height: 80px;" [routerLink]="['/accueil']"
-                        routerLinkActive="router-link-active">
-                </div>
-                <div class="login-wrapper my-auto">
-                    <h1 class="login-title">Inscription client</h1>
-                    <form action="#!">
-                        <div *ngIf="step == 1" class="etape">
-                            <div class="form-group">
-                                <label for="email">Prénom</label>
-                                <input type="text" name="prenom" id="prenom" class="form-control"
-                                    placeholder="Entez votre prénom" [(ngModel)]="prenom">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Nom</label>
-                                <input type="text" name="nom" id="nom" class="form-control"
-                                    placeholder="Entez votre nom" [(ngModel)]="nom">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Adresse</label>
-                                <input type="email" name="adresse" id="adresse" class="form-control"
-                                    placeholder="Entez votre adresse" [(ngModel)]="adresse">
-                            </div>
-                        </div>
-                        <div *ngIf="step == 2" class="etape">
-                            <div class="form-group">
-                                <label for="email">Adresse Email</label>
-                                <input type="email" name="email" id="email" class="form-control"
-                                    placeholder="email@example.com" [(ngModel)]="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Téléphone</label>
-                                <input type="text" name="telephone" id="email" class="form-control"
-                                    placeholder="Entez votre numéro de téléphone" [(ngModel)]="telephone">
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password">Mot de passe</label>
-                                <input type="password" name="password" id="password" class="form-control"
-                                    placeholder="Entez votre mot de passe" [(ngModel)]="password">
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Précédent" style="opacity: 0.4;" (click)="goStep2()" *ngIf="step == 1" disabled>
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Suivant"
-                                (click)="goStep2()" *ngIf="step == 1">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Précédent" (click)="goStep1()" *ngIf="step == 2">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Inscription" (click)="validation()" *ngIf="step == 2">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Précédent" (click)="goStep2()" *ngIf="step == 3">
-                            <input name="login" id="login" class="btn btn-block login-btn" type="button"
-                                value="Inscription" (click)="validation()" *ngIf="step == 3">
-                        </div>
-                    </form>
-                    <p><a routerLinkActive="router-link-active" class="text-reset" (click)="default()"
-                            style="text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Retourner</a></p>
-                    <p class="login-wrapper-footer-text">Vous avez un compte? <a [routerLink]="['../login']"
-                            routerLinkActive="router-link-active" class="text-reset">Se connecter</a></p>
-                </div>
-            </div>
-            <div class="col-sm-6 px-0 d-none d-sm-block" style="overflow: hidden;;">
-                <img src="assets/images/login.png" alt="login image" class="login-img">
-            </div>
-        </div>
-    </div> -->
-
     <!-- Inscription du jardinier -->
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="!dispmiss">
         <div class="row">
             <div class="col-sm-6 login-section-wrapper" style="height: 100vh; overflow: scroll; cursor: pointer;">
                 <div class="brand-wrapper">
@@ -207,6 +163,7 @@
                                 <input id="file" type="file" (change)="getFile($event)" accept="image/*"
                                     ngModel="image">
                             </label>
+                            <p> {{image}} </p>
                             <span *ngIf="messageImage" [style.color]="colorImage" style="font-size: 12px;">
                                 {{messageImage}} </span>
                             <span *ngIf="!messageImage" style="visibility: hidden;">
@@ -258,6 +215,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <style>
+    body {
+        overflow: hidden;
+    }
+
     .etape {
         height: 280px;
     }
@@ -274,6 +235,31 @@
 
     .btn-outline-secondary:hover {
         background-color: transparent;
+    }
+
+    /* user libeller */
+    .libelle-user {
+        padding: 0 20px;
+    }
+
+    .example-card {
+        cursor: pointer;
+        border-left: 3px solid #4CAF50 !important;
+        flex: 100px 1 1;
+    }
+
+    .example-card:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .user-role {
+        /* color: #212121; */
+        font-weight: 500;
+    }
+
+    .example-card li {
+        font-size: 14px;
     }
 </style>
 <style>

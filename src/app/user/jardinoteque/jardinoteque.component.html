@@ -10,20 +10,52 @@
             placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
     </div>
     <div class="jardiniers-box row">
-        <div style="height: 40vh; display: flex; align-items: center; justify-content: center;" *ngIf="jardiniers.length == 0">
-            <img src="assets/images/nocontent.png" class="img-fluid" alt="">
+        <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+            *ngIf="jardiniers.length == 0">
+            <img src="assets/images/notfound.png" class="img-fluid" alt="">
         </div>
         <div *ngFor="let item of jardiniers" class="col-sm-6 col-6 col-md-6 col-lg-4"
             style="position: relative; top: 20px;">
-            <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;"
+            <mat-card class="example-card"
+                style="margin-bottom: 22px; cursor: pointer; border-bottom: 6px solid #4CAF50;"
+                (click)="openXl(content, item.id)">
+                <mat-card-header>
+                    <mat-card-title-group class="d-flex gap-3">
+                        <div>
+                            <mat-card-title style="font-size: 17px; font-weight: 600;">{{item.prenom}}
+                                {{item.nom}}</mat-card-title>
+                            <mat-card-subtitle>{{item.adresse}}</mat-card-subtitle>
+                            <div class="jard jard-2 my-3 d-flex justify-content-start flex-wrap">
+                                <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
+                                <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
+                                <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
+                                <a mat-raised-button (click)="openVerticallyCentered(message)"
+                                    (click)="listerMesages(userOnline.id)"><i class="fa-solid fa-comment"></i></a>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center rounded-3"
+                            style="overflow: hidden; height: 180px;">
+                            <img src="http://127.0.0.1:8000/api/{{item.image}}" style="width: 100%;"
+                                alt="Image of a Shiba Inu">
+                        </div>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod necessitatibus mollitia fuga quia eum,
+                    voluptates optio commodi omnis vitae ratione sit quisquam atque officiis hic exercitationem animi
+                    molestiae perspiciatis iusto.
+                </mat-card-content>
+            </mat-card>
+
+            <!-- <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;"
                 (click)="openXl(content, item.id)" (click)="consulterProfil(item.id)">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu">
                 <mat-card-content>
                     <h6 class="nom-user mt-3"> {{item.prenom}} {{item.nom}}</h6>
                 </mat-card-content>
-            </mat-card>
+            </mat-card> -->
         </div>
-        <!-- <div class="mat-elevation-z8">
+        <!-- <div class="mat-elevation-z8"> 
             <mat-paginator [pageSizeOptions]="[12, 20, 40]" showFirstLastButtons
                 aria-label="Select page of periodic elements">
             </mat-paginator>
@@ -47,14 +79,12 @@
     <div class="modal-body">
         <app-details-jardinier></app-details-jardinier>
     </div>
-    <div class="jard">
+    <div class="jard mb-3">
         <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
         <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
         <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
         <a mat-raised-button (click)="openVerticallyCentered(message)" (click)="listerMesages(userOnline.id)"><i
                 class="fa-solid fa-comment"></i></a>
-    </div>
-    <div class="modal-footer">
     </div>
 </ng-template>
 

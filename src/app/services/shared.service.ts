@@ -12,7 +12,8 @@ export class SharedService {
     Swal.fire({
       title: titre,
       text: text,
-      icon: icon
+      icon: icon,
+      timer: 1000
     })
   }
 }

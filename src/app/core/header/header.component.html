@@ -14,30 +14,37 @@
             </div>
         </div>
         <div class="header-cta-1 header-cta">
-            <button mat-raised-button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger"
-                *ngIf="!userOnLine"><i class="fa-regular fa-user"></i></button>
-            <button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger" *ngIf="userOnLine"
-                style="font-size: 16px;font-weight: bold;" (click)="derouler()">{{userOnLine.prenom}} {{userOnLine.nom}}
-                &nbsp; <i id="deroule" class="fa-solid fa-caret-up" style="font-size: 20px; margin-top: 1px;"
-                    style="transform: rotate(180deg);"></i></button>
-            <ng-template #menu>
-                <div class="example-menu" cdkMenu *ngIf="!userOnLine">
-                    <button class="example-menu-item" cdkMenuItem routerLink="/auth">Se connecter</button>
-                </div>
-                <div class="example-menu" cdkMenu *ngIf="userOnLine">
-                    <button class="example-menu-item" cdkMenuItem (click)="openXl(content)">Profil</button>
-                    <button class="example-menu-item" cdkMenuItem (click)="redirectToEspace()"
-                        *ngIf="userOnLine.role_id == 2">Espace créatif</button>
-                    <button class="example-menu-item" cdkMenuItem (click)="deconnexon()">Déconnexion</button>
-                </div>
-            </ng-template>
+            <div class="dropdown dropdown-2" style="top: 62px;" *ngIf="existing == false">
+                <input id="toggle2" type="checkbox">
+                <input id="toggle2" type="checkbox">
+                <label for="toggle2" class="animate">Compte<i class="fa fa-thin fa-caret-down float-right"
+                        style="font-size: 20px;"></i></label>
+                <ul class="animate" style="padding: 0;">
+                    <li class="animate" routerLink="/auth">Se connecter<i class="fa fa-solid fa-user float-right"></i>
+                    </li>
+                    <li class="animate" routerLink="/auth/register">S'inscrire<i
+                            class="fa fa-solid fa-laptop float-right"></i></li>
+                </ul>
+            </div>
+            <div class="dropdown dropdown-2" style="top: 89px;" *ngIf="existing == true">
+                <input id="toggle2" type="checkbox">
+                <label for="toggle2" class="animate">{{userOnLine.prenom}} {{userOnLine.nom}}<i
+                        class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i></label>
+                <ul class="animate" style="padding: 0;">
+                    <li class="animate" (click)="openXl(content)">Profil<i class="fa fa-solid fa-user float-right"></i>
+                    </li>
+                    <li class="animate" (click)="redirectToEspace()" *ngIf="userOnLine.role_id == 2">Espace
+                        créatif<i class="fa fa-solid fa-laptop float-right"></i></li>
+                    <li class="animate" (click)="deconnexon()">
+                        Deconnexion<i class="fa fa-solid fa-right-from-bracket float-right"></i></li>
+                </ul>
+            </div>
         </div>
         <div class="burger">
             <i class="fa fa-light fa-bars" style="font-size: 30px;" (click)="openEnd(responsive)"></i>
             <!-- <img src="assets/images/hamburger.png" alt="" (click)="openEnd(responsive)"> -->
         </div>
     </div>
-
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title">Modal title</h4>
@@ -53,20 +60,30 @@
     <ng-template #responsive let-offcanvas>
         <div class="offcanvas-body">
             <div class="d-flex justify-content-between">
-                <div class="dropdown">
+                <div class="dropdown dropdown-2" style="" *ngIf="existing == false">
                     <input id="toggle2" type="checkbox">
-                    <label for="" class="" *ngIf="!userOnLine" routerLink="/auth"
-                        (click)="offcanvas.close('Close click')">Se
-                        connecter</label>
-                    <label for="toggle2" class="animate" *ngIf="userOnLine">{{userOnLine.prenom}} {{userOnLine.nom}}<i
+                    <input id="toggle2" type="checkbox">
+                    <label for="toggle2" class="animate">Compte<i class="fa fa-thin fa-caret-down float-right"
+                            style="font-size: 20px;"></i></label>
+                    <ul class="animate" style="padding: 0;">
+                        <li class="animate" routerLink="/auth">Se connecter<i
+                                class="fa fa-solid fa-user float-right"></i>
+                        </li>
+                        <li class="animate" routerLink="/auth/register">S'inscrire<i
+                                class="fa fa-solid fa-laptop float-right"></i></li>
+                    </ul>
+                </div>
+                <div class="dropdown dropdown-2" style="" *ngIf="existing == true">
+                    <input id="toggle2" type="checkbox">
+                    <label for="toggle2" class="animate">{{userOnLine.prenom}} {{userOnLine.nom}}<i
                             class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i></label>
                     <ul class="animate" style="padding: 0;">
-                        <li class="animate" (click)="openXl(content)" (click)="offcanvas.close('Close click')">Profil<i
-                                class="fa fa-solid fa-user float-right"></i></li>
-                        <li class="animate" (click)="redirectToEspace()" *ngIf="userOnLine.role_id == 2"
-                            (click)="offcanvas.close('Close click')">Espace
+                        <li class="animate" (click)="openXl(content)">Profil<i
+                                class="fa fa-solid fa-user float-right"></i>
+                        </li>
+                        <li class="animate" (click)="redirectToEspace()" *ngIf="userOnLine.role_id == 2">Espace
                             créatif<i class="fa fa-solid fa-laptop float-right"></i></li>
-                        <li class="animate" (click)="deconnexon()" (click)="offcanvas.close('Close click')">
+                        <li class="animate" (click)="deconnexon()">
                             Deconnexion<i class="fa fa-solid fa-right-from-bracket float-right"></i></li>
                     </ul>
                 </div>

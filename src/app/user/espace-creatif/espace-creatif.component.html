@@ -3,8 +3,10 @@
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Ajout de produit!</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"
-                (click)="vider()"></button>
+            <!-- <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"
+                (click)="vider()"></button> -->
+            <i class="fa-solid fa-xmark" (click)="d('Cross click')" (click)="vider()"
+                style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
         </div>
         <div class="modal-body">
             <form class="example-form d-flex flex-column" style="width: 100%;">
@@ -14,14 +16,14 @@
                             <span class="browse-button">Téléverser une image</span>
                         </div>
                         <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
-                            name="image" />
+                            name="image" (input)="validerImage()" />
                     </label>
                 </div>
                 <!--  -->
                 <mat-form-field class="example-full-width">
                     <mat-label>Nom</mat-label>
                     <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                        placeholder="300" [(ngModel)]="nom">
+                        placeholder="300" [(ngModel)]="nom" (input)="validerNom()">
                     <mat-error *ngIf="emailFormControl.hasError('required')">
                         Le nom est <strong>required</strong>
                     </mat-error>
@@ -39,8 +41,8 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')" (click)="ajouterProduits()"
-                *ngIf="ajouter">Valider</button>
+            <button [disabled]="activerButton" type="button" class="btn btn-outline-dark" (click)="c('Save click')"
+                (click)="ajouterProduits()" *ngIf="ajouter">Valider</button>
             <button type="button" class="btn btn-outline-dark" (click)="c('Save click')"
                 (click)="modifierProduit(detail.id)" (click)="d('Cross click')" *ngIf="modifier">Modifier</button>
         </div>
@@ -156,9 +158,11 @@
                         <!-- Details boutique -->
                         <ng-template #con let-modal class="">
                             <div class="card">
-                                <button type="button" class="btn-close" aria-label="Close"
+                                <!-- <button type="button" class="btn-close" aria-label="Close"
                                     (click)="modal.dismiss('Cross click')"
-                                    style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                                    style="position: absolute; left:  95%; margin-top: 10px;"></button> -->
+                                <i class="fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"
+                                    style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;"></i>
                                 <div class="row g-0">
                                     <div class="left-detail col-md-6"
                                         style="display: flex; justify-content: center; align-items: center; ">

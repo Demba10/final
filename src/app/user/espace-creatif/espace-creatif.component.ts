@@ -44,6 +44,7 @@ export class EspaceCreatifComponent implements OnInit {
   longueur!: any;
   dataSource: any;
   videos: any;
+  activerButton: boolean = false;
 
   constructor(
     config: NgbModalConfig,
@@ -131,6 +132,27 @@ export class EspaceCreatifComponent implements OnInit {
       }
     )
   }
+  validerImage() {
+    if (this.image) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  validerNom() {
+    if (this.nom) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  validerCategorie() {
+    if (this.categories_id) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   ajouterProduits() {
     this.option = 1;
     const newProduit = new FormData();
@@ -139,14 +161,21 @@ export class EspaceCreatifComponent implements OnInit {
     newProduit.append('description', this.description);
     newProduit.append('categories_id', this.categories_id);
 
-    this.produitService.createproduit(newProduit).subscribe(
-      response => {
-        // this.sharedService.alert('Succes', response.message, 'success');
-        this.lister();
-        // console.log(response);
-        this.vider();
-      }
-    )
+    if (!this.image || !this.nom || !this.categories_id) {
+      this.sharedService.alert('Erreur', 'vueillez remplir les champs', 'error')
+    } else {
+      this.produitService.createproduit(newProduit).subscribe(
+        response => {
+          // this.sharedService.alert('Succes', response.message, 'success');
+          this.lister();
+          // console.log(response);
+          this.vider();
+        }, error => {
+          this.sharedService.alert('error', "erreur", 'error');
+          console.log(error);
+        }
+      )
+    }
   }
   SupprimerProduit(id: any) {
     Swal.fire({

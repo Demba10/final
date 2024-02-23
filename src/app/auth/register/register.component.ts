@@ -364,6 +364,7 @@ export class RegisterComponent implements OnInit {
             title: 'Inscription réussie',
             text: 'Votre inscription a été enregistrée avec succès!',
             icon: 'success',
+            timer: 3000,
             confirmButtonText: 'OK'
           });
           this.router.navigate(['/auth'])

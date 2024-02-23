@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FileUploadModule } from '@iplab/ngx-file-upload';
     MatInputModule,
     MatStepperModule,
     FileUploadModule,
+    MatCardModule
     // BrowserAnimationsModule
   ]
 })

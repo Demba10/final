@@ -50,6 +50,7 @@ export class AuthentificationService implements OnInit {
           title: 'Echec',
           text: error.error.message,
           icon: 'error',
+          timer: 2000,
           confirmButtonText: 'OK'
         });
       },
