@@ -19,6 +19,8 @@ export class EchoppeVerteComponent implements OnInit {
   other!: any[];
   searchTerm: any;
   detail!: any;
+  userView!: any;
+  View!: any[];
   // displayedColumns: string[] = ['image', 'libelle', 'note', 'selected'];
   // mesProduits = new MatTableDataSource<any>();
 
@@ -32,6 +34,7 @@ export class EchoppeVerteComponent implements OnInit {
   // paged items
   pagedItems!: any[];
   userOnline: any;
+  produitPerUser!: any[];
 
   constructor(
     // private produits: ProduitsService,
@@ -90,11 +93,19 @@ export class EchoppeVerteComponent implements OnInit {
       }
     )
   }
-  detailsProduit(id: any) {
+  detailsProduit(id: any, userid?: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
         console.log(response);
         this.detail = response.article;
+      }
+    )
+    this.userService.getJardiniers().subscribe(
+      response => {
+        this.View = response;
+        this.userView = this.View.find(ele => ele.id == userid);
+        console.log(this.userView);
+        this.produitPerUser = this.produits.filter(ele => ele.user_id == userid)
       }
     )
   }

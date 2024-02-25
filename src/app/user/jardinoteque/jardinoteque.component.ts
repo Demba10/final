@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,7 @@ export class JardinotequeComponent implements OnInit {
   currentId: any;
   websocket: boolean = false;
   intervalId: any;
+  showDetails: boolean = false;
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
@@ -49,12 +50,15 @@ export class JardinotequeComponent implements OnInit {
   }
 
   openXl(content: TemplateRef<any>, id: any) {
-    this.modalService.open(content, { size: 'xl', scrollable: true });
-    localStorage.setItem('id_jar', (id));
-    this.jar_id = localStorage.getItem('id_jar');
-    this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
+    // this.modalService.open(content, { size: 'xl', scrollable: true });
+    // localStorage.setItem('id_jar', (id));
+    // this.jar_id = localStorage.getItem('id_jar');
+    // this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
   }
-
+  voirDetail(id: any) {
+    this.jar_id = localStorage.getItem('id_jar');
+    this.jar = this.jardiniers.find(ele => ele.id == id);
+  }
   // Les messages
   openVerticallyCentered(content: TemplateRef<any>) {
     // this.modalService.open(content, { centered: true });
@@ -84,6 +88,9 @@ export class JardinotequeComponent implements OnInit {
       }
     )
   }
+  resterDetails() {
+    this.showDetails = false;
+  }
   // Fin des messages
   consulterProfil(id: any) {
     // this.userService.getProfil(id).subscribe(
@@ -92,6 +99,10 @@ export class JardinotequeComponent implements OnInit {
     //     // this.jar_id = localStorage.setItem('id_jar', id);
     //   }
     // )
+    this.showDetails = true;
+    localStorage.setItem('id_jar', (id));
+    this.jar_id = localStorage.getItem('id_jar');
+    this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
   }
   listerJardiniers() {
     this.userService.getJardiniers().subscribe(
@@ -112,7 +123,6 @@ export class JardinotequeComponent implements OnInit {
     this.jardiniers = this.other.filter(
       ele => ele.prenom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.nom.toLowerCase().includes(this.searchTerm) || ele.created_at.includes(this.searchTerm));
   }
-
   ngAfterViewInit() {
     this.listerJardiniers();
   }

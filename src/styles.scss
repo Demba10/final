@@ -71,14 +71,14 @@ main {
         background-color: #fff;
 
         @media (max-width: 991px) {
-            padding-left: 50px;
             padding-right: 50px;
+            padding: 20px 3%;
         }
 
         @media (max-width: 575px) {
-            padding-top: 20px;
             padding-bottom: 20px;
             min-height: 100vh;
+            padding: 20px 3%;
         }
     }
 

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let item of produits">
                     <div class="blog-produits card card-produit" style="margin-bottom: 16px; overflow: hidden;"
-                        id="card" (click)="openLg(con)" (click)="detailsProduit(item.id)">
+                        id="card" (click)="openLg(con)" (click)="detailsProduit(item.id, item.user_id)">
                         <div class="row g-0" style="">
                             <div class="col-md-4">
                                 <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
@@ -43,9 +43,11 @@
                     <!-- Details boutique -->
                     <ng-template #con let-modal class="">
                         <div class="card">
-                            <button type="button" class="btn-close" aria-label="Close"
+                            <!-- <button type="button" class="btn-close" aria-label="Close"
                                 (click)="modal.dismiss('Cross click')"
-                                style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                                style="position: absolute; left:  95%; margin-top: 10px;"></button> -->
+                            <i class="fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"
+                                style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;"></i>
                             <div class="row g-0">
                                 <div class="left-detail col-md-6"
                                     style="display: flex; justify-content: center; align-items: center; ">
@@ -56,18 +58,28 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card-body">
-                                        <h2 class="card-title">{{detail.nom}}</h2>
-                                        <h5>Description</h5>
-                                        <p class="card-text">{{detail.description}} </p>
-                                        <table>
-                                            <tr>
-                                                <td>Catégorie</td>
-                                                <td>&nbsp;-&nbsp;</td>
-                                                <td>{{detail.categorie.nom}}</td>
-                                            </tr>
-                                        </table>
-                                        <h5 class="mt-4">Jardinier</h5>
-                                        <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
+                                        <h2 class="card-title fw-bold mb-4" style="color: #292D26;">{{detail.nom}}</h2>
+                                        <h5 class="fw-bold" style="color: #4CAF50;">Description</h5>
+                                        <p class="card-text">{{detail.description}}</p>
+                                        <h5 class="fw-bold" style="color: #4CAF50;">Catégorie</h5>
+                                        <p>{{detail.categorie.nom}}</p>
+                                        <h5 class="fw-bold" style="color: #4CAF50;">Jardinier</h5>
+                                        <div class="d-flex align-items gap-2">
+                                            <span
+                                                style="height: 30px; width: 30px; overflow: hidden; display: flex; justify-content: center; align-items: center; border-radius: 50%;">
+                                                <img src="http://127.0.0.1:8000/api/{{userView.image}}" alt=""
+                                                    style="width: 100%;">
+                                            </span>
+                                            <span class="mt-1">{{userView.prenom}} {{userView.nom}}</span>
+                                        </div>
+                                        <p class="mt-3 fw-bold">Totale produit : {{produitPerUser.length}}</p>
+                                        <h5 class="fw-bold" style="color: #4CAF50;">Contact</h5>
+                                        <div class="media-detail d-flex gap-2">
+                                            <a href="https://wa.me/221{{userView.telephone}}" target="_blank"
+                                                mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
+                                            <a href="+221{{userView.telephone}}" target="_blank" mat-raised-button><i
+                                                    class="fa-solid fa-phone-flip"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,6 +109,8 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
+        height: max-content;
+        min-height: 40vh;
         padding: 20px 10%;
         margin-bottom: 40px;
     }
@@ -190,5 +204,18 @@
         background-size: cover;
         background-position: center;
         height: 70vh;
+    }
+
+    .media-detail {
+        gap: 10px;
+
+        a {
+            background-color: #292D26;
+
+            i {
+                color: white;
+                font-size: 16px;
+            }
+        }
     }
 </style>
