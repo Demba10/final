@@ -11,7 +11,11 @@
             style="border: 0; border-bottom: 2px solid #292d2651; outline: 0; text-transform: italic;"
             placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-3" *ngFor="let item of articleList">
+    <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+        *ngIf="articleList.length == 0">
+        <img src="assets/images/notfound.png" class="img-fluid" alt="">
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let item of articleList">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">
                 <div class="date">{{ item.created_at | date:'dd MMMM yyyy' }}</div>
@@ -60,23 +64,23 @@
     }
 
     @media screen and (max-width: 575.98px) {
-    .conseils {
-        padding: 20px 3%;
-    }
+        .conseils {
+            padding: 20px 3%;
+        }
 
-    .titre-input {
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
-        gap: 10px;
+        .titre-input {
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 10px;
 
-        .titre-truc {}
+            .titre-truc {}
 
-        .input {
-            width: 100%;
+            .input {
+                width: 100%;
+            }
         }
     }
-}
 
     .card-body h6 {
         display: inline-block;

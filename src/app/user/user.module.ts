@@ -37,6 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 @NgModule({
   declarations: [
@@ -80,7 +82,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
     ReactiveFormsModule,
     FileUploadModule,
     NgbDropdown,
-    HttpClientModule
+    HttpClientModule,
+    ImageCropperModule
   ]
 })
 export class UserModule { }

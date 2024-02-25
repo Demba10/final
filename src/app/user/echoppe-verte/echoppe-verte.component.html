@@ -1,7 +1,7 @@
 <app-share-banner></app-share-banner>
 <!-- <app-recherche-section></app-recherche-section> -->
 
-<section class=" boutique">
+<section class="boutique">
     <div class="titre-input">
         <app-titre sus_titre="La boutique des jardiniers" titre="La boutique des Jardiniers" class=""
             color_one="#4CAF50" color_two="#292D26" id="article"></app-titre>
@@ -12,7 +12,11 @@
     <div class="jardiniers-box row">
         <div class="col-12" style="">
             <div class="row" style="position: relative; top: 20px;">
-                <span class="text-center" *ngIf="produits.length == 0">Pas de produit pour le moment</span>
+                <!-- <span class="text-center" *ngIf="produits.length == 0">Pas de produit pour le moment</span> -->
+                <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+                    *ngIf="produits.length == 0">
+                    <img src="assets/images/notfound.png" class="img-fluid" alt="">
+                </div>
                 <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let item of produits">
                     <div class="blog-produits card card-produit" style="margin-bottom: 16px; overflow: hidden;"
                         id="card" (click)="openLg(con)" (click)="detailsProduit(item.id)">
@@ -78,7 +82,7 @@
     </div>
 
     <!-- Pagination -->
-    <div style="margin-top: 40px; display: flex; justify-content: center;">
+    <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="produits.length != 0">
         <app-pagination [totalItems]="produits.length" [itemsPerPage]="10" (pageChange)="onPageChange($event)">
         </app-pagination>
     </div>
@@ -95,6 +99,12 @@
         background-repeat: no-repeat;
         padding: 20px 10%;
         margin-bottom: 40px;
+    }
+
+    @media screen and (max-width: 575.98px) {
+        .boutique {
+            padding: 20px 3%;
+        }
     }
 
     .jardiniers-box img {

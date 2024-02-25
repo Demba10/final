@@ -25,13 +25,17 @@ export class AstucesComponent implements OnInit {
   astuc !: any;
   details: any;
   contenue: any = '';
-  note: any;
+  note: any = 5;
   clients!: any[];
   jardiniers!: any[];
   client: any;
   comment: any;
   mergedUsers: any[] = [];
-  like: any;
+  resumeDetail!: any[];
+  like: any = 0;
+  nbLike: any;
+  resumeDetail1!: any[];
+  resumeDetail2!: any[];
 
   constructor(
     private astuces: AstucesService,
@@ -45,8 +49,13 @@ export class AstucesComponent implements OnInit {
     this.articles.getArticleById(this.id).subscribe(
       response => {
         this.details = response.article;
-        this.nbComents = this.details.commentaires.length;
-        // console.log(response);
+        this.resumeDetail = this.details.commentaires;
+        this.resumeDetail1 = this.resumeDetail.filter(ele => ele.contenue != '3550090857');
+        this.nbComents = this.resumeDetail1.length;
+        this.resumeDetail2 = this.resumeDetail.filter(ele => ele.contenue == '3550090857');
+        this.nbLike = this.resumeDetail2.length;
+        console.log(this.resumeDetail2);
+
         document.getElementById('contenu')!.innerHTML = (this.details.contenue)
       }
     );
@@ -67,7 +76,17 @@ export class AstucesComponent implements OnInit {
     this.articles.getArticleById(id).subscribe(
       response => {
         this.commentaires = response.article.commentaires;
-        console.log(response);
+        this.commentaires = this.commentaires.filter(ele => ele.contenue != "3550090857");
+        console.log(this.commentaires);
+      }
+    )
+  }
+  listerLikes(id: any) {
+    this.articles.getArticleById(id).subscribe(
+      response => {
+        this.commentaires = response.article.commentaires;
+        this.commentaires = this.commentaires.filter(ele => ele.contenue == "3550090857");
+        console.log(this.commentaires);
       }
     )
   }
@@ -127,15 +146,14 @@ export class AstucesComponent implements OnInit {
   ajouterCommentaire() {
     const newCommment = {
       contenue: this.contenue,
-      note: this.note
+      jaime: 5
     }
     if (newCommment.contenue.length >= 2) {
       this.commentaireService.createComment(newCommment, this.id).subscribe(
         response => {
           Swal.fire({
-            // title: 'Success',
             text: response.message,
-            // icon: 'success'
+            timer: 500,
           })
           console.log(response);
           this.listerCommentaire(this.id);
@@ -143,20 +161,30 @@ export class AstucesComponent implements OnInit {
           this.viderChamps();
         }
       )
-    } else {
-      alert('contenu inferieur a 2');
     }
   }
-  ajouterLike(id: any) {
+  ajouterLike() {
     const newCommment = {
-      contenue: '0',  
-      jaime: this.like
+      contenue: "3550090857",
+      jaime: 5
     }
-    this.commentaireService.createComment(newCommment, id).subscribe(
-      response => {
-        console.log(response);
-      }
-    )
+    const element = this.resumeDetail2.find(ele => ele.user_id == this.userOnLine.id);
+    if (element) {
+      this.commentaireService.supprimerComentaire(element.id).subscribe(
+        response => {
+          this.nbLike--;
+          this.ngOnInit();
+        }
+      )
+    }
+    if (element == undefined) {
+      this.commentaireService.createComment(newCommment, this.id).subscribe(
+        response => {
+          this.nbLike++;
+          this.ngOnInit();
+        }
+      )
+    }
   }
   viderChamps() {
     this.contenue = '';
@@ -167,7 +195,7 @@ export class AstucesComponent implements OnInit {
   }
 
   // La pagination 
-  totalItems = 100; 
+  totalItems = 100;
   itemsPerPage = 10;
 
   onPageChange(pageNumber: number): void {

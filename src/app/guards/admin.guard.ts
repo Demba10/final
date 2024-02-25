@@ -1,7 +1,4 @@
-import { Inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { SharedService } from '../services/shared.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
   const user = JSON.parse(localStorage.getItem('userOnline') || '[]');
@@ -12,11 +9,6 @@ export const adminGuard: CanActivateFn = (route, state) => {
     router.navigate(['/auth']);
     localStorage.removeItem('userOnline');
     localStorage.removeItem('token');
-    // Swal.fire({
-    //   title: 'Acces interdit',
-    //   text: '',
-    //   icon: 'error',
-    // });
   }
   return false;
 };

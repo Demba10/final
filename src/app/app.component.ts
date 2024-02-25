@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './services/users.service';
-import { interval, pipe, takeWhile } from 'rxjs';
 import { Router } from '@angular/router';
 import { SharedService } from './services/shared.service';
 
@@ -13,7 +11,6 @@ export class AppComponent implements OnInit {
   title = 'florsen';
 
   constructor(
-    private user: UsersService,
     private router: Router,
     private sharedService: SharedService
   ) { }
@@ -30,7 +27,6 @@ export class AppComponent implements OnInit {
     setInterval(() => {
       this.time--;
       localStorage.setItem('time', JSON.stringify(this.time))
-      // console.log(this.time);
       if (this.time == 0) {
         if (localStorage.getItem('token')) {
           localStorage.removeItem('userOnline');
@@ -39,9 +35,6 @@ export class AppComponent implements OnInit {
           this.router.navigate(['/auth']);
         }
         this.time = 90;
-      }
-      if (!localStorage.getItem('token')) {
-        location.reload();
       }
     }, 100 * 60 * 60);
   }

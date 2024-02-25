@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,10 @@ export class RegisterComponent implements OnInit {
   email!: string
   telephone!: string
   password!: string
+  // Gestion d'image
   image!: File
+  imageUrl: any;
+  // Fin gestion image state
   step: number = 1;
   isClient: any = undefined;
   dispmiss: boolean = true;
@@ -45,7 +50,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private user: UsersService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) { }
   ngOnInit(): void {
     this.user.get('listClients').subscribe(
@@ -319,6 +325,11 @@ export class RegisterComponent implements OnInit {
     });
   }
   ajoutUtilisateur() {
+    if (!this.image) {
+      this.messageImage = "L'image est requis";
+      this.colorImage = "rgb(249, 67, 67)";
+      return; // Arrêter l'exécution si l'image est manquante
+    }
     let formData = new FormData();
     formData.append("image", this.image as Blob);
     formData.append("prenom", this.prenom);
@@ -381,6 +392,52 @@ export class RegisterComponent implements OnInit {
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+    this.readImage();
+  }
+  readImage() {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.image = event.target.result;
+    };
+
+    reader.readAsDataURL(this.image);
+  }
+
+  @ViewChild(ImageCropperComponent, { static: false })
+  imageCropper!: ImageCropperComponent;
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.imageUrl = event.base64;
+  }
+
+  cropImage() {
+    this.imageCropper.crop();
+  }
+
+  dataURLtoBlob(dataURL: string): Blob | null {
+    if (!dataURL) {
+      return null; 
+    }
+
+    const arr = dataURL.split(',');
+    if (arr.length < 2) {
+      throw new Error('Invalid data URL format');
+    }
+
+    const mime = arr[0].match(/:(.*?);/);
+    if (!mime || mime.length < 2) {
+      throw new Error('Invalid data URL format');
+    }
+
+    const mimeString = mime[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mimeString });
   }
 
   // show password
@@ -388,5 +445,10 @@ export class RegisterComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
+
+
+  // Image cropper
+
   // Fin de l'inscription  = this.telephone.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4')
 }

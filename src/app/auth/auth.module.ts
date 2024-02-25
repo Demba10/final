@@ -14,6 +14,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { MatCardModule } from '@angular/material/card';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatStepperModule,
     FileUploadModule,
-    MatCardModule
+    MatCardModule,
+    ImageCropperModule
     // BrowserAnimationsModule
   ]
 })

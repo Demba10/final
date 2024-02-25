@@ -51,7 +51,7 @@ export class AstucesComponent {
     let a = this.contenu.indexOf('<')
     return this.contenu.charAt(a);
   }
-  
+
   constructor(
     private articles: AstucesService,
     private art: ArticlesService,
@@ -188,7 +188,6 @@ export class AstucesComponent {
   modifierArticle() {
     const nA = new FormData();
     let temp = localStorage.getItem('id_article');
-    alert("Andre Demba Ndione");
     nA.append('titre', this.titre);
     nA.append('image', this.image as Blob);
     nA.append('contenue', this.contenu);
@@ -226,7 +225,7 @@ export class AstucesComponent {
   }
   userActif(id: any) {
     this.cl = this.clients.find(ele => ele.id == id)
-  }
+  }       
   filtrer() {
     this.filtre = !this.filtre;
   }
@@ -256,14 +255,10 @@ export class AstucesComponent {
     this.titre = "";
     this.contenu = "";
   }
-
-  // Pagination
-
   onPageChange(pageNumber: number): void {
     console.log('Page changed to: ', pageNumber);
   }
-
-  itemsPerPage = 1;
+  itemsPerPage = 10;
   currentPage = 1;
 
   get paginatedProduits(): any[] {

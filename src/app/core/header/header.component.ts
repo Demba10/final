@@ -76,7 +76,6 @@ export class HeaderComponent implements OnInit {
     )
   }
   goLogin() {
-    alert('gfjglfgjl')
   }
   deconnexon() {
     this.sharedService.alert('success', 'Déconnexion réussie', 'success');
