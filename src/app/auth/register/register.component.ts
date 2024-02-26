@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
       this.colorNom = "rgb(249, 67, 67)";
       this.messageNom = "Le nom ne peut pas commencer par un espace.";
     } else if (!valide.test(this.nom.trim())) {
-      this.colorNom = "rgb(249, 67, 67)";
+      this.colorNom = "rgb(249, 67, 67)";     
       this.messageNom = "Format invalide!";
     }
     // else if (!sansChiffres.test(this.nom.trim())) {

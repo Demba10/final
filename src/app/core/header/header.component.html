@@ -46,15 +46,16 @@
         </div>
     </div>
     <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title">Modal title</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <div class="modal-header border border-bottom-0 ">
+            <i class="fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"
+                style="position: absolute; left: calc(100% - 30px); font-size: 24px; cursor: pointer;"></i>
         </div>
         <div class="modal-body">
             <app-profil></app-profil>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        <div class="modal-footer border border-top-0">
+            <button type="button" class="btn btn-secondary border border-top-0" (click)="modal.close('Close click')"
+                style="background-color: #4CAF50; border-width: 0px;">Enregistrer</button>
         </div>
     </ng-template>
     <ng-template #responsive let-offcanvas>

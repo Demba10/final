@@ -11,6 +11,7 @@ import { EspaceCreatifComponent } from './espace-creatif/espace-creatif.componen
 import { ChatComponent } from './chat/chat.component';
 import { authGuard } from '../guards/auth.guard';
 import { DetailsJardinierComponent } from './details-jardinier/details-jardinier.component';
+import { ProfilComponent } from '../profil/profil.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
       {
         path: 'details-jardinier/:id',
         component: DetailsJardinierComponent
+      },
+      {
+        path: 'profil/:id',
+        component: ProfilComponent
       },
       {
         path: '**',

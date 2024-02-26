@@ -1,59 +1,84 @@
 <div class="profil">
-    <mat-card class="box-top p-3">
+    <mat-card class="box-top p-3"
+        style="background-image: url('https://img.freepik.com/photos-premium/resume-cadre-fond-gouttes-aquarelle-jaune-vert-papier-blanc_154092-13976.jpg?w=1380'); background-repeat: no-repeat; background-position: center; background-size: cover;">
         <div class="user">
-            <div class="img"> <img src="" alt=""> </div>
+            <div class="img">
+                <img src="http://127.0.0.1:8000/api/{{userOnLine?.image}}" alt="" style="width: 100%;">
+            </div>
             <span>
-                <h4>{{userOnLine?.prenom}} {{userOnLine?.nom}}</h4>
-                <span>{{userOnLine?.role_id}}</span>
+                <h4 class="fw-bold">{{userOnLine?.prenom}} {{userOnLine?.nom}}</h4>
+                <span *ngIf="userOnLine?.role_id == 1">Administrateur</span>
+                <span *ngIf="userOnLine?.role_id == 2">jardinier</span>
+                <span *ngIf="userOnLine?.role_id == 3">Client</span>
             </span>
         </div>
-        <div class="lien d-flex gap-2">
-            <span (click)="switch()">Apercu</span>
-            <span (click)="switch()">Paramettre</span>
+        <div class="lien d-flex gap-4">
+            <span class="fw-bold" (click)="switch()" [style.color]="colorApercu">Apercu</span>
+            <span class="fw-bold" (click)="switch2()" [style.color]="colorParam">Paramètre</span>
         </div>
     </mat-card>
     <mat-card class="box-bottom mt-4 p-3">
-        <h4>Details profil</h4>
+        <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="profil">Details profil</h4>
+        <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="!profil">Editer profil</h4>
         <table>
             <tr>
                 <td>Prénom</td>
                 <td *ngIf="profil">{{userOnLine?.prenom}}</td>
-                <td *ngIf="!profil"> <input type="text" class="d-flex"></td>
+                <td *ngIf="!profil"> <input type="text" class="d-flex" [placeholder]="userOnLine?.prenom"></td>
             </tr>
             <tr>
                 <td>Nom</td>
                 <td *ngIf="profil">{{userOnLine?.nom}}</td>
-                <td *ngIf="!profil"> <input type="text" class="d-flex"></td>
+                <td *ngIf="!profil"> <input type="text" class="d-flex" [placeholder]="userOnLine?.nom"></td>
             </tr>
             <tr>
                 <td>Adresse Email</td>
                 <td *ngIf="profil">{{userOnLine?.email}}</td>
-                <td *ngIf="!profil"> <input type="text"> </td>
+                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.email"> </td>
             </tr>
             <tr>
                 <td>Adresse</td>
                 <td *ngIf="profil">{{userOnLine?.adresse}}</td>
-                <td *ngIf="!profil"> <input type="text"> </td>
+                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.adresse"> </td>
             </tr>
             <tr>
                 <td>Téléphone</td>
                 <td *ngIf="profil">{{userOnLine?.telephone}}</td>
-                <td *ngIf="!profil"> <input type="text"> </td>
+                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
+            </tr>
+            <tr>
+                <td>Ancien mot de passe</td>
+                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
+                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
+            </tr>
+            <tr>
+                <td>Nouveau mot de passe</td>
+                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
+                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
             </tr>
         </table>
     </mat-card>
 </div>
-
+<app-footer></app-footer>
 <style>
-    /* .box-top {
+    .profil {
+        padding: 40px 10%;
+    }
+
+    .box-top {
 
         display: flex;
-        gap: 10px;
-        flex-direction: row;
+        flex-direction: column;
+
+        .user {
+            display: flex;
+            gap: 20px;
+        }
 
         .img {
-            width: 190px;
-            height: 300px;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-wrap: wrap;
@@ -63,19 +88,31 @@
                 width: 100%;
             }
         }
-    } */
-    .lien span {
-        cursor: pointer;
-        margin-top: 6px;
+    }
+
+    .lien {
+        span {
+            margin-top: 10px;
+            cursor: pointer;
+        }
     }
 
     td {
         height: 45px;
     }
 
+    td:nth-child(1) {
+        font-weight: bold;
+    }
+
+    td:nth-child(2) {
+        font-weight: 500;
+    }
+
     td input {
         width: 70%;
         border: 0px solid transparent;
         border-bottom: 1px solid rgba(0, 0, 0, 0.256);
+        outline: 0;
     }
 </style>

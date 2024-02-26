@@ -40,7 +40,7 @@ export class EspaceCreatifComponent implements OnInit {
   modifier: any;
   categories!: any[];
   userOnLine: any;
-  cat: any;
+  cat!: any[];
   longueur!: any;
   dataSource: any;
   videos: any;
@@ -110,9 +110,8 @@ export class EspaceCreatifComponent implements OnInit {
   }
   listerCategories() {
     this.categorieService.getCategories().subscribe(
-      response => {
+      response => {     
         this.cat = response;
-        this.cat = this.cat;
         console.log(this.cat);
       }
     );
