@@ -10,8 +10,9 @@
 
 .titre-input {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: end;
+    align-items: start;
 }
 
 .titre-truc {

@@ -1,5 +1,5 @@
 <!-- Ajout produit -->
-<ng-template #content let-c="close" let-d="dismiss">
+<!-- <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Ajout de produit!</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
@@ -22,7 +22,6 @@
                         name="image" />
                 </label>
             </div>
-            <!--  -->
             <mat-form-field class="example-full-width">
                 <mat-label>Nom</mat-label>
                 <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
@@ -38,120 +37,118 @@
             </mat-form-field>
         </form>
     </div>
-</ng-template>
+</ng-template> -->
 <!--  -->
-<section class=" boutique">
-    <div class="jardiniers-box row">
-        <!-- <button class="mat-elevation-z4 side d-flex flex-column align-items-center gap-3">
-            <div>
-                <button mat-mini-fab style="background-color: #4CAF50;"><i class="fa-solid fa-house"
-                        style="transform: scale(1.3);"></i></button>
-                <span style="font-size: 12px;">Bureau</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;" (click)="open(content)"><i
-                        class="fa-solid fa-basket-shopping"></i></button>
-                <span style="font-size: 12px;">Produit</span>
-            </div>
-
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;" (click)="openSm(co)"><i
-                        class="fa-solid fa-layer-group"></i>
-                </button>
-                <span style="font-size: 12px;">Catégories</span>
-            </div>
-            <div>
-                <button mat-mini-fab style="background-color: #292D26;"><i class="fa-solid fa-gear"
-                        style="transform: scale(1.3);"></i></button>
-            </div>
-        </button> -->
-        <div class="col-12">
-            <div class="row">
-                <!-- <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span> -->
-                <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
-                    *ngIf="prod.length == 0">
-                    <img src="assets/images/nocontent.png" class="img-fluid" alt="">
+<app-share-banner></app-share-banner>
+<div class="jardiniers-box row">
+    <div class="col-4">
+        <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;">
+            <img mat-card-image src="http://127.0.0.1:8000/api/{{jardinier.image}}" alt="Image jardinier">
+            <mat-card-content>
+                <h6 class="nom-user mt-3 fw-bold"> {{jardinier.prenom}} {{jardinier.nom}}</h6>
+                <table>
+                    <tr>
+                        <td class="fw-bold"> Adresse </td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td> {{jardinier.adresse}} </td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold"> Produits </td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td> {{prod.length}} </td>
+                    </tr>
+                </table>
+                <div class="jard mb-3">
+                    <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
+                    <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
+                    <a mat-raised-button><i class="fa-solid fa-comment"></i></a>
                 </div>
-                <div class="col-6" *ngFor="let item of prod">
-                    <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
-                        (click)="openLg(con)" (click)="detailsProduit(item.id)">
-                        <div class="row g-0" style="">
-                            <div class="col-md-4">
-                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
-                                    [alt]="item.image">
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <!-- <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span> -->
+            <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
+                *ngIf="prod.length == 0">
+                <img src="assets/images/nocontent.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-6" *ngFor="let item of prod">
+                <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
+                    (click)="openLg(con)" (click)="detailsProduit(item.id)">
+                    <div class="row g-0" style="">
+                        <div class="col-md-4">
+                            <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                [alt]="item.image">
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
+                                    {{item.nom}}</h5>
+                                <span class="notes">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </span>
                             </div>
-                            <div class="col-md-7 d-flex align-items-center">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
-                                        {{item.nom}}</h5>
-                                    <span class="notes">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Details boutique -->
+                <ng-template #con let-modal class="">
+                    <div class="card">
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"
+                            style="position: absolute; left:  95%; margin-top: 10px;"></button>
+                        <div class="row g-0">
+                            <div class="left-detail col-md-6"
+                                style="display: flex; justify-content: center; align-items: center; ">
+                                <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
+                                    <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt="" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{detail.nom}}</h2>
+                                    <h5>Description</h5>
+                                    <p class="card-text">{{detail.description}} </p>
+                                    <table>
+                                        <tr>
+                                            <td>Catégorie</td>
+                                            <td>&nbsp;-&nbsp;</td>
+                                            <td>{{detail.categorie.nom}}</td>
+                                        </tr>
+                                    </table>
+                                    <h5 class="mt-4">Jardinier</h5>
+                                    <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Details boutique -->
-                    <ng-template #con let-modal class="">
-                        <div class="card">
-                            <button type="button" class="btn-close" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')"
-                                style="position: absolute; left:  95%; margin-top: 10px;"></button>
-                            <div class="row g-0">
-                                <div class="left-detail col-md-6"
-                                    style="display: flex; justify-content: center; align-items: center; ">
-                                    <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
-                                        <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
-                                            style="width: 100%;">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <h2 class="card-title">{{detail.nom}}</h2>
-                                        <h5>Description</h5>
-                                        <p class="card-text">{{detail.description}} </p>
-                                        <table>
-                                            <tr>
-                                                <td>Catégorie</td>
-                                                <td>&nbsp;-&nbsp;</td>
-                                                <td>{{detail.categorie.nom}}</td>
-                                            </tr>
-                                        </table>
-                                        <h5 class="mt-4">Jardinier</h5>
-                                        <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-template>
-                </div>
-                <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
-                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-                </div> -->
+                </ng-template>
             </div>
+            <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div> -->
         </div>
     </div>
+</div>
 
-    <!-- Ajout categories -->
-    <ng-template #co let-modal style="max-height: 90vh;">
-        <div class="modal-header py-2 px-4" style="border-bottom: 0;">
-            <h4 class="modal-title" style="font-size: 18px;">Catégories (7)</h4>
-            <button type="  button" class="btn-close" aria-label="Close"
-                (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <!-- <div class="modal-body">
-            <app-catgories></app-catgories>
-        </div> -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
-        </div>
-    </ng-template>
-    <!-- Fin ajout  catégories -->
-</section>
+<!-- Ajout categories -->
+<!-- <ng-template #co let-modal style="max-height: 90vh;">
+    <div class="modal-header py-2 px-4" style="border-bottom: 0;">
+        <h4 class="modal-title" style="font-size: 18px;">Catégories (7)</h4>
+        <button type="  button" class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
+    </div>
+</ng-template> -->
+<!-- Fin ajout  catégories -->
+<app-footer></app-footer>
 <style>
     .addCategorie {
         display: flex;
@@ -173,5 +170,21 @@
         background-size: cover;
         background-position: center;
         height: 70vh;
+    }
+
+    /* Media sociaux */
+    .jard {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 16px;
+        /* justify-content: center; */
+        gap: 10px;
+    }
+
+
+    .jard a {
+        color: white;
+        background-color: #292D26;
     }
 </style>

@@ -30,6 +30,8 @@ export class DetailsJardinierComponent {
   id_jar: any;
   jardiniers!: any[];
   jardinier: any;
+  jar_id!: any;
+  jar: any;
 
   constructor(
     private produitService: ProduitsService,
@@ -56,7 +58,6 @@ export class DetailsJardinierComponent {
   openSm(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'md', scrollable: true });
   }
-
   lister() {
     this.userService.getProduits().subscribe(
       response => {
@@ -81,8 +82,8 @@ export class DetailsJardinierComponent {
   detailsProduit(id: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
-        // console.log(response);
         this.detail = response.article;
+        console.log(this.detail);
       }
     )
   }

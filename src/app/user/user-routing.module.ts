@@ -10,6 +10,7 @@ import { OneAstuceComponent } from './one-astuce/one-astuce.component';
 import { EspaceCreatifComponent } from './espace-creatif/espace-creatif.component';
 import { ChatComponent } from './chat/chat.component';
 import { authGuard } from '../guards/auth.guard';
+import { DetailsJardinierComponent } from './details-jardinier/details-jardinier.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
         path: 'espace-creatif/:id',
         canActivate: [authGuard],
         component: EspaceCreatifComponent
+      },
+      {
+        path: 'details-jardinier/:id',
+        component: DetailsJardinierComponent
       },
       {
         path: '**',

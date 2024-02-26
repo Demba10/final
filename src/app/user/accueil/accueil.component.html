@@ -38,12 +38,12 @@
             <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="assets/images/alaune/alaune-1.png" class="img-fluid rounded-start" alt="...">
+                        <img src="http://127.0.0.1:8000/api/{{randomAstuceImage}}" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body" style="min-width: max-content;">
-                            <h5 class="card-title">Plante du jour</h5>
-                            <p class="card-text">Produire en peut de temps</p>
+                            <h5 class="card-title">Astuce du jour</h5>
+                            <p class="astuce-day-name card-text">{{randomAstuceName}}</p>
                             <p class="card-text"><small class="text-muted">
                                     <app-button-one title="Voir"></app-button-one>
                                 </small></p>
@@ -56,12 +56,13 @@
             <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="assets/images/alaune/alaune-2.png" class="img-fluid rounded-start" alt="...">
+                        <img src="http://127.0.0.1:8000/api/{{randomProductImage}}" class="img-fluid rounded-start"
+                            alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">Produit du jour</h5>
-                            <p class="card-text">Produit 1</p>
+                            <p class="card-text">{{randomProductName}}</p>
                             <p class="card-text"><small class="text-muted">
                                     <app-button-one title="Voir"></app-button-one>
                                 </small></p>
@@ -108,7 +109,8 @@
         <div class="jar-items col-6 col-sm-12 col-12 col-md-3 col-lg-3" *ngFor="let item of jdnSome">
             <div class="card-sp card m-sm-0 mb-3"
                 style="margin: 12px 0; position: relative; z-index: 76; cursor: pointer;" id="card-s">
-                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt="">
+                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt=""
+                    (click)="detailJardinier1(item.id, item.prenom)">
                 <div class="card-body">
                     <span class="text-user-name">{{item.prenom}} {{item.nom}}</span>
                 </div>
@@ -158,7 +160,8 @@
                         <i class="fa-solid fa-star"></i>
                     </span>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex gap-2 align-items-center">
+                        <div class="d-flex gap-2 align-items-center" style="cursor: pointer;"
+                            (click)="detailJardinier(detail?.user_id)">
                             <div class="img">
                                 <img src="http://127.0.0.1:8000/api/{{user?.image}}" alt="" class="img-fluid">
                             </div>
@@ -210,7 +213,7 @@
                 </div>
             </div>
         </div>
-        <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
+        <app-button-one title="Lire plus" class="text-center mt-4" routerLink="../espace-verte"></app-button-one>
     </div>
 </section>
 

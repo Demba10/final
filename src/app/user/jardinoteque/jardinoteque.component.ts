@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { interval } from 'rxjs';
 import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
@@ -31,7 +32,8 @@ export class JardinotequeComponent implements OnInit {
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
-    private messagerie: MessagerieService
+    private messagerie: MessagerieService,
+    private router: Router
   ) { }
 
   displayedColumns: string[] = ['id', 'image', 'nom', 'lien', 'adresse', 'produits'];
@@ -99,10 +101,11 @@ export class JardinotequeComponent implements OnInit {
     //     // this.jar_id = localStorage.setItem('id_jar', id);
     //   }
     // )
-    this.showDetails = true;
+    // this.showDetails = true;
     localStorage.setItem('id_jar', (id));
     this.jar_id = localStorage.getItem('id_jar');
-    this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
+    this.jar = this.jardiniers.find(ele => ele.id == id);
+    this.router.navigate(['../user/details-jardinier', this.jar.prenom]);
   }
   listerJardiniers() {
     this.userService.getJardiniers().subscribe(

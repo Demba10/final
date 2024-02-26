@@ -1,8 +1,8 @@
 <app-share-banner></app-share-banner>
 <!-- <app-recherche-section></app-recherche-section> -->
 <!-- <button mat-raised-btn style="background-color: aqua;">Ajouter</button> -->
-<section class="jardinier" *ngIf="!showDetails">
-    <div class="titre-input mb-2">
+<section class="jardinier">
+    <div class="titre-input">
         <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="titre-truc"
             color_one="#4CAF50" color_two="#292D26" id="article"></app-titre>
         <input type="text" class="mb-3 input"
@@ -12,7 +12,7 @@
     <div class="jardiniers-box row">
         <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
             *ngIf="jardiniers.length == 0">
-            <img src="assets/images/notfound.png" class="img-fluid" alt="">
+            <img src="assets/images/null.png" class="img-fluid" alt="">
         </div>
         <div *ngFor="let item of jardiniers" class="col-sm-6 col-12 col-md-6 col-lg-3"
             style="position: relative; top: 20px;">
@@ -46,12 +46,17 @@
                     molestiae perspiciatis iusto.
                 </mat-card-content>
             </mat-card> -->
-
             <mat-card class="example-card" style="margin-bottom: 22px; cursor: pointer;"
                 (click)="openXl(content, item.id)" (click)="consulterProfil(item.id)">
                 <img mat-card-image src="http://127.0.0.1:8000/api/{{item.image}}" alt="Photo of a Shiba Inu">
                 <mat-card-content>
-                    <h6 class="nom-user mt-3"> {{item.prenom}} {{item.nom}}</h6>
+                    <h6 class="nom-user mt-3 fw-bold"> {{item.prenom}} {{item.nom}}</h6>
+                    <table>
+                        <tr>
+                            <td class="fw-bold"> Adresse : </td>
+                            <td> {{item.adresse}} </td>
+                        </tr>
+                    </table>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -63,7 +68,7 @@
     </div>
 </section>
 
-<section class="jardinier" *ngIf="showDetails">
+<!-- <section class="jardinier" *ngIf="showDetails">
     <a mat-raised-button class="fw-bold mb-3" style="background-color: #4CAF50; width: min-content; color: white;"
         (click)="resterDetails()">Retour</a>
     <div class="row">
@@ -76,12 +81,10 @@
             </mat-card>
         </div>
         <div class="col-md-8">
-            <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="titre-truc"
-                color_one="#4CAF50" color_two="#292D26" id="article"></app-titre>
             <app-details-jardinier></app-details-jardinier>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Details -->
 <ng-template #content let-modal>
@@ -90,7 +93,7 @@
             <span class="user-sms"
                 style="height: 40px; width: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 50%; align-items: center;">
                 <img src="http://127.0.0.1:8000/api/{{jar?.image}}" alt="" style="width: 100%;">
-            </span> 
+            </span>
             <span style="font-weight: 600; font-size: 18px;"> {{jar.prenom}} {{jar.nom}} </span>
         </div>
         <i class="fa-solid fa-xmark" (click)="modal.close('Close click')"
@@ -101,7 +104,6 @@
     </div>
     <div class="jard mb-3">
         <a mat-raised-button><i class="fa-brands fa-whatsapp"></i></a>
-        <a mat-raised-button><i class="fa-solid fa-location-dot"></i></a>
         <a mat-raised-button><i class="fa-solid fa-phone-flip"></i></a>
         <a mat-raised-button (click)="openVerticallyCentered(message)" (click)="listerMesages(userOnline.id)"><i
                 class="fa-solid fa-comment"></i></a>
