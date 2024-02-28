@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   private modalService = inject(NgbModal);
   private offcanvasService = inject(NgbOffcanvas);
   existing: boolean = true;
+  isActive: any;
 
   constructor(
     private link_data: LinkDataService,

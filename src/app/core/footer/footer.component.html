@@ -17,6 +17,10 @@
                         placeholder="Entrez votre email" name="email" [(ngModel)]="email">
                     <button type="button" class="btn btn-primary" (click)="inscriptionNewletters()">S'inscrire</button>
                 </div>
+                <div style="font-size: 13px; margin-top: 8px;">
+                    <span *ngIf="!message" style="visibility: hidden;">hidden</span>
+                    <span *ngIf="message" style="color: #fe4e4e;">{{message}}</span>
+                </div>
             </div>
         </div>
     </div>

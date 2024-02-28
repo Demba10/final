@@ -39,8 +39,8 @@ export class CategoriesService {
   }
 
   // Supprimer un produit par son ID
-  deleteproduit(id: number): Observable<any> {
-    const url = `${this.apiUrl}SupprimerProduits/${id}`;
+  supprimerCategorie(id: number): Observable<any> {
+    const url = `${this.apiUrl}SupprimerCategorie/${id}`;
     return this.http.delete<any>(url);
   }
 }

@@ -1,4 +1,5 @@
 export interface Jardinier {
+    is_bloquer: number;
     id: number;
     image: string;
     prenom: string;

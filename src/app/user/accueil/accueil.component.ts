@@ -43,6 +43,10 @@ export class AccueilComponent implements OnInit {
   randomAstuceImage: any;
   randomAstuceName: any;
   randomAstuceId: any;
+  videoArray!: any[];
+  contentVideos: any;
+  displayVideo: any;
+  oneVideo: any;
   // Constructeur
 
   constructor(
@@ -61,6 +65,7 @@ export class AccueilComponent implements OnInit {
     this.apiUser.getClients().subscribe(
       response => {
         console.log(response);
+        this.listerVideoRandom();
       }
     )
     this.listeJardiniers();
@@ -119,6 +124,10 @@ export class AccueilComponent implements OnInit {
   openXl(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl', scrollable: true });
   }
+  openLg(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
 
   settIdProduit(id: any = this.idProduit) {
     this.idProduit = id;
@@ -150,10 +159,22 @@ export class AccueilComponent implements OnInit {
       response => {
         this.videos = response;
         this.videos = this.videos.videos;
+        this.displayVideo = this.videos.slice(0, 4);
+        this.oneVideo = this.videos.slice(0, 1)
+        console.log("video one ", this.displayVideo);
+        console.log("All video ", this.oneVideo);
       }
     )
   }
-
+  listerVideoRandom() {
+    // this.videoService.getVideo().subscribe(
+    //   response => {
+    //     this.videoArray = response;
+    //     const randomIndex = Math.floor(Math.random() * this.contentVideos.length);
+    //     this.displayVideo = this.contentVideos[randomIndex];
+    //   }
+    // )
+  }
   detailJardinier1(id: any, nom: any) {
     localStorage.setItem('id_jar', (id));
     this.router.navigate(['../user/details-jardinier', nom]);
@@ -166,4 +187,5 @@ export class AccueilComponent implements OnInit {
   details(id: any) {
     localStorage.setItem('id', id);
   }
+  
 }

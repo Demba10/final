@@ -241,9 +241,20 @@
                             <div class="px-2"
                                 style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 14px;">{{item.titre}}</span>
-                                <span class="fw-bold">{{item.created_at | date
-                                    : 'dd/MM/yyyy'
-                                    }}</span>
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-bold">{{item.created_at | date
+                                        : 'dd/MM/yyyy'
+                                        }}</span>
+                                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item>
+                                            <span (click)="SupprimerVideo(item.id)">Supprimer</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
                             </div>
                         </div>
                     </div>

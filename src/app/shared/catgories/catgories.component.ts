@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { SharedService } from 'src/app/services/shared.service';
+import Swal from 'sweetalert2';
 
 export interface Categories {
 
@@ -64,6 +65,35 @@ export class CatgoriesComponent implements OnInit {
         this.listerCategories();
       }
     )
+  }
+  supprimer(id: any) {
+    this.categorieService.supprimerCategorie(id).subscribe(
+      categorie => {
+        console.log(categorie);
+      }
+    )
+  }
+  SupprimerVideo(id: any) {
+    Swal.fire({
+      title: "Etes-vous sure?",
+      text: "Cette vidéo sera supprimé définitivement!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, supprimé",
+      cancelButtonText: "Annuler"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categorieService.supprimerCategorie(id).subscribe(
+          response => {
+            // console.log(response);
+            this.listerCategories();
+            this.sharedService.alert('success', response.message, 'success');
+          }
+        )
+      }
+    });
   }
   openSm(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'sm' });

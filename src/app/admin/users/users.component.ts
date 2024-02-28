@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -41,8 +42,24 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userServices: UsersService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    // private datePipe: DatePipe
   ) { }
+  ngOnInit(): void {
+    this.userServices.getJardiniers().subscribe(
+      response => {
+        this.users = response;
+        console.log(this.users);
+        this.dataSource.data = this.users;
+      }
+    )
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+    }, 1000);
+    this.listerUsers2();
+    // this.merger();
+    this.allUser();
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -51,7 +68,7 @@ export class UsersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  openLg(content: TemplateRef<any>) {
+  openLg(content: TemplateRef<any>, id?: any) {
     this.modalService.open(content, { size: 'lg' });
   }
   openAdd(add: TemplateRef<any>) {
@@ -69,6 +86,32 @@ export class UsersComponent implements OnInit {
     this.userServices.getClients().subscribe(
       response => {
         // console.log(response);
+      }
+    )
+  }
+  allUser() {
+    this.userServices.allUser().subscribe(
+      response => {
+        console.log("All user ", response);
+        this.dataSource.data = response.users;
+      }
+    )
+  }
+  userInactif() {
+    this.userServices.allUser().subscribe(
+      response => {
+        console.log("All user ", response);
+        this.dataSource.data = response.users;
+        this.dataSource.data = this.dataSource.data.filter(u => u.is_bloquer == 1);
+      }
+    )
+  }
+  userActif() {
+    this.userServices.allUser().subscribe(
+      response => {
+        console.log("All user ", response);
+        this.dataSource.data = response.users;
+        this.dataSource.data = this.dataSource.data.filter(u => u.is_bloquer == 0);
       }
     )
   }
@@ -103,7 +146,7 @@ export class UsersComponent implements OnInit {
           response => {
             // console.log(response);
             this.sharedService.alert('', response.Message, 'success');
-            this.merger();
+            this.allUser();
           }
         )
       }
@@ -125,24 +168,10 @@ export class UsersComponent implements OnInit {
           response => {
             // console.log(response);
             this.sharedService.alert('', response.Message, 'success');
-            this.merger();
+            this.allUser();
           }
         )
       }
     })
-  }
-  ngOnInit(): void {
-    this.userServices.getJardiniers().subscribe(
-      response => {
-        this.users = response;
-        console.log(this.users);
-        this.dataSource.data = this.users;
-      }
-    )
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-    }, 1000);
-    this.listerUsers2();
-    this.merger();
   }
 }

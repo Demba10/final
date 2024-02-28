@@ -17,47 +17,62 @@
             <span class="fw-bold" (click)="switch2()" [style.color]="colorParam">Paramètre</span>
         </div>
     </mat-card>
-    <mat-card class="box-bottom mt-4 p-3">
-        <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="profil">Details profil</h4>
-        <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="!profil">Editer profil</h4>
-        <table>
-            <tr>
-                <td>Prénom</td>
-                <td *ngIf="profil">{{userOnLine?.prenom}}</td>
-                <td *ngIf="!profil"> <input type="text" class="d-flex" [placeholder]="userOnLine?.prenom"></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td *ngIf="profil">{{userOnLine?.nom}}</td>
-                <td *ngIf="!profil"> <input type="text" class="d-flex" [placeholder]="userOnLine?.nom"></td>
-            </tr>
-            <tr>
-                <td>Adresse Email</td>
-                <td *ngIf="profil">{{userOnLine?.email}}</td>
-                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.email"> </td>
-            </tr>
-            <tr>
-                <td>Adresse</td>
-                <td *ngIf="profil">{{userOnLine?.adresse}}</td>
-                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.adresse"> </td>
-            </tr>
-            <tr>
-                <td>Téléphone</td>
-                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
-                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
-            </tr>
-            <tr>
-                <td>Ancien mot de passe</td>
-                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
-                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
-            </tr>
-            <tr>
-                <td>Nouveau mot de passe</td>
-                <td *ngIf="profil">{{userOnLine?.telephone}}</td>
-                <td *ngIf="!profil"> <input type="text" [placeholder]="userOnLine?.telephone"> </td>
-            </tr>
-        </table>
-    </mat-card>
+    <div class="row">
+        <div class="col-8">
+            <mat-card class="box-bottom mt-4 p-3">
+                <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="profil">Details profil</h4>
+                <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="!profil">Editer profil</h4>
+                <table>
+                    <tr>
+                        <td>Prénom</td>
+                        <td *ngIf="profil">{{userOnLine?.prenom}}</td>
+                        <td *ngIf="!profil"> <input type="text" class="d-flex" [value]="userOnLine?.prenom"
+                                [placeholder]="userOnLine?.prenom" [(ngModel)]="prenom"></td>
+                    </tr>
+                    <tr>
+                        <td>Nom</td>
+                        <td *ngIf="profil">{{userOnLine?.nom}}</td>
+                        <td *ngIf="!profil"> <input type="text" class="d-flex" [value]="userOnLine?.nom"
+                                [placeholder]="userOnLine?.nom" [(ngModel)]="nom"></td>
+                    </tr>
+                    <tr>
+                        <td>Adresse Email</td>
+                        <td *ngIf="profil">{{userOnLine?.email}}</td>
+                        <td *ngIf="!profil"> <input type="text" [value]="userOnLine?.email"
+                                [placeholder]="userOnLine?.email" [(ngModel)]="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Adresse</td>
+                        <td *ngIf="profil">{{userOnLine?.adresse}}</td>
+                        <td *ngIf="!profil"> <input type="text" [value]="userOnLine?.adresse"
+                                [placeholder]="userOnLine?.adresse" [(ngModel)]="adresse"> </td>
+                    </tr>
+                    <tr>
+                        <td>Téléphone</td>
+                        <td *ngIf="profil">{{userOnLine?.telephone}}</td>
+                        <td *ngIf="!profil"> <input type="text" [value]="userOnLine?.telephone"
+                                [placeholder]="userOnLine?.telephone" [(ngModel)]="telephone"> </td>
+                    </tr>
+                    <tr *ngIf="!profil">
+                        <td>Ancien mot de passe</td>
+                        <!-- <td *ngIf="profil">{{userOnLine?.telephone}}</td> -->
+                        <td> <input type="text" placeholder="************" [(ngModel)]="password"> </td>
+                    </tr>
+                    <tr *ngIf="!profil">
+                        <td>Nouveau mot de passe</td>
+                        <!-- <td *ngIf="profil">{{userOnLine?.telephone}}</td> -->
+                        <td> <input type="text" placeholder="************" [(ngModel)]="confirmerPassword"> </td>
+                    </tr>
+                    <tr *ngIf="!profil">
+                        <td> <button style="visibility: hidden;">hidden</button> </td>
+                        <td class=""> <button mat-raised-button
+                                style="background-color: #4CAF50; color: white;">Enregistrer</button> </td>
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+    </div>
 </div>
 <app-footer></app-footer>
 <style>

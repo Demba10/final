@@ -2,7 +2,13 @@
 table {
   width: 100%;
 }
- 
+
+#inactif,
+#actif {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
@@ -10,16 +16,16 @@ table {
 
 // 
 .dark-modal .modal-content {
-    background-color: #292b2c;
-    color: white;
+  background-color: #292b2c;
+  color: white;
 }
 
 .dark-modal .close {
-    color: white;
+  color: white;
 }
 
 .light-blue-backdrop {
-    background-color: #5cb3fd;
+  background-color: #5cb3fd;
 }
 
 // Modal
@@ -27,11 +33,11 @@ table {
 //     padding: 20px;
 // }
 .img {
-    height: 130px;
-    width: 120px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  height: 130px;
+  width: 120px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }

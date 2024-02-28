@@ -11,11 +11,29 @@ export class ProfilComponent implements OnInit {
   profil: boolean = true;
   colorParam!: any;
   colorApercu: any = "#4CAF50";
+
+  // Propriétés 
+  prenom: any;
+  nom: any;
+  email: any;
+  adresse: any;
+  telephone: any;
+  password: any;
+  confirmerPassword: any;
+
   constructor() { }
 
   ngOnInit(): void {
     this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
     console.log(this.userOnLine);
+    this.remplirValeur();
+  }
+  remplirValeur() {
+    this.prenom = this.userOnLine.prenom;
+    this.nom = this.userOnLine.nom;
+    this.email = this.userOnLine.email;
+    this.adresse = this.userOnLine.adresse;
+    this.telephone = this.userOnLine.telephone;
   }
   switch() {
     this.profil = true;

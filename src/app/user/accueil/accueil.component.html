@@ -38,7 +38,8 @@
             <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="http://127.0.0.1:8000/api/{{randomAstuceImage}}" class="img-fluid rounded-start" alt="...">
+                        <img src="http://127.0.0.1:8000/api/{{randomAstuceImage}}" class="img-fluid rounded-start"
+                            alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body" style="min-width: max-content;">
@@ -122,18 +123,27 @@
 <section class="conseils row">
     <app-titre sus_titre="Le savoir faire des expérimentés" titre="Astuces en video" class="text-center"
         color_one="#4CAF50" color_two="#292D26"></app-titre>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of videos">
-        <div class="card" style="margin: 12px 0;">
-            <video controls>
-                <source src="http://localhost:8000{{item?.video}}" type="video/mp4">
+    <div class="col-lg-6" *ngFor="let video of displayVideo">
+        <mat-card class="videos card" style="margin: 12px 0;" (click)="openLg(content)">
+            <video>
+                <source src="http://localhost:8000{{video?.video}}" type="video/mp4">
                 Vidéo non supporté
             </video>
             <div class="card-body">
-                <h6 class="card-text fw-bold">{{item?.titre}}</h6>
+                <h6 class="card-text fw-bold">{{video?.titre}}</h6>
                 <div class="d-flex justify-content-between">
                 </div>
             </div>
-        </div>
+        </mat-card>
+        <ng-template #content let-modal>
+            <div class="modal-body"
+                style="width: min-content; display: flex; align-items: center; justify-content: center;">
+                <video controls autoplay style="width: auto;">
+                    <source src="http://localhost:8000{{video?.video}}" type="video/mp4">
+                    Vidéo non supporté
+                </video>
+            </div>
+        </ng-template>
     </div>
     <app-button-one title="Lire plus" class="text-center mt-4"></app-button-one>
 </section>
@@ -257,5 +267,20 @@
         .about {
             padding: 20px;
         }
+    }
+
+    mat-card {
+        overflow: hidden;
+    }
+
+    .videos {
+        transition: 0.2s all ease-in-out;
+        cursor: pointer;
+        border: 2px solid #4CAF50;
+    }
+
+    .videos:hover {
+        transform: scale(1.02);
+        transition: 200ms all ease-in-out;
     }
 </style>

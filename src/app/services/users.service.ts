@@ -74,7 +74,7 @@ export class UsersService {
   }
 
   // Méthode pour effectuer une requête POST
-  newlatters(data: string): Observable<any> {
+  newlatters(data: any): Observable<any> {
     const resource = "AjouterNewletters";
     return this.http.post(`${this.apiUrl}${resource}`, data);
   }

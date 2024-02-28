@@ -38,6 +38,9 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -79,6 +82,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatIconModule,
     FormsModule,
     MatInputModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatOptionModule,
     ReactiveFormsModule,
     FileUploadModule,
     NgbDropdown,

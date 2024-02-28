@@ -45,6 +45,8 @@ export class EspaceCreatifComponent implements OnInit {
   dataSource: any;
   videos: any;
   activerButton: boolean = false;
+  contentArray!: any[];
+  displayContent: any;
 
   constructor(
     config: NgbModalConfig,
@@ -110,7 +112,7 @@ export class EspaceCreatifComponent implements OnInit {
   }
   listerCategories() {
     this.categorieService.getCategories().subscribe(
-      response => {     
+      response => {
         this.cat = response;
         console.log(this.cat);
       }
@@ -126,7 +128,7 @@ export class EspaceCreatifComponent implements OnInit {
     this.videoSeervice.publierVideo(newProduit).subscribe(
       response => {
         this.sharedService.alert('Succes', response.message, 'success');
-        // console.log(response);
+        this.listerVideo();
         this.vider();
       }
     )
@@ -189,6 +191,28 @@ export class EspaceCreatifComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.produitService.deleteproduit(id).subscribe(
+          response => {
+            // console.log(response);
+            this.lister();
+            this.sharedService.alert('success', response.message, 'success');
+          }
+        )
+      }
+    });
+  }
+  SupprimerVideo(id: any) {
+    Swal.fire({
+      title: "Etes-vous sure?",
+      text: "Cette vidéo sera supprimé définitivement!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, supprimé",
+      cancelButtonText: "Annuler"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.videoSeervice.supprimerVodeo(id).subscribe(
           response => {
             // console.log(response);
             this.lister();

@@ -1,8 +1,17 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h6 class="fw-bold">Utilisateurs</h6>
     <div class="d-flex gap-3">
-        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer" #input class="px-2 rounded-2">
-        <button mat-raised-button color="primary" (click)="openLg(add)">Ajouter</button>
+        <label for="actif" style="cursor: pointer;">Actif</label>
+        <input type="radio" name="etat" id="actif" (click)="userActif()">
+        <label for="inactif" style="cursor: pointer;">Inactif</label>
+        <input type="radio" name="etat" id="inactif" (click)="userInactif()">
+        <label for="tout" style="cursor: pointer;">Tout</label>
+        <input type="radio" name="etat" id="tout" (click)="allUser()">
+        <!-- <input matInput (keyup)="applyFilter($event)" placeholder="Filtrer" #input class="px-2 rounded-2"> -->
+        <input (keyup)="applyFilter($event)" type="text" class="mb-0"
+            style="border: 0; border-bottom: 2px solid #3535357f; background-color: #F9F9F9; outline: 0; text-transform: italic; color: #353535;"
+            placeholder="Filtrer" #input>
+        <!-- <button mat-raised-button color="primary" (click)="openLg(add)">Ajouter</button> -->
     </div>
 </div>
 <mat-card class="">
@@ -16,7 +25,8 @@
         <ng-container matColumnDef="utilisateur">
             <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
             <td mat-cell *matCellDef="let element"> {{element.prenom}} {{element.nom}} <br>
-                <span style="font-size: 13px; opacity: 0.7;">{{element.role}}</span>
+                <span style="font-size: 13px; opacity: 0.7;" *ngIf="element.role_id == 2">Jardinier</span>
+                <span style="font-size: 13px; opacity: 0.7;" *ngIf="element.role_id == 3">Client</span>
             </td>
         </ng-container>
 
@@ -32,7 +42,7 @@
 
         <ng-container matColumnDef="création">
             <th mat-header-cell *matHeaderCellDef> Création </th>
-            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
@@ -40,12 +50,72 @@
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element">
                 <div class="d-flex gap-3">
-                    <button mat-mini-fab color="" (click)="openLg(content)" style="background-color: #f1c01e;"><i
+                    <button mat-mini-fab color="" (click)="openLg(content, element.id)"
+                        style="background-color: #f1c01e; width: 30px; height: 30px; font-size: 14px;"><i
                             class="fa-solid fa-circle-info"></i></button>
-                    <button mat-mini-fab color="warn" (click)="blouerUser(element.id)"
-                        *ngIf="element.is_bloquer == 0"><i class="fa-solid fa-box-archive"></i></button>
+                    <button mat-mini-fab color="warn" style="width: 30px; height: 30px; font-size: 14px;"
+                        (click)="blouerUser(element.id)" *ngIf="element.is_bloquer == 0"><i
+                            class="fa-solid fa-box-archive"></i></button>
                     <button mat-mini-fab (click)="debloquerUsers(element.id)" *ngIf="element.is_bloquer == 1"
-                        style="background-color: #4CAF50;"><i class="fa-solid fa-rotate-right"></i></button>
+                        style="background-color: #4CAF50; width: 30px; height: 30px; font-size: 12px;"><i
+                            class="fa-solid fa-rotate-right"></i></button>
+                    <ng-template #content let-modal class="modal">
+                        <div class="modal-header" style="border-bottom: 0;">
+                            <button type="button" class="btn-close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body d-flex gap-4">
+                            <div class="left">
+                                <div class="img">
+                                    <img src="assets/images/jardinier/jardinier-1.png" alt="">
+                                </div>
+                                <h6 class="my-4 d-flex align-items-center gap-2"><i class="fa-solid fa-user-tie"></i>
+                                    <span *ngIf="element.role_id == 2">Jardinier</span>
+                                    <span *ngIf="element.role_id == 3">Client</span>
+                                </h6>
+                                <div>
+                                    <!-- <button mat-raised-button color=""
+                                        style="background-color: #4CAF50; color: white; height: 100%; padding: 4px;">Active</button> -->
+                                    <!-- <button mat-raised-button color="primary" class="my-3"
+                                        style="display: block; width: max-content;"
+                                        style="background-color: #292D26; color: white; height: 100%; padding: 4px 10px;">Espace
+                                        verte</button> -->
+                                </div>
+                            </div>
+                            <div class="right w-100">
+                                <div class="top d-flex justify-content-between align-items-center pb-4"
+                                    style="border-bottom: 3px solid #4CAF50;">
+                                    <h4>Détals du profil</h4>
+                                </div>
+                                <table class="user my-3">
+                                    <tr>
+                                        <td>Prénom et nom</td>
+                                        <td>{{element.prenom}} {{element.nom}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adresse email</td>
+                                        <td>{{element.email}}</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Ville</td>
+                                        <td>{{el}}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>Adresse</td>
+                                        <td>{{element.adresse}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Téléphone</td>
+                                        <td>{{element.telephone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Création</td>
+                                        <td>{{element.created_at | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-template>
                 </div>
             </td>
         </ng-container>
@@ -58,63 +128,11 @@
             <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
     </table>
-    <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+    <mat-paginator [length]="200" [pageSizeOptions]="[8, 50, 100]" aria-label="Select page">
     </mat-paginator>
 </mat-card>
 <div class="details">
-    <ng-template #content let-modal class="modal">
-        <div class="modal-header" style="border-bottom: 0;">
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body d-flex gap-4">
-            <div class="left">
-                <div class="img">
-                    <img src="assets/images/jardinier/jardinier-1.png" alt="">
-                </div>
-                <h5 class="my-4 d-flex align-items-center gap-2"><i
-                        class="fa-solid fa-user-tie"></i><span>Jardinier</span></h5>
-                <div>
-                    <button mat-raised-button color=""
-                        style="background-color: #4CAF50; color: white; height: 100%; padding: 4px;">Active</button>
-                    <button mat-raised-button color="primary" class="my-3" style="display: block; width: max-content;"
-                        style="background-color: #292D26; color: white; height: 100%; padding: 4px 10px;">Espace
-                        verte</button>
-                </div>
-            </div>
-            <div class="right w-100">
-                <div class="top d-flex justify-content-between align-items-center pb-4"
-                    style="border-bottom: 3px solid #4CAF50;">
-                    <h4>Détals du profil</h4>
-                    <button mat-raised-button color="warn">Désactiver</button>
-                </div>
-                <table class="user my-3">
-                    <tr>
-                        <td>Prénom et nom</td>
-                        <td>Adama Diop</td>
-                    </tr>
-                    <tr>
-                        <td>Adresse email</td>
-                        <td>diopadama@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td>Ville</td>
-                        <td>Dakar</td>
-                    </tr>
-                    <tr>
-                        <td>Adresse</td>
-                        <td>Parcelle U26</td>
-                    </tr>
-                    <tr>
-                        <td>Téléphone</td>
-                        <td>786759887</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fermer</button>
-        </div>
-    </ng-template>
+
 </div>
 <div class="ajout">
     <ng-template #add let-modal>
@@ -166,6 +184,17 @@
 <style>
     .left {
         width: min-content;
+    }
+
+    .left .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .left .img img {
+        width: 100%;
     }
 
     .user tr td {
