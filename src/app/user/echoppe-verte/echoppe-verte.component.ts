@@ -21,15 +21,11 @@ export class EchoppeVerteComponent implements OnInit {
   detail!: any;
   userView!: any;
   View!: any[];
-  // displayedColumns: string[] = ['image', 'libelle', 'note', 'selected'];
-  // mesProduits = new MatTableDataSource<any>();
 
   // paginations 
-  // pager object
   pager: any = {};
-  // La pagination 
-  totalItems = 100;
-  itemsPerPage = 10;
+  itemsPerPage = 9;
+  currentPage = 1;
 
   // paged items
   pagedItems!: any[];
@@ -59,14 +55,6 @@ export class EchoppeVerteComponent implements OnInit {
   }
   openSm(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'md', scrollable: true });
-  }
-  // Methode de pagination
-  setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.produits.length, page);
-    // get current page of items
-    this.pagedItems = this.produits.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    // this.step = this.commentaires.length
   }
   filterItems() {
     this.produits = this.other;
@@ -111,8 +99,12 @@ export class EchoppeVerteComponent implements OnInit {
   }
 
   // Pagination
-
   onPageChange(pageNumber: number): void {
-    console.log('Page changed to: ', pageNumber);
+    this.currentPage = pageNumber;
+  }
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.produits.slice(startIndex, endIndex);
   }
 }

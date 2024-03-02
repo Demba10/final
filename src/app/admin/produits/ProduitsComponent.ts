@@ -16,27 +16,6 @@ import Swal from 'sweetalert2';
     styleUrls: ['./produits.component.scss']
 })
 export class ProduitsComponent {
-    // displayedColumns: string[] = ['image', 'libelle', 'note', 'selected'];
-    // mesProduits!: any;
-    // constructor(
-    //   private produits: ProduitsService,
-    //   private produitServices: ProduitsService
-    // ) { }
-    // @ViewChild(MatPaginator) paginator!: MatPaginator;
-    // ngOnInit(): void {
-    //   setTimeout(() => {
-    //     this.mesProduits.paginator = this.paginator;
-    //   });
-    //   this.listerProduits();
-    // }
-    // listerProduits() {
-    //   this.produitServices.getProduits().subscribe(
-    //     response => {
-    //       console.log(response);
-    //       this.mesProduits = response;
-    //     }
-    //   )
-    // }
     public fileUploadControl = new FileUploadControl(undefined, FileUploadValidators.filesLimit(2));
 
     // Produits 
@@ -58,13 +37,17 @@ export class ProduitsComponent {
     searchTerm: any;
     saveProd!: any[];
 
-    // paginations 
-    // pager object
-    pager: any = {};
 
     // paged items
     pagedItems!: any[];
     mergedUsers: any;
+    // paginations 
+    pager: any = {};
+    itemsPerPage = 12;
+    currentPage = 1;
+    View!: any[];
+    userView: any;
+    produitPerUser!: any[];
 
     constructor(
         private produitService: ProduitsService,
@@ -160,13 +143,21 @@ export class ProduitsComponent {
         this.description = this.detail.description;
         this.image = this.description.image;
     }
-    detailsProduit(id: any) {
+    detailsProduit(id: any, userid?: any) {
         this.produitService.getproduitById(id).subscribe(
             response => {
                 console.log(response);
                 this.detail = response.article;
             }
-        );
+        )
+        this.userService.getJardiniers().subscribe(
+            response => {
+                this.View = response;
+                this.userView = this.View.find(ele => ele.id == userid);
+                console.log(this.userView);
+                this.produitPerUser = this.produits.filter(ele => ele.user_id == userid)
+            }
+        )
     }
     // Méthode de filtrage
     filterItems() {
@@ -175,7 +166,13 @@ export class ProduitsComponent {
             ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
     }
     
+    // Pagination
     onPageChange(pageNumber: number): void {
-        console.log('Page changed to: ', pageNumber);
+        this.currentPage = pageNumber;
+    }
+    get paginatedProduits(): any[] {
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        return this.prod.slice(startIndex, endIndex);
     }
 }

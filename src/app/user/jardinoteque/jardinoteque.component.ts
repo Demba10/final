@@ -3,8 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { interval } from 'rxjs';
-import { JardiniersService } from 'src/app/services/jardniers/jardiniers.service';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -29,6 +27,14 @@ export class JardinotequeComponent implements OnInit {
   websocket: boolean = false;
   intervalId: any;
   showDetails: boolean = false;
+
+  // paginations 
+  pager: any = {};
+  itemsPerPage = 12;
+  currentPage = 1;
+
+  // paged items
+  pagedItems!: any[];
   constructor(
     // private jardiniers: JardiniersService,
     private userService: UsersService,
@@ -53,9 +59,9 @@ export class JardinotequeComponent implements OnInit {
 
   openXl(content: TemplateRef<any>, id: any) {
     // this.modalService.open(content, { size: 'xl', scrollable: true });
-    // localStorage.setItem('id_jar', (id));
-    // this.jar_id = localStorage.getItem('id_jar');
-    // this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
+    localStorage.setItem('id_jar', (id));
+    this.jar_id = localStorage.getItem('id_jar');
+    this.jar = this.jardiniers.find(ele => ele.id == this.jar_id);
   }
   voirDetail(id: any) {
     this.jar_id = localStorage.getItem('id_jar');
@@ -128,6 +134,15 @@ export class JardinotequeComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.listerJardiniers();
+  }
+  // Pagination
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.jardiniers.slice(startIndex, endIndex);
   }
 }
 

@@ -38,14 +38,19 @@ export class AstucesComponent {
   details: any;
   utilisateurs: any[] = [];
 
-  // paginations 
-
-  // pager object
-  pager: any = {};
-
   // paged items
   pagedItems!: any[];
   etat!: any;
+  imageUrl: any;
+  // paginations 
+  pager: any = {};
+  itemsPerPage = 8;
+  currentPage = 1;
+
+  // paged items
+  userOnline: any;
+  saveAstuce!: any[];
+  searchTerm: any;
 
   extractTitle(): string {
     let a = this.contenu.indexOf('<')
@@ -100,7 +105,7 @@ export class AstucesComponent {
     this.art.getArticles().subscribe(
       resoponse => {
         this.articleSliste = resoponse;
-        // console.log(resoponse);
+        this.saveAstuce = this.articleSliste;
         this.setPage(1);
       }
     )
@@ -121,22 +126,40 @@ export class AstucesComponent {
       this.art.createArticle(nA).subscribe(
         response => {
           this.contenu = '';
+          this.titre = '';
           this.listeArticles();
           this.setPage(this.pager.totalPages)
         },
-        error => {
-          Swal.fire({
-            title: 'error',
-            text: error.error.error,
-            icon: 'error'
-          })
-        }
+        // error => {
+        //   Swal.fire({
+        //     title: 'error',
+        //     text: error.error.error,
+        //     icon: 'error'
+        //   })
+        // }
       )
     }
   }
+  // gestion de l'image 
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+    this.readImage();
+  }
+  // Méthode de filtrage
+  filterItems() {
+    // this.pager = this.saveAstuce;
+    this.articleSliste = this.saveAstuce.filter(
+      ele => ele.titre.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
+  }
+  readImage() {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+    };
+
+    reader.readAsDataURL(this.image);
   }
   openXl(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl' });
@@ -225,7 +248,7 @@ export class AstucesComponent {
   }
   userActif(id: any) {
     this.cl = this.clients.find(ele => ele.id == id)
-  }       
+  }
   filtrer() {
     this.filtre = !this.filtre;
   }
@@ -255,12 +278,10 @@ export class AstucesComponent {
     this.titre = "";
     this.contenu = "";
   }
+  // Pagination
   onPageChange(pageNumber: number): void {
-    console.log('Page changed to: ', pageNumber);
+    this.currentPage = pageNumber;
   }
-  itemsPerPage = 10;
-  currentPage = 1;
-
   get paginatedProduits(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

@@ -86,7 +86,8 @@ export class UsersService {
   }
 
   // Méthode pour effectuer une requête PUT
-  put(resource: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}${resource}`, data);
+  modifierProfil(id: any, data: any): Observable<any> {
+    const resource = "modifierProfil";
+    return this.http.post(`${this.apiUrl}${resource}/${id}`, data);
   }
 }

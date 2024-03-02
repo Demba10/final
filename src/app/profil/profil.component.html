@@ -3,7 +3,7 @@
         style="background-image: url('https://img.freepik.com/photos-premium/resume-cadre-fond-gouttes-aquarelle-jaune-vert-papier-blanc_154092-13976.jpg?w=1380'); background-repeat: no-repeat; background-position: center; background-size: cover;">
         <div class="user">
             <div class="img">
-                <img src="http://127.0.0.1:8000/api/{{userOnLine?.image}}" alt="" style="width: 100%;">
+                <img src="http://127.0.0.1:8000/storage/{{userOnLine?.image}}" alt="" style="width: 100%;">
             </div>
             <span>
                 <h4 class="fw-bold">{{userOnLine?.prenom}} {{userOnLine?.nom}}</h4>
@@ -18,11 +18,30 @@
         </div>
     </mat-card>
     <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-lg-8 col-8">
             <mat-card class="box-bottom mt-4 p-3">
                 <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="profil">Details profil</h4>
                 <h4 class="fw-bold" style="color: #4CAF50;" *ngIf="!profil">Editer profil</h4>
                 <table>
+                    <tr *ngIf="!profil">
+                        <td>Photo de profil</td>
+                        <td>
+                            <label for="file" class="custum-file-upload" *ngIf="!image">
+                                <i class="fa-solid fa-pen-to-square"
+                                    style="position: absolute; font-size: 24px; margin-top: -60px; margin-left: 70px; color: #292D26;"></i>
+                                <img src="http://127.0.0.1:8000/storage/{{userOnLine?.image}}"
+                                    style="height: 70px; border-radius: 8px;" alt="">
+                                <input id="file" type="file" (change)="getFile($event)" accept="image/*">
+                            </label>
+                            <div class="d-flex" *ngIf="image">
+                                <label for="file" class="custum-file-upload">
+                                    <img [src]="imageUrl" style="height: 70px; border-radius: 8px;" alt=""
+                                        *ngIf="imageUrl">
+                                    <input id="file" type="file" (change)="getFile($event)" accept="image/*">
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Prénom</td>
                         <td *ngIf="profil">{{userOnLine?.prenom}}</td>
@@ -35,12 +54,9 @@
                         <td *ngIf="!profil"> <input type="text" class="d-flex" [value]="userOnLine?.nom"
                                 [placeholder]="userOnLine?.nom" [(ngModel)]="nom"></td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="profil">
                         <td>Adresse Email</td>
-                        <td *ngIf="profil">{{userOnLine?.email}}</td>
-                        <td *ngIf="!profil"> <input type="text" [value]="userOnLine?.email"
-                                [placeholder]="userOnLine?.email" [(ngModel)]="email">
-                        </td>
+                        <td>{{userOnLine?.email}}</td>
                     </tr>
                     <tr>
                         <td>Adresse</td>
@@ -55,16 +71,31 @@
                                 [placeholder]="userOnLine?.telephone" [(ngModel)]="telephone"> </td>
                     </tr>
                     <tr *ngIf="!profil">
+                        <td> <button style="visibility: hidden;">hidden</button> </td>
+                        <td class=""> <button mat-raised-button style="background-color: #4CAF50; color: white;"
+                                (click)="modifierProfil()">Enregistrer</button> </td>
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+        <div class="col-12 col-lg-4 col-4">
+            <mat-card class="box-bottom mt-4 p-3">
+                <h4 class="fw-bold" style="color: #4CAF50;">Editer mot de passe</h4>
+                <table>
+                    <tr>
                         <td>Ancien mot de passe</td>
-                        <!-- <td *ngIf="profil">{{userOnLine?.telephone}}</td> -->
-                        <td> <input type="text" placeholder="************" [(ngModel)]="password"> </td>
                     </tr>
-                    <tr *ngIf="!profil">
+                    <tr>
+                        <td> <input type="text" placeholder="************" [(ngModel)]="password" class="w-100"> </td>
+                    </tr>
+                    <tr>
                         <td>Nouveau mot de passe</td>
-                        <!-- <td *ngIf="profil">{{userOnLine?.telephone}}</td> -->
-                        <td> <input type="text" placeholder="************" [(ngModel)]="confirmerPassword"> </td>
                     </tr>
-                    <tr *ngIf="!profil">
+                    <tr>
+                        <td> <input type="text" placeholder="************" [(ngModel)]="confirmerPassword"
+                                class="w-100"> </td>
+                    </tr>
+                    <tr>
                         <td> <button style="visibility: hidden;">hidden</button> </td>
                         <td class=""> <button mat-raised-button
                                 style="background-color: #4CAF50; color: white;">Enregistrer</button> </td>
@@ -129,5 +160,46 @@
         border: 0px solid transparent;
         border-bottom: 1px solid rgba(0, 0, 0, 0.256);
         outline: 0;
+    }
+</style>
+<style>
+    .custum-file-upload {
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        background-color: #212121;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0px 48px 35px -48px #e8e8e8;
+    }
+
+    .custum-file-upload .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .icon svg {
+        height: 80px;
+        fill: #e8e8e8;
+    }
+
+    .custum-file-upload .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .text span {
+        font-weight: 400;
+        color: #e8e8e8;
+    }
+
+    .custum-file-upload input {
+        display: none;
     }
 </style>

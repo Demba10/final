@@ -15,12 +15,12 @@
         *ngIf="articleList.length == 0">
         <img src="assets/images/notfound.png" class="img-fluid" alt="">
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let item of articleList">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let item of paginatedProduits">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">
                 <div class="date">{{ item.created_at | date:'dd MMMM yyyy' }}</div>
             </div>
-            <img src="http://127.0.0.1:8000/api/{{item?.image}}" class="card-img-top" alt="" routerLink="../astuce">
+            <img src="http://127.0.0.1:8000/storage/{{item?.image}}" class="card-img-top" alt="" routerLink="../astuce">
             <div class="card-body">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
                 <h6 class="card-text fw-bold" [title]="item.titre">{{item.titre}}</h6>
@@ -38,6 +38,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Pagination -->
+    <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="articleList.length != 0">
+        <app-pagination [totalItems]="articleList.length" [itemsPerPage]="itemsPerPage" (pageChange)="onPageChange($event)"
+            *ngIf="articleList.length > itemsPerPage">
+        </app-pagination>
     </div>
 </section>
 <ng-template #content let-modal style="position: relative; z-index: 100;">

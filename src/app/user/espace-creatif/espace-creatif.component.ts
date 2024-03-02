@@ -33,7 +33,7 @@ export class EspaceCreatifComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
-  categories_id: any = 1;
+  categories_id: any = 2;
   prod!: any[];
   option: any = 1;
   ajouter: any;
@@ -47,6 +47,18 @@ export class EspaceCreatifComponent implements OnInit {
   activerButton: boolean = false;
   contentArray!: any[];
   displayContent: any;
+  imageUrl: any;
+
+  // paginations 
+  pager: any = {};
+  itemsPerPage = 9;
+  currentPage = 1;
+
+  // paged items
+  pagedItems!: any[];
+  View!: any[];
+  userView: any;
+  produitPerUser!: any[];
 
   constructor(
     config: NgbModalConfig,
@@ -243,21 +255,51 @@ export class EspaceCreatifComponent implements OnInit {
       }
     )
   }
-  detailsProduit(id: any) {
+  detailsProduit(id: any, userid?: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
         // console.log(response);
         this.detail = response.article;
       }
     )
+    this.userService.getJardiniers().subscribe(
+      response => {
+        this.View = response;
+        this.userView = this.View.find(ele => ele.id == userid);
+        console.log(this.userView);
+        this.produitPerUser = this.produits.filter(ele => ele.user_id == userid)
+      }
+    )
   }
+  // gestion de l'image 
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+    this.readImage();
   }
+  readImage() {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+    };
+
+    reader.readAsDataURL(this.image);
+  }
+
   getFile2(event: any) {
     console.warn(event.target.files[0]);
     this.video = event.target.files[0] as File;
+  }
+
+  // Pagination
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.prod.slice(startIndex, endIndex);
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

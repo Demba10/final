@@ -17,12 +17,12 @@
                     *ngIf="produits.length == 0">
                     <img src="assets/images/notfound.png" class="img-fluid" alt="">
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let item of produits">
+                <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let item of paginatedProduits">
                     <div class="blog-produits card card-produit" style="margin-bottom: 16px; overflow: hidden;"
                         id="card" (click)="openLg(con)" (click)="detailsProduit(item.id, item.user_id)">
                         <div class="row g-0" style="">
                             <div class="col-md-4">
-                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                <img src="http://127.0.0.1:8000/storage/{{item.image}}" class="img-fluid rounded-start"
                                     [alt]="item.image">
                             </div>
                             <div class="col-md-7 d-flex align-items-center">
@@ -46,13 +46,16 @@
                             <!-- <button type="button" class="btn-close" aria-label="Close"
                                 (click)="modal.dismiss('Cross click')"
                                 style="position: absolute; left:  95%; margin-top: 10px;"></button> -->
-                            <i class="fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"
-                                style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;"></i>
+                            <span
+                                style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;background-color: white; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;"
+                                (click)="modal.dismiss('Cross click')">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
                             <div class="row g-0">
                                 <div class="left-detail col-md-6"
                                     style="display: flex; justify-content: center; align-items: center; ">
                                     <div style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
-                                        <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
+                                        <img src="http://127.0.0.1:8000/storage/{{detail.image}}" alt=""
                                             style="width: 100%;">
                                     </div>
                                 </div>
@@ -67,7 +70,7 @@
                                         <div class="d-flex align-items gap-2">
                                             <span
                                                 style="height: 30px; width: 30px; overflow: hidden; display: flex; justify-content: center; align-items: center; border-radius: 50%;">
-                                                <img src="http://127.0.0.1:8000/api/{{userView.image}}" alt=""
+                                                <img src="http://127.0.0.1:8000/storage/{{userView.image}}" alt=""
                                                     style="width: 100%;">
                                             </span>
                                             <span class="mt-1">{{userView.prenom}} {{userView.nom}}</span>
@@ -95,7 +98,8 @@
 
     <!-- Pagination -->
     <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="produits.length != 0">
-        <app-pagination [totalItems]="produits.length" [itemsPerPage]="10" (pageChange)="onPageChange($event)">
+        <app-pagination [totalItems]="produits.length" [itemsPerPage]="itemsPerPage" (pageChange)="onPageChange($event)"
+            *ngIf="produits.length > itemsPerPage">
         </app-pagination>
     </div>
 </section>

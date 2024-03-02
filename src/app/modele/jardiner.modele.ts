@@ -5,6 +5,7 @@ export interface Jardinier {
     prenom: string;
     nom: string;
     lien: string;
+    role_id: number;
     adresse: string;
     produits: number;
 }

@@ -11,7 +11,7 @@ export class ShareBannerComponent implements OnInit {
   ngOnInit(): void {
     this.position = location.href.substring(location.href.lastIndexOf('/') + 1);
     if (this.position == 'espace-verte') {
-      this.position = 'Espcace verte'
+      this.position = 'Espace verte'
     }
     if (window.scrollY > 200) {
       this.displayButtonSroll = false;

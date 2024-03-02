@@ -32,6 +32,9 @@ export class DetailsJardinierComponent {
   jardinier: any;
   jar_id!: any;
   jar: any;
+  View!: any[];
+  userView: any;
+  produitPerUser!: any[];
 
   constructor(
     private produitService: ProduitsService,
@@ -79,11 +82,19 @@ export class DetailsJardinierComponent {
     this.description = this.detail.description;
     this.image = this.description.image;
   }
-  detailsProduit(id: any) {
+  detailsProduit(id: any, userid?: any) {
     this.produitService.getproduitById(id).subscribe(
       response => {
         this.detail = response.article;
         console.log(this.detail);
+      }
+    )
+    this.userService.getJardiniers().subscribe(
+      response => {
+        this.View = response;
+        this.userView = this.View.find(ele => ele.id == userid);
+        console.log(this.userView);
+        this.produitPerUser = this.produits.filter(ele => ele.user_id == userid)
       }
     )
   }
@@ -92,6 +103,25 @@ export class DetailsJardinierComponent {
     this.image = event.target.files[0] as File;
   }
 
+  // Messages
+  // Les messages
+  openVerticallyCentered(content: TemplateRef<any>) {
+    // this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { size: 'xl', scrollable: true });
+  }
+  consulterProfil(id: any) {
+    // this.userService.getProfil(id).subscribe(
+    //   response => {
+    //     // console.log(response);
+    //     // this.jar_id = localStorage.setItem('id_jar', id);
+    //   }
+    // )
+    // this.showDetails = true;
+    localStorage.setItem('id_jar', (id));
+    this.jar_id = localStorage.getItem('id_jar');
+    this.jar = this.jardiniers.find(ele => ele.id == id);
+    // this.router.navigate(['../user/details-jardinier', this.jar.prenom]);
+  }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

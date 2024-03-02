@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../services/users.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -20,8 +23,13 @@ export class ProfilComponent implements OnInit {
   telephone: any;
   password: any;
   confirmerPassword: any;
+  image!: File;
+  imageUrl: any;
 
-  constructor() { }
+  constructor(
+    private userService: UsersService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '');
@@ -45,4 +53,44 @@ export class ProfilComponent implements OnInit {
     this.colorApercu = "#000";
     this.colorParam = "#4CAF50";
   }
+
+  modifierProfil() {
+    let formData = new FormData();
+    formData.append("image", this.image as Blob);
+    formData.append("prenom", this.prenom);
+    formData.append("nom", this.nom);
+    formData.append("adresse", this.adresse);
+    formData.append("telephone", this.telephone);
+    {
+      this.userService.modifierProfil(this.userOnLine.id, formData).subscribe(
+        response => {
+          console.log(response);
+          Swal.fire({
+            title: 'Modification réussie',
+            text: 'Votre compte a été modifier avec succès!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+        }, error => {
+          console.log(error);
+        }
+      )
+    }
+  }
+  // gestion de l'image 
+  getFile(event: any) {
+    console.warn(event.target.files[0]);
+    this.image = event.target.files[0] as File;
+    this.readImage();
+  }
+  readImage() {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+    };
+
+    reader.readAsDataURL(this.image);
+  }
+
 }

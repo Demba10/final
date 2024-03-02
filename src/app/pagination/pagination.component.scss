@@ -1,6 +1,6 @@
 button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #F5F5F5;
+    color: #292D26;
     border: none;
     padding: 8px 16px;
     cursor: pointer;
@@ -9,10 +9,16 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    // background-color: #45a049;
     /* Couleur de fond au survol */
 }
 
 button i {
     color: white;
+}
+.current-page {
+    background-color: #45a049;
+    /* Nouvelle couleur de fond pour la page courante */
+    color: white;
+    /* Nouvelle couleur du texte pour la page courante */
 }

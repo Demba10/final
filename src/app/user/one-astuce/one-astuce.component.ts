@@ -21,6 +21,15 @@ export class OneAstuceComponent implements OnInit {
   searchTerm: any;
   like: any;
 
+  // paginations 
+  pager: any = {};
+  itemsPerPage = 9;
+  currentPage = 1;
+
+  // paged items
+  pagedItems!: any[];
+  userOnline: any;
+
   constructor(
     private articles: AstucesService,
     private astuces: ArticlesService,
@@ -59,5 +68,15 @@ export class OneAstuceComponent implements OnInit {
   }
   details(id: any) {
     localStorage.setItem('id', id);
+  }
+
+  // Pagination
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.articleList.slice(startIndex, endIndex);
   }
 }

@@ -33,6 +33,9 @@ import { CatgoriesComponent } from '../shared/catgories/catgories.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginationAdminComponent } from '../pagination-admin/pagination-admin.component';
+import { MatDialogModule, matDialogAnimations } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -61,10 +64,14 @@ import { PaginationAdminComponent } from '../pagination-admin/pagination-admin.c
     MatTableModule,
     NgApexchartsModule,
     MatSortModule,
+    MatMenuModule,
+    MatIconModule,
     MatPaginatorModule,
     MatInputModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatDialogModule,
     MatChipsModule,
     EditorModule,
     MdbCheckboxModule,

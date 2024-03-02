@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,10 +31,12 @@ export class CatgoriesComponent implements OnInit {
   dataSource = new MatTableDataSource<Categories>();
   cat: any;
   nom!: any;
+  id: any;
 
   constructor(
     private categorieService: CategoriesService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public dialog: MatDialog
   ) { }
   ngOnInit(): void {
     this.userOnLine = JSON.parse(localStorage.getItem('userOnline') || '[]');
@@ -42,6 +45,18 @@ export class CatgoriesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  chargerInfos(id: any) {
+    this.nom = this.dataSource.data.filter(ele => ele.id === id).map(ele => ele.nom);
+    this.id = id;
+  }
+  modCategorie() {
+    this.categorieService.modifierCategorie(this.id, this.nom).subscribe(
+      response => {
+        this.listerCategories();
+        this.vider();
+      }
+    )
   }
   listerCategories() {
     this.categorieService.getCategories().subscribe(
@@ -52,6 +67,9 @@ export class CatgoriesComponent implements OnInit {
         console.log(this.dataSource.data);
       }
     );
+  }
+  vider() {
+    this.nom = null;
   }
   ajoutCategorie() {
     const newCat = {
@@ -67,16 +85,9 @@ export class CatgoriesComponent implements OnInit {
     )
   }
   supprimer(id: any) {
-    this.categorieService.supprimerCategorie(id).subscribe(
-      categorie => {
-        console.log(categorie);
-      }
-    )
-  }
-  SupprimerVideo(id: any) {
     Swal.fire({
       title: "Etes-vous sure?",
-      text: "Cette vidéo sera supprimé définitivement!",
+      text: "Ce catégorie sera supprimé définitivement!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -87,7 +98,6 @@ export class CatgoriesComponent implements OnInit {
       if (result.isConfirmed) {
         this.categorieService.supprimerCategorie(id).subscribe(
           response => {
-            // console.log(response);
             this.listerCategories();
             this.sharedService.alert('success', response.message, 'success');
           }

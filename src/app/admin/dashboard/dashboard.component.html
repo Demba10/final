@@ -28,51 +28,47 @@
             </mat-card>
         </div>
     </div>
-    <div class="row my-3">
+    <div class="middle-dash row my-3">
         <div class="blog-chart col-8">
-            <mat-card style="height: 440px;">
+            <mat-card style="height: 100%;">
                 <app-spline></app-spline>
             </mat-card>
         </div>
         <div class="blog-chart col-4">
-            <div class="row">
+            <mat-card class="row">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Articles</span>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon style="transform:scale(0.8);">more_vert</mat-icon>
+                    </button>
+                </div>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon>dialpad</mat-icon>
+                        <span>Redial</span>
+                    </button>
+                    <button mat-menu-item disabled>
+                        <mat-icon>voicemail</mat-icon>
+                        <span>Check voice mail</span>
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>notifications_off</mat-icon>
+                        <span>Disable alerts</span>
+                    </button>
+                </mat-menu>
                 <div class="col-12">
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3" *ngFor="let article of articles">
                         <mat-card class="user-admin">
                             <div class="img">
-                                <img src="assets/images/stat/1.svg" alt="">
+                                <img src="http://127.0.0.1:8000/storage/{{article.image}}" alt="">
                             </div>
-                            <span class="user">Andre Demba Ndione</span>
-                        </mat-card>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <mat-card class="user-admin">
-                            <div class="img">
-                                <img src="assets/images/stat/1.svg" alt="">
-                            </div>
-                            <span class="user">Andre Demba Ndione</span>
-                        </mat-card>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <mat-card class="user-admin">
-                            <div class="img">
-                                <img src="assets/images/stat/1.svg" alt="">
-                            </div>
-                            <span class="user">Andre Demba Ndione</span>
-                        </mat-card>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <mat-card class="user-admin">
-                            <div class="img">
-                                <img src="assets/images/stat/1.svg" alt="">
-                            </div>
-                            <span class="user">Andre Demba Ndione</span>
+                            <span class="user">{{article.titre}}</span>
                         </mat-card>
                     </div>
                     <!-- <mat-card class="row d-flex justify-content-center align-items-center" style="height: 440px;">
                     </mat-card> -->
                 </div>
-            </div>
+            </mat-card>
         </div>
     </div>
 </div>
@@ -108,6 +104,14 @@
     .resume-card-1 {
         background-image: url("/assets/images/stat/1.svg");
         animation: 300ms resume-1;
+    }
+
+    .middle-dash {
+        height: min-content;
+    }
+
+    .middle-dash .blog-chart {
+        height: 100%;
     }
 
     @keyframes resume-1 {

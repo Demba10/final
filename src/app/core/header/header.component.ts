@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { LinkDataService } from 'src/app/services/lien/link-data.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { ValsideService } from 'src/app/services/valside.service';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +19,15 @@ export class HeaderComponent implements OnInit {
   private offcanvasService = inject(NgbOffcanvas);
   existing: boolean = true;
   isActive: any;
+  display: string = "hidden";
+  displayItem: boolean = false;
+  valeur!: number;
 
   constructor(
     private link_data: LinkDataService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private sideValeur: ValsideService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +37,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.existing = true;
     }
+    this.closeDropdown();
   }
 
   adapter() {
@@ -86,5 +92,17 @@ export class HeaderComponent implements OnInit {
   }
   openEnd(content: TemplateRef<any>) {
     this.offcanvasService.open(content, { position: 'end' });
+  }
+
+  // menu 
+  displayDropdown() {
+    this.displayItem = !this.displayItem;
+    if (this.displayItem == true) {
+      this.display = "visible";
+    } else {
+      this.display = "hidden";
+    }
+  }
+  closeDropdown() {
   }
 }

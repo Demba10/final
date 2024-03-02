@@ -1,11 +1,12 @@
 <div>
-    <button style="background-color: #656565;" (click)="onPreviousPage()">
-        <i class="fa-solid fa-backward"></i>
+    <button style="background-color: #F5F5F5;" (click)="onPreviousPage()" *ngIf="pageNumbers">
+        <i class="fa-solid fa-backward" style="color: #292D26;"></i>
     </button>
-    <button *ngFor="let pageNumber of pageNumbers" (click)="onPageChange(pageNumber)">
+    <button *ngFor="let pageNumber of pageNumbers" (click)="onPageChange(pageNumber)"
+        [ngClass]="{'current-page': pageNumber === currentPage, 'other-page': pageNumber !== currentPage}">
         {{ pageNumber }}
     </button>
-    <button style="background-color: #656565;" (click)="onNextPage()">
-        <i class="fa-solid fa-forward"></i>
+    <button style="background-color: #F5F5F5;" (click)="onNextPage()" *ngIf="pageNumbers">
+        <i class="fa-solid fa-forward" style="color: #292D26;"></i>
     </button>
 </div>

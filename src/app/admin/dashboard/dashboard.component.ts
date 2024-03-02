@@ -58,7 +58,8 @@ export class DashboardComponent implements OnInit {
     this.article.getArticles().subscribe(
       response => {
         console.log('articles ', response)
-        this.articles = response;
+        this.articles = response.slice(0, 4);
+        console.log(this.articles);
       }
     )
   }

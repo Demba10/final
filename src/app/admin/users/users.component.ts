@@ -115,6 +115,24 @@ export class UsersComponent implements OnInit {
       }
     )
   }
+  userJardinier() {
+    this.userServices.allUser().subscribe(
+      response => {
+        console.log("All user ", response);
+        this.dataSource.data = response.users;
+        this.dataSource.data = this.dataSource.data.filter(u => u.role_id == 2);
+      }
+    )
+  }
+  userClient() {
+    this.userServices.allUser().subscribe(
+      response => {
+        console.log("All user ", response);
+        this.dataSource.data = response.users;
+        this.dataSource.data = this.dataSource.data.filter(u => u.role_id == 3);
+      }
+    )
+  }
 
   mergedUsers: any[] = [];
   merger() {

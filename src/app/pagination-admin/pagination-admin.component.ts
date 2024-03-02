@@ -31,14 +31,15 @@ export class PaginationAdminComponent {
 
   onPreviousPage(): void {
     if (this.currentPage > 1) {
-      this.onPageChange(this.currentPage - 1);
+      this.currentPage--;
+      this.pageChange.emit(this.currentPage);
     }
   }
 
   onNextPage(): void {
     if (this.currentPage < this.totalPages) {
-      this.onPageChange(this.currentPage + 1);
+      this.currentPage++;
+      this.pageChange.emit(this.currentPage);
     }
   }
-
 }

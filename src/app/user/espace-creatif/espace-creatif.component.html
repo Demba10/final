@@ -1,24 +1,15 @@
 <div class="corps">
     <!-- Ajout produit -->
     <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header border border-bottom-0">
-            <h4 class="modal-title" id="modal-basic-title">Ajout de produit!</h4>
-            <!-- <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"
-                (click)="vider()"></button> -->
+        <div class="modal-header border border-bottom-0 pt-2">
+            <span class="modal-title fw-bold" id="modal-basic-title">Ajout de produit!</span>
             <i class="fa-solid fa-xmark" (click)="d('Cross click')" (click)="vider()"
                 style="position: absolute; left: calc(100% - 40px); font-size: 24px; cursor: pointer;"></i>
         </div>
-        <div class="modal-body">
+        <div class="modal-body py-0">
             <form class="example-form d-flex flex-column" style="width: 100%;">
                 <div class="mb-4">
-                    <!-- <label for="file" class="file-upload-label" style="width: 100%;" *ngIf="!image">
-                        <div class="file-upload-design">
-                            <span class="browse-button">Téléverser une image</span>
-                        </div>
-                        <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
-                            name="image" (input)="validerImage()" />
-                    </label> -->
-                    <label for="file" class="custum-file-upload">
+                    <label for="file" class="custum-file-upload" *ngIf="!image">
                         <div class="icon">
                             <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -33,33 +24,28 @@
                         </div>
                         <div class="text">
                             <span *ngIf="!image">Cliquez pour téléverser une image</span>
+                            <span *ngIf="image">{{image}}</span>
                         </div>
-                        <input id="file" type="file" (change)="getFile($event)" accept="image/*" [(ngModel)]="image"
-                            name="image" (input)="validerImage()" />
+                        <input id="file" type="file" (change)="getFile($event)" accept="image/*">
                     </label>
+                    <div class="d-flex justify-content-center" *ngIf="image">
+                        <label for="file" class="custum-file-upload"
+                            style="background-color: transparent; width: 200px;">
+                            <img [src]="imageUrl" style="height: 200px;" *ngIf="imageUrl" />
+                            <input id="file" type="file" (change)="getFile($event)" accept="image/*">
+                        </label>
+                    </div>
                 </div>
                 <!--  -->
                 <mat-form-field class="example-full-width">
                     <mat-label>Nom</mat-label>
-                    <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                        placeholder="300" [(ngModel)]="nom" (input)="validerNom()">
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                        Le nom est <strong>required</strong>
-                    </mat-error>
+                    <input type="text" matInput placeholder="Nom du produit" [(ngModel)]="nom" (input)="validerNom()">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Description</mat-label>
-                    <textarea matInput placeholder="Ma description ..." [(ngModel)]="description"
+                    <textarea matInput placeholder="Description du produit" [(ngModel)]="description"
                         name="description"></textarea>
                 </mat-form-field>
-                <!-- <span *ngFor="let item of cat"> {{item.categories.id}} </span> -->
-                <!-- <div class="input-group mb-3">
-                    <select class="form-select" id="inputGroupSelect01">
-                        <option [value]="categorie.categories.id" *ngFor="let categorie of cat">
-                            {{categorie.categories.nom}}
-                        </option>
-                    </select>
-                </div> -->
             </form>
         </div>
         <div class="modal-footer border border-top-0">
@@ -153,13 +139,13 @@
                         *ngIf="prod.length == 0">
                         <img src="assets/images/nocontent.png" class="img-fluid" alt="">
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-6" *ngFor="let item of prod">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-6" *ngFor="let item of paginatedProduits">
                         <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
                             (click)="openLg(con)" (click)="detailsProduit(item.id)">
                             <div class="row g-0" style="">
                                 <div class="col-md-4">
-                                    <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
-                                        [alt]="item.image">
+                                    <img src="http://127.0.0.1:8000/storage/{{item.image}}"
+                                        class="img-fluid rounded-start" [alt]="item.image">
                                 </div>
                                 <div class="col-md-7 d-flex align-items-center">
                                     <div class="card-body d-flex flex-column">
@@ -177,39 +163,32 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Details boutique -->
                         <ng-template #con let-modal class="">
                             <div class="card">
-                                <!-- <button type="button" class="btn-close" aria-label="Close"
-                                    (click)="modal.dismiss('Cross click')"
-                                    style="position: absolute; left:  95%; margin-top: 10px;"></button> -->
-                                <i class="fa-solid fa-xmark" (click)="modal.dismiss('Cross click')"
-                                    style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;"></i>
+                                <span
+                                    style="position: absolute; left: calc(100% - 30px); top: 10px; font-size: 24px; cursor: pointer;background-color: white; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
                                 <div class="row g-0">
                                     <div class="left-detail col-md-6"
                                         style="display: flex; justify-content: center; align-items: center; ">
                                         <div
                                             style="width: 300px; transform: rotate(-30deg); overflow: hidden !important;">
-                                            <img src="http://127.0.0.1:8000/api/{{detail.image}}" alt=""
+                                            <img src="http://127.0.0.1:8000/storage/{{detail.image}}" alt=""
                                                 style="width: 100%;">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-body">
-                                            <h2 class="card-title">{{detail.nom}}</h2>
-                                            <h5>Description</h5>
-                                            <p class="card-text">{{detail.description}} </p>
-                                            <table>
-                                                <tr>
-                                                    <td>Catégorie</td>
-                                                    <td>&nbsp;-&nbsp;</td>
-                                                    <td>{{detail.categorie.nom}}</td>
-                                                </tr>
-                                            </table>
-                                            <h5 class="mt-4">Jardinier</h5>
-                                            <span>{{detail.user.prenom}} {{detail.user.nom}}</span>
-
-                                            <div class="d-flex gap-3 mt-5">
+                                            <h2 class="card-title fw-bold mb-4" style="color: #292D26;">{{detail.nom}}
+                                            </h2>
+                                            <h5 class="fw-bold" style="color: #4CAF50;">Description</h5>
+                                            <p class="card-text">{{detail.description}}</p>
+                                            <h5 class="fw-bold" style="color: #4CAF50;">Catégorie</h5>
+                                            <p>{{detail.categorie.nom}}</p>
+                                            <h5 class="fw-bold" style="color: #4CAF50;">Actions</h5>
+                                            <div class="d-flex gap-3">
                                                 <button mat-mini-fab color="accent"
                                                     (click)="SupprimerProduit(detail.id)"
                                                     (click)="modal.dismiss('Cross click')"><i
@@ -224,9 +203,12 @@
                             </div>
                         </ng-template>
                     </div>
-                    <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
-                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-                    </div> -->
+                    <!-- Pagination -->
+                    <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="produits.length != 0">
+                        <app-pagination [totalItems]="produits.length" [itemsPerPage]="itemsPerPage"
+                            (pageChange)="onPageChange($event)" *ngIf="produits.length > itemsPerPage">
+                        </app-pagination>
+                    </div>
                 </div>
                 <div class="row" style="position: relative; top: 60px;" *ngIf="changer">
                     <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
@@ -283,97 +265,101 @@
             </button>
         </mat-menu>
     </section>
-    <style>
-        .addCategorie {
-            display: flex;
-            flex-direction: column;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .addCategorie li {
-            display: flex;
-            gap: 10px;
-        }
-
-        .left-detail {
-            background-image: url("/assets/images/boutique/detail-bg.svg");
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            height: 70vh;
-        }
-
-        .nav-pills .nav-link.active,
-        .nav-pills .show>.nav-link {
-            color: #4CAF50;
-        }
-    </style>
-    <!-- dash -->
-    <style>
-        .dash {
-            position: fixed;
-            top: 93vh;
-            z-index: 888;
-            left: calc(100vw - 100px);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #292D26;
-
-            i {
-                /* font-size: 50px; */
-                color: #ffffff;
-                position: relative;
-                top: 1px;
-            }
-        }
-
-        /* upload */
-        .custum-file-upload {
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: space-between;
-            gap: 20px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #e8e8e8;
-            background-color: #212121;
-            padding: 1.5rem;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 48px 35px -48px #e8e8e8;
-        }
-
-        .custum-file-upload .icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .custum-file-upload .icon svg {
-            height: 80px;
-            fill: #e8e8e8;
-        }
-
-        .custum-file-upload .text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .custum-file-upload .text span {
-            font-weight: 400;
-            color: #e8e8e8;
-        }
-
-        .custum-file-upload input {
-            display: none;
-        }
-    </style>
 </div>
+<style>
+    .addCategorie {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .addCategorie li {
+        display: flex;
+        gap: 10px;
+    }
+
+    .left-detail {
+        background-image: url("/assets/images/boutique/detail-bg.svg");
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 70vh;
+    }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+        color: #4CAF50;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+<!-- dash -->
+<style>
+    .dash {
+        position: fixed;
+        top: 93vh;
+        z-index: 888;
+        left: calc(100vw - 100px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #292D26;
+
+        i {
+            /* font-size: 50px; */
+            color: #ffffff;
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    /* upload */
+    .custum-file-upload {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        gap: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #e8e8e8;
+        background-color: #292D26;
+        padding: 1.5rem;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0px 48px 35px -48px #e8e8e8;
+    }
+
+    .custum-file-upload .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .icon svg {
+        height: 80px;
+        fill: #e8e8e8;
+    }
+
+    .custum-file-upload .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .text span {
+        font-weight: 400;
+        color: #e8e8e8;
+    }
+
+    .custum-file-upload input {
+        display: none;
+    }
+</style>

@@ -22,7 +22,14 @@
     <!-- Colonne du libellé -->
     <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
-        <td mat-cell *matCellDef="let element"><i class="fa-solid fa-box-archive" style="cursor: pointer;" (click)="supprimer(element.id)"></i></td>
+        <td mat-cell *matCellDef="let element">
+            <div class="d-flex justify-content-center gap-4">
+                <i class=" fa-solid fa-pen-to-square" style="cursor: pointer;" (click)="openSm(content)"
+                    (click)="chargerInfos(element.id)"></i>
+                <i class=" fa-solid fa-box-archive" style="cursor: pointer; margin-top: 1px;"
+                    (click)="supprimer(element.id)"></i>
+            </div>
+        </td>
     </ng-container>
 
     <!-- Définition des lignes et colonnes -->
@@ -37,7 +44,8 @@
 
 <ng-template #content let-modal>
     <div class="modal-header" style="border: 0px;">
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            (click)="vider()"></button>
     </div>
     <div class="modal-body">
         <form action="">
@@ -45,7 +53,10 @@
                 placeholder="nouvelle catégorie"
                 style="border: 0; border-bottom: 2px solid #3535357f; background-color: transparent; outline: 0; text-transform: italic; color: #353535; border-radius: 0;">
             <button mat-raised-button class="w-100" (click)="modal.close('Close click')" (click)="ajoutCategorie()"
-                style="background-color: #4CAF50; color: white;">Enregistrer</button>
+                style="background-color: #4CAF50; color: white;" (click)="vider()">Enregistrer</button>
+            <!-- <button mat-raised-button class="w-100" (click)="modal.close('Close click')"
+                style="background-color: #4CAF50; color: white;" *ngIf="nom"
+                (click)="modCategorie()">Modifier</button> -->
         </form>
     </div>
 </ng-template>

@@ -1,4 +1,4 @@
-<div class="sidnav d-flex flex-column flex-shrink-0 p-3 py-1">
+<div class="sidnav d-flex flex-column flex-shrink-0 p-3 py-1" *ngIf="widther == 'calc(100% - 200px)'">
     <div class="d-flex justify-content-center align-items-center" style="height: 50px;">
         <img src="assets/logo.svg" alt="" style="height: 100%;">
     </div>
@@ -29,54 +29,117 @@
             </a>
         </li>
     </ul>
+    <style>
+        .sidenav-mobile {
+            width: 82px;
+
+            .nav-link {
+                color: rgba(0, 0, 0, 0.87) !important;
+                font-weight: 400;
+                /* font-size: 14px; */
+                padding: 12px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-link:hover {
+                background-color: #4caf4f1e;
+            }
+
+            .nav-link i {
+                opacity: 0.8;
+                margin-right: 0;
+                font-size: 20px;
+            }
+
+            .router-link-active {
+                background-color: #292D26;
+            }
+
+            .router-link-active i {
+                color: white !important;
+            }
+
+            .router-link-active:hover {
+                background-color: #292D26;
+                color: white !important;
+            }
+        }
+    </style>
 </div>
-<style>
-    .sidnav {
-        position: fixed;
-        z-index: 300;
-        height: 100vh;
-        width: 200px;
-        background-color: #ffffff !important;
-        border-right: 2px solid #292d2612;
+<div class="sidnav sidenav-mobile d-flex flex-column flex-shrink-0 p-3 py-1" *ngIf="widther == 'calc(100% - 82px)'">
+    <div class="d-flex align-items-center" style="height: 50px;">
+        <img src="assets/icon.svg" alt="" style="height: 100%;">
+    </div>
+    <hr style="height: 20px; border-width: 0;">
+    <ul class="nav nav-pills flex-column mb-auto gap-3" style="">
+        <li>
+            <a routerLink="dashboard" routerLinkActive="router-link-active" href="#" class="nav-link link-dark">
+                <i class="fa-solid fa-table"></i>
+            </a>
+        </li>
+        <li>
+            <a routerLink="articles" routerLinkActive="router-link-active" class="nav-link link-dark">
+                <i class="fa-solid fa-newspaper"></i>
+            </a>
+        </li>
+        <li>
+            <a routerLink="produit" routerLinkActive="router-link-active" href="#" class="nav-link link-dark">
+                <i class="fa-brands fa-shopify"></i>
+            </a>
+        </li>
+        <li>
+            <a routerLink="utilisateurs" routerLinkActive="router-link-active" href="#" class="nav-link link-dark">
+                <i class="fa-solid fa-user"></i>
+            </a>
+        </li>
+    </ul>
+    <style>
+        .sidnav {
+            position: fixed;
+            z-index: 300;
+            height: 100vh;
+            width: 200px;
+            background-color: #ffffff !important;
+            border-right: 2px solid #292d2612;
 
-        .nav-link {
-            color: rgba(0, 0, 0, 0.87) !important;
-            font-weight: 400;
-            /* font-size: 14px; */
-            padding: 12px;
-            line-height: 20px;
-            display: flex;
-            align-items: center;
+            .nav-link {
+                color: rgba(0, 0, 0, 0.87) !important;
+                font-weight: 400;
+                /* font-size: 14px; */
+                padding: 12px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-link:hover {
+                background-color: #4caf4f1e;
+            }
+
+            .nav-link i {
+                opacity: 0.8;
+                margin-right: 14px;
+                font-size: 20px;
+                color: black;
+            }
+
+            .router-link-active {
+                background-color: #292D26;
+                color: white !important;
+            }
+
+            .router-link-active i {
+                color: white !important;
+            }
+
+            .router-link-active:hover {
+                background-color: #292D26;
+                color: white !important;
+            }
+
         }
-
-        .nav-link:hover {
-            background-color: #4caf4f1e;
-        }
-
-        .nav-link i {
-            opacity: 0.8;
-            margin-right: 14px;
-            font-size: 20px;
-        }
-
-        .router-link-active {
-            background-color: #292D26;
-            color: white !important;
-        }
-
-        .router-link-active:hover {
-            background-color: #292D26;
-            color: white !important;
-        }
-
-    }
-
-    .main {
-        position: relative;
-        left: 200px;
-        width: calc(100% - 200px);
-        padding: 20px 60px;
-        height: calc(100vh);
-        box-sizing: border-box;
-    }
-</style>
+    </style>
+</div>

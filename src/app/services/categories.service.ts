@@ -33,9 +33,9 @@ export class CategoriesService {
   }
 
   // Mettre à jour un produit existant
-  updateproduit(id: number, produit: any): Observable<any> {
-    const url = `${this.apiUrl}ModifierProduits/${id}`;
-    return this.http.post<any>(url, produit);
+  modifierCategorie(id: number, nom: any): Observable<any> {
+    const url = `${this.apiUrl}ModifierCategorie/${id}`;
+    return this.http.post<any>(url, nom);
   }
 
   // Supprimer un produit par son ID

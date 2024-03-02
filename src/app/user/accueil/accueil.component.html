@@ -38,7 +38,7 @@
             <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="http://127.0.0.1:8000/api/{{randomAstuceImage}}" class="img-fluid rounded-start"
+                        <img src="http://127.0.0.1:8000/storage/{{randomAstuceImage}}" class="img-fluid rounded-start"
                             alt="...">
                     </div>
                     <div class="col-md-8">
@@ -57,7 +57,7 @@
             <div class="card mb-3 alaune-box-card" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="http://127.0.0.1:8000/api/{{randomProductImage}}" class="img-fluid rounded-start"
+                        <img src="http://127.0.0.1:8000/storage/{{randomProductImage}}" class="img-fluid rounded-start"
                             alt="...">
                     </div>
                     <div class="col-md-8">
@@ -82,7 +82,7 @@
             <div class="d-flex justify-content-end">
                 <div class="date">{{item.created_at | date:'dd MMMM yyyy'}}</div>
             </div>
-            <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt="">
+            <img src="http://127.0.0.1:8000/storage/{{item.image}}" class="card-img-top" alt="">
             <div class="card-body">
                 <!-- <span class="" style="opacity: 0.8;"><i class="fa-solid fa-user my-2"></i> {{item.user_name}}</span> -->
                 <h6 class="text-user-name card-text fw-bold">{{item.titre}}</h6>
@@ -110,7 +110,7 @@
         <div class="jar-items col-6 col-sm-12 col-12 col-md-3 col-lg-3" *ngFor="let item of jdnSome">
             <div class="card-sp card m-sm-0 mb-3"
                 style="margin: 12px 0; position: relative; z-index: 76; cursor: pointer;" id="card-s">
-                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="card-img-top" alt=""
+                <img src="http://127.0.0.1:8000/storage/{{item.image}}" class="card-img-top" alt=""
                     (click)="detailJardinier1(item.id, item.prenom)">
                 <div class="card-body">
                     <span class="text-user-name">{{item.prenom}} {{item.nom}}</span>
@@ -156,7 +156,7 @@
                 <span>Cliquez sur un produit pour voir les details ici</span>
             </div>
             <div class="card" style="height: calc(100% - 16px);" *ngIf="detail">
-                <img src="http://127.0.0.1:8000/api/{{detail?.image}}" class="card-img-top" alt=""
+                <img src="http://127.0.0.1:8000/storage/{{detail?.image}}" class="card-img-top" alt=""
                     style="width: 75%; margin-left: 12.5%;">
                 <div class="card-body text-center">
                     <h5 class="card-title" style="font-size: 16px; color: #292d26bb; font-weight: 600;">
@@ -173,7 +173,7 @@
                         <div class="d-flex gap-2 align-items-center" style="cursor: pointer;"
                             (click)="detailJardinier(detail?.user_id)">
                             <div class="img">
-                                <img src="http://127.0.0.1:8000/api/{{user?.image}}" alt="" class="img-fluid">
+                                <img src="http://127.0.0.1:8000/storage/{{user?.image}}" alt="" class="img-fluid">
                             </div>
                             <h6 class="text-black mt-2">{{detail?.user.prenom}} {{detail?.user.nom}}</h6>
                         </div>
@@ -190,7 +190,7 @@
                         (click)="settIdProduit(item.id)">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="http://127.0.0.1:8000/api/{{item.image}}" class="img-fluid rounded-start"
+                                <img src="http://127.0.0.1:8000/storage/{{item.image}}" class="img-fluid rounded-start"
                                     alt="...">
                             </div>
                             <div class="col-md-8 d-flex align-items-center">

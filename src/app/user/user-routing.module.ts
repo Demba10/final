@@ -22,7 +22,7 @@ const routes: Routes = [
         component: AccueilComponent
       },
       {
-        path: 'astuce', 
+        path: 'astuce',
         component: AstucesComponent, children: [
           {
             path: 'oneAstuce', component: OneAstuceComponent
@@ -36,19 +36,19 @@ const routes: Routes = [
         path: 'astuces', component: OneAstuceComponent
       },
       {
-        path: 'espace-verte', 
+        path: 'espace-verte',
         component: EchoppeVerteComponent
       },
       {
-        path: 'contact', 
+        path: 'contact',
         component: ContactComponent
       },
       {
-        path: 'jardinotheque', 
+        path: 'jardinotheque',
         component: JardinotequeComponent
       },
       {
-        path: 'chat', 
+        path: 'chat',
         component: ChatComponent
       },
       {
@@ -63,6 +63,10 @@ const routes: Routes = [
       {
         path: 'profil/:id',
         component: ProfilComponent
+      },
+      {
+        path: 'chat',
+        component: ChatComponent
       },
       {
         path: '**',
