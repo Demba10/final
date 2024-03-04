@@ -116,24 +116,28 @@
     </ng-template>
     <ng-template #responsive let-offcanvas>
         <div class="offcanvas-body">
+            <i class="fa-solid fa-xmark" (click)="offcanvas.dismiss('Cross click')"
+                style="position: absolute; left: calc(100% - 37px); top: 25px; font-size: 34px; cursor: pointer;"></i>
             <div class="d-flex justify-content-between">
                 <div class="my-dropdown" id="my-dropdown" *ngIf="existing == false" style="margin-top: -24px;">
                     <button class="my-dropdown-button" id="my-dropdown-button" (click)="displayDropdown()">
                         <span>Compte</span>
                         <i class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i>
                     </button>
-                    <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display">
+                    <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display"
+                        (click)="offcanvas.close('Close click')">
                         <li routerLink="/auth">Se connecter</li>
                         <li routerLink="/auth/register">S'inscrire</li>
                     </ul>
                 </div>
                 <div class="my-dropdown" id="my-dropdown" *ngIf="existing == true"
-                    style="position: relative; top: 18px;">
+                    style="position: relative; top: 0px;">
                     <button class="my-dropdown-button" (click)="displayDropdown()">
                         <span>{{userOnLine.prenom}} {{userOnLine.nom}}</span>
                         <i class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i>
                     </button>
-                    <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display">
+                    <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display"
+                        (click)="offcanvas.close('Close click')">
                         <li (click)="openXl(content)">Profil</li>
                         <li (click)="redirectToEspace()">Espace créatif</li>
                         <li (click)="deconnexon()">Deconnexion</li>
@@ -141,7 +145,7 @@
                 </div>
             </div>
             <!-- navbar-nav me-auto mb-2 mb-md-0 flex-column -->
-            <div style="text-align: center;">
+            <div style="text-align: right;">
                 <ul class="" style="list-style-type: none;  position: relative; top: 30px; padding: 0;">
                     <li class="nav-item text-black mb-4" *ngFor="let item of sidebar_data"
                         (click)="offcanvas.close('Close click')">

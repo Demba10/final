@@ -13,7 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class OneAstuceComponent implements OnInit {
   private modalService = inject(NgbModal);
-  articleOne: any;
+  articleOne!: any[];
   mesArticles = this.articles.astuces;
   articleList!: any[];
   other!: any[];
@@ -29,7 +29,11 @@ export class OneAstuceComponent implements OnInit {
 
   // paged items
   pagedItems!: any[];
-  userOnline: any;
+  userOnline!: any[];
+  articleComment!: any[];
+  countComment: any[] = [];
+  countLike: any[] = [];
+  articleLike!: any[];
 
   constructor(
     private articles: AstucesService,
@@ -39,13 +43,7 @@ export class OneAstuceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.astuces.getArticles().subscribe(
-      response => {
-        console.log(response);
-        this.articleList = response;
-        this.other = response;
-      }
-    )
+    this.listeArticle();
     this.merger();
   }
   merger() {
@@ -55,9 +53,29 @@ export class OneAstuceComponent implements OnInit {
       this.users.getClients().subscribe(clients => {
         this.mergedUsers = this.mergedUsers.concat(clients);
         console.log(this.mergedUsers);
-        
+
       });
     });
+  }
+  listeArticle() {
+    this.astuces.getArticles().subscribe(
+      response => {
+        console.log(response);
+        this.articleList = response;
+        this.other = response;
+        this.articleList.forEach((article) => {
+          this.astuces.getArticleById(article.id).subscribe(
+            resp => {
+              this.articleOne = resp.article.commentaires;
+              this.articleComment = this.articleOne.filter(ele => ele.contenue != "3550090857");
+              this.countComment.push(this.articleComment.length);
+              this.articleLike = this.articleOne.filter(ele => ele.contenue == "3550090857");
+              this.countLike.push(this.articleLike.length);
+            }
+          )
+        });
+      }
+    )
   }
   openFullscreen(content: TemplateRef<any>) {
     this.modalService.open(content, { fullscreen: true });

@@ -7,11 +7,9 @@
             <img src="assets/team.png" alt="">
         </div>
         <div class="typo">
-            <span class="fs-5 fw-semibold">Equipe florsen</span>
+            <span class="fs-5 fw-semibold mb-2">Equipe florsen</span>
             <div style="font-size: 13px;" class="d-flex gap-2 align-items-center fw-semibold">
-                <span>Lecture en 5 min</span>
-                <i class="fa-solid fa-circle" style="font-size: 8px;"></i>
-                <span>Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
+                <span class="lc">Publié le {{details.created_at | date:'dd MMMM yyyy'}}</span>
             </div>
         </div>
     </div>
@@ -31,7 +29,7 @@
     </div>
 </section>
 <!-- modele open -->
-<ng-template #content let-offcanvas>
+<ng-template #content let-offcanvas class="woo">
     <div class="offcanvas-header">
         <h4 class="offcanvas-title">Commentaires ({{nbComents}})</h4>
         <i class="fa-solid fa-xmark" (click)="offcanvas.close('Close click')"
@@ -106,7 +104,18 @@
         }
 
         .user {
-            display: none;
+            /* display: none; */
+        }
+
+        .typo {
+
+            i {
+                display: none;
+            }
+        }
+
+        .lc {
+            display: block;
         }
     }
 

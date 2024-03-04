@@ -44,6 +44,7 @@ export class DetailsJardinierComponent {
 
   // paged items
   pagedItems!: any[];
+  saveProd!: any[];
 
   constructor(
     private produitService: ProduitsService,
@@ -76,6 +77,7 @@ export class DetailsJardinierComponent {
         // console.log(response);
         this.produits = response;
         this.prod = this.produits.filter(ele => ele.user_id == this.id_jar);
+        this.saveProd = this.prod;
       }
     )
     this.userService.getJardiniers().subscribe(
@@ -110,6 +112,11 @@ export class DetailsJardinierComponent {
   getFile(event: any) {
     console.warn(event.target.files[0]);
     this.image = event.target.files[0] as File;
+  }
+  filterItems() {
+    this.pager = this.saveProd;
+    this.prod = this.saveProd.filter(
+      ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
   }
 
   // Messages

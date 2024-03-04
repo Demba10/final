@@ -67,7 +67,7 @@
                                         <h5 class="fw-bold" style="color: #4CAF50;">Catégorie</h5>
                                         <p>{{detail.categorie.nom}}</p>
                                         <h5 class="fw-bold" style="color: #4CAF50;">Jardinier</h5>
-                                        <div class="d-flex align-items gap-2">
+                                        <div class="d-flex align-items gap-2" (click)="detailJardinier1(userView.id, userView.prenom)" (click)="modal.dismiss('Cross click')">
                                             <span
                                                 style="height: 30px; width: 30px; overflow: hidden; display: flex; justify-content: center; align-items: center; border-radius: 50%;">
                                                 <img src="http://127.0.0.1:8000/storage/{{userView.image}}" alt=""

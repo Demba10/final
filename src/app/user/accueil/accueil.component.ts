@@ -51,6 +51,9 @@ export class AccueilComponent implements OnInit {
 
   // count 
   countLike: any[] = [];
+  countComment: any[] = [];
+  articleComment!: any[];
+  articleLike!: any[];
   articleOne!: any[];
   // Constructeur
 
@@ -132,6 +135,9 @@ export class AccueilComponent implements OnInit {
   openLg(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'xl', centered: true });
   }
+  openDetails(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
 
 
   settIdProduit(id: any = this.idProduit) {
@@ -162,8 +168,10 @@ export class AccueilComponent implements OnInit {
           this.articlesServices.getArticleById(article.id).subscribe(
             resp => {
               this.articleOne = resp.article.commentaires;
-              this.articleOne = this.articleOne.filter(ele => ele.contenue != "3550090857");
-              this.countLike.push(this.articleOne.length);
+              this.articleComment = this.articleOne.filter(ele => ele.contenue != "3550090857");
+              this.countComment.push(this.articleComment.length);
+              this.articleLike = this.articleOne.filter(ele => ele.contenue == "3550090857");
+              this.countLike.push(this.articleLike.length);
             }
           )
         });

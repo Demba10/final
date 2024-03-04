@@ -53,7 +53,7 @@ import { ButtonOneComponent } from '../shared/buttons/button-one/button-one.comp
     AddAstuceComponent,
     CatgoriesComponent,
     PaginationAdminComponent,
-    ButtonOneComponent
+    // ButtonOneComponent
   ],
   imports: [
     CommonModule,

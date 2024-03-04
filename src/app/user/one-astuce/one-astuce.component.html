@@ -13,12 +13,12 @@
     </div>
     <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
         *ngIf="articleList.length == 0">
-        <img src="assets/images/notfound.png" class="img-fluid" alt="">
+        <img src="assets/images/null.png" class="img-fluid" alt="">
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let item of paginatedProduits">
-        <div class="card" style="margin: 12px 0;">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let item of paginatedProduits; let i = index">
+        <div class="card" style="margin: 12px 0; cursor: pointer;" [title]="item.titre">
             <div class="d-flex justify-content-end">
-                <div class="date">{{ item.created_at | date:'dd MMMM yyyy' }}</div>
+                <div class="date">{{ item.created_at | date:'dd MMMM yyyy' : 'fr' }}</div>
             </div>
             <img src="http://127.0.0.1:8000/storage/{{item?.image}}" class="card-img-top" alt="" routerLink="../astuce">
             <div class="card-body">
@@ -29,10 +29,10 @@
                         (click)="details(item.id)">Lire plus<i class="fa-solid fa-arrow-right"></i></a>
                     <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
                         <span>
-                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
+                            <i class="fa-solid fa-thumbs-up"></i> {{countLike[i]}}
                         </span>
                         <span>
-                            <i class="fa-solid fa-comment"></i> {{item.like}}
+                            <i class="fa-solid fa-comment"></i> {{countComment[i]}}
                         </span>
                     </span>
                 </div>
@@ -41,8 +41,8 @@
     </div>
     <!-- Pagination -->
     <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="articleList.length != 0">
-        <app-pagination [totalItems]="articleList.length" [itemsPerPage]="itemsPerPage" (pageChange)="onPageChange($event)"
-            *ngIf="articleList.length > itemsPerPage">
+        <app-pagination [totalItems]="articleList.length" [itemsPerPage]="itemsPerPage"
+            (pageChange)="onPageChange($event)" *ngIf="articleList.length > itemsPerPage">
         </app-pagination>
     </div>
 </section>

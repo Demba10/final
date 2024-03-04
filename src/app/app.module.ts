@@ -13,13 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, NgModel } from '@angular/forms';
 import { TokenInterceptorProvider } from './services/token.interceptor';
 import { registerLocaleData } from '@angular/common';
-import fr from '@angular/common/locales/fr';
+import localFr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-
-registerLocaleData(fr);
+registerLocaleData(localFr, 'fr');
 
 
 @NgModule({

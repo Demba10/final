@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageService } from 'src/app/services/image.service';
 import { PaginationService } from 'src/app/services/pagination/pagination.service';
 import { ProduitsService } from 'src/app/services/produits.service';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-echoppe-verte',
@@ -39,6 +41,7 @@ export class EchoppeVerteComponent implements OnInit {
     private pagerService: PaginationService,
     private userService: UsersService,
     private modalService: NgbModal,
+    private router: Router
   ) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -97,7 +100,23 @@ export class EchoppeVerteComponent implements OnInit {
       }
     )
   }
-
+  
+  detailJardinier1(id: any, nom: any) {
+    // this.apiUser.getProfil(id).subscribe(
+    //   resp => {
+    if (localStorage.getItem('token')) {
+      localStorage.setItem('id_jar', (id));
+      this.router.navigate(['../user/details-jardinier', nom]);
+    } else {
+      Swal.fire({
+        'timer': 3000,
+        'text': 'Connection requis pour charger les détails.'
+      })
+    }
+    // }, err => {
+    // }
+    // )
+  }
   // Pagination
   onPageChange(pageNumber: number): void {
     this.currentPage = pageNumber;
