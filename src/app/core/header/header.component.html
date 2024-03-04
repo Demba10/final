@@ -13,15 +13,17 @@
                 </ul>
             </div>
         </div>
-        <div class="header-cta-1 header-cta" id="header-cta" style="position: relative; top: 80px;">
+        <div class="header-cta-1 header-cta" id="header-cta" style="position: relative; top: 80px; z-index: 999;"
+            (mouseleave)="closeDropdown()">
             <div class="my-dropdown" id="my-dropdown" *ngIf="existing == false" style="margin-top: -24px;">
                 <button class="my-dropdown-button" id="my-dropdown-button" (click)="displayDropdown()">
-                    <span>Compte</span>
+                    <span>Authentification</span>
                     <i class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i>
                 </button>
-                <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display">
-                    <li routerLink="/auth">Se connecter</li>
-                    <li routerLink="/auth/register">S'inscrire</li>
+                <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display" (click)="displayDropdown()">
+                    <li routerLink="/auth"><span>Se connecter</span><i class="fa fa-solid fa-user float-right"></i></li>
+                    <li routerLink="/auth/register"><span>S'inscrire</span><i
+                            class="fa fa-solid fa-laptop float-right"></i></li>
                 </ul>
             </div>
             <div class="my-dropdown" id="my-dropdown" *ngIf="existing == true" style="position: relative; top: 18px;">
@@ -29,10 +31,13 @@
                     <span>{{userOnLine.prenom}} {{userOnLine.nom}}</span>
                     <i class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i>
                 </button>
-                <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display">
-                    <li (click)="openXl(content)">Profil</li>
-                    <li (click)="redirectToEspace()">Espace créatif</li>
-                    <li (click)="deconnexon()">Deconnexion</li>
+                <ul class="dropdown-list" id="dropdown-list" [style.visibility]="display" (click)="displayDropdown()">
+                    <li (click)="openXl(content)"><span>Profil</span><i class="fa fa-solid fa-user float-right"></i>
+                    </li>
+                    <li (click)="redirectToEspace()"><span>Espace créatif</span><i
+                            class="fa fa-solid fa-laptop float-right"></i></li>
+                    <li (click)="deconnexon()"><span>Deconnexion</span><i
+                            class="fa fa-solid fa-right-from-bracket float-right"></i></li>
                 </ul>
             </div>
         </div>
@@ -76,11 +81,23 @@
                 background-color: #F0F0F0;
                 border-left: 4px solid #4CAF50;
                 cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .dropdown-list li i {
+                font-size: 13px;
+                color: #000000;
             }
 
             .dropdown-list li:hover {
                 background-color: #4CAF50;
                 color: white;
+
+                i {
+                    color: white;
+                }
             }
         </style>
     </div>
@@ -110,7 +127,8 @@
                         <li routerLink="/auth/register">S'inscrire</li>
                     </ul>
                 </div>
-                <div class="my-dropdown" id="my-dropdown" *ngIf="existing == true" style="position: relative; top: 18px;">
+                <div class="my-dropdown" id="my-dropdown" *ngIf="existing == true"
+                    style="position: relative; top: 18px;">
                     <button class="my-dropdown-button" (click)="displayDropdown()">
                         <span>{{userOnLine.prenom}} {{userOnLine.nom}}</span>
                         <i class="fa fa-thin fa-caret-down float-right" style="font-size: 20px;"></i>

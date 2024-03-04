@@ -37,7 +37,6 @@ export class ProduitsComponent {
     searchTerm: any;
     saveProd!: any[];
 
-
     // paged items
     pagedItems!: any[];
     mergedUsers: any;
@@ -102,6 +101,7 @@ export class ProduitsComponent {
                 // console.log(response);
                 this.prod = response;
                 this.saveProd = response;
+                console.log(this.prod);
                 this.setPage(1);
             }
         );
@@ -162,10 +162,10 @@ export class ProduitsComponent {
     // Méthode de filtrage
     filterItems() {
         this.pager = this.saveProd;
-        this.pagedItems = this.saveProd.filter(
+        this.prod = this.saveProd.filter(
             ele => ele.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) || ele.updated_at.includes(this.searchTerm));
     }
-    
+
     // Pagination
     onPageChange(pageNumber: number): void {
         this.currentPage = pageNumber;

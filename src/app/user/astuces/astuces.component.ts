@@ -159,6 +159,9 @@ export class AstucesComponent implements OnInit {
           this.listerCommentaire(this.id);
           this.nbComents++;
           this.viderChamps();
+        },
+        error => {
+          
         }
       )
     }

@@ -1,7 +1,7 @@
 <div class="dashboard">
     <div class="side-card row">
-        <div class="col-4">
-            <mat-card class="resume-card resume-card-1">
+        <div class="col-12 col-md-4">
+            <mat-card class="resume-card resume-card-1 my-1">
                 <div class="typo">
                     <div class="h4">{{clients.length + jardiniers.length}}</div>
                     <h5>Utilisateurs</h5>
@@ -9,8 +9,8 @@
                 <i class="fa-solid fa-users"></i>
             </mat-card>
         </div>
-        <div class="col-4">
-            <mat-card class="resume-card resume-card-2">
+        <div class="col-12 col-md-4">
+            <mat-card class="resume-card resume-card-2 my-1">
                 <div class="typo">
                     <div class="h4">{{produits.length}}</div>
                     <h5>Produits</h5>
@@ -18,8 +18,8 @@
                 <i class="fa-brands fa-shopify"></i>
             </mat-card>
         </div>
-        <div class="col-4">
-            <mat-card class="resume-card resume-card-3">
+        <div class="col-12 col-md-4">
+            <mat-card class="resume-card resume-card-3 my-1">
                 <div class="typo">
                     <div class="h4">{{articles.length}}</div>
                     <h5>Article</h5>
@@ -29,31 +29,22 @@
         </div>
     </div>
     <div class="middle-dash row my-3">
-        <div class="blog-chart col-8">
+        <div class="blog-chart col-md-12 col-12">
             <mat-card style="height: 100%;">
                 <app-spline></app-spline>
             </mat-card>
         </div>
-        <div class="blog-chart col-4">
-            <mat-card class="row">
+        <div class="blog-chart col-md-12 col-12">
+            <mat-card class="row my-3" style="margin-right: 0; margin-left: 0;">
                 <div class="d-flex align-items-center justify-content-between">
                     <span>Articles</span>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon style="transform:scale(0.8);">more_vert</mat-icon>
+                        <mat-icon style="transform:scale(0.7);">more_vert</mat-icon>
                     </button>
                 </div>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item>
-                        <mat-icon>dialpad</mat-icon>
-                        <span>Redial</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                        <mat-icon>voicemail</mat-icon>
-                        <span>Check voice mail</span>
-                    </button>
-                    <button mat-menu-item>
-                        <mat-icon>notifications_off</mat-icon>
-                        <span>Disable alerts</span>
+                        <span>voir tout</span>
                     </button>
                 </mat-menu>
                 <div class="col-12">
@@ -62,7 +53,7 @@
                             <div class="img">
                                 <img src="http://127.0.0.1:8000/storage/{{article.image}}" alt="">
                             </div>
-                            <span class="user">{{article.titre}}</span>
+                            <span class="user-title">{{article.titre}}</span>
                         </mat-card>
                     </div>
                     <!-- <mat-card class="row d-flex justify-content-center align-items-center" style="height: 440px;">
@@ -103,6 +94,9 @@
 
     .resume-card-1 {
         background-image: url("/assets/images/stat/1.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         animation: 300ms resume-1;
     }
 
@@ -126,6 +120,9 @@
 
     .resume-card-2 {
         background-image: url("/assets/images/stat/2.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         animation: 300ms resume-2;
     }
 
@@ -141,6 +138,9 @@
 
     .resume-card-3 {
         background-image: url("/assets/images/stat/3.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         animation: 300ms resume-3;
     }
 

@@ -178,12 +178,17 @@ main {
 // .text-titre,
 .nom-user,
 .text-user-name,
-.astuce-day-name {
+.astuce-day-name,
+.user-title {
     display: inline-block;
     width: 99%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.user-title {
+    width: calc(100% - 50px);
 }
 
 // Titre de page 

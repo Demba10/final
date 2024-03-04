@@ -10,6 +10,7 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,7 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private tokenService: TokenService,
     private router: Router
-  ) {}
+  ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log(request);
@@ -32,7 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });
       // console.log(clonedRequest);
-      
+
       return next.handle(clonedRequest);
     } else {
       // Si aucun token n'est disponible, simplement poursuivre la requête d'origine
@@ -40,9 +41,19 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          // Gérer ici le cas où le token a expiré
-          // Rediriger vers la page de connexion
-          this.router.navigate(['/auth']);
+          Swal.fire({
+            text: 'Connectez-vous pour effectuer cette action',
+            timer: 8000,
+            showCancelButton: true,
+            confirmButtonText: 'Se connecter',
+            cancelButtonText: 'Annuler'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['./auth'])
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+            }
+          });
         }
         return throwError(error);
       })

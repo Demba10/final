@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
     } else {
       this.existing = true;
     }
-    this.closeDropdown();
   }
 
   adapter() {
@@ -104,5 +103,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   closeDropdown() {
+    this.display = "hidden";
+    this.displayItem = true;
   }
 }

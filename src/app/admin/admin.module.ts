@@ -36,6 +36,7 @@ import { PaginationAdminComponent } from '../pagination-admin/pagination-admin.c
 import { MatDialogModule, matDialogAnimations } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { ButtonOneComponent } from '../shared/buttons/button-one/button-one.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { MatSelectModule } from '@angular/material/select';
     UsersComponent,
     AddAstuceComponent,
     CatgoriesComponent,
-    PaginationAdminComponent
+    PaginationAdminComponent,
+    ButtonOneComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { ProduitsService } from 'src/app/services/produits.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
 import { VideoService } from 'src/app/services/video.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accueil',
@@ -47,6 +48,10 @@ export class AccueilComponent implements OnInit {
   contentVideos: any;
   displayVideo: any;
   oneVideo: any;
+
+  // count 
+  countLike: any[] = [];
+  articleOne!: any[];
   // Constructeur
 
   constructor(
@@ -153,16 +158,26 @@ export class AccueilComponent implements OnInit {
     this.articlesServices.getArticles().subscribe(
       response => {
         this.articles = response.slice(0, 6);
+        this.articles.forEach((article) => {
+          this.articlesServices.getArticleById(article.id).subscribe(
+            resp => {
+              this.articleOne = resp.article.commentaires;
+              this.articleOne = this.articleOne.filter(ele => ele.contenue != "3550090857");
+              this.countLike.push(this.articleOne.length);
+            }
+          )
+        });
+        // console.log(this.articles);
       }
     )
     this.videoService.getVideo().subscribe(
       response => {
         this.videos = response;
         this.videos = this.videos.videos;
-        this.displayVideo = this.videos.slice(0, 4);
-        this.oneVideo = this.videos.slice(0, 1)
-        console.log("video one ", this.displayVideo);
-        console.log("All video ", this.oneVideo);
+        this.displayVideo = this.videos.slice(0, 2);
+        this.oneVideo = this.videos.slice(0, 1);
+        // console.log("video one ", this.displayVideo);
+        // console.log("All video ", this.oneVideo);
       }
     )
   }
@@ -176,8 +191,20 @@ export class AccueilComponent implements OnInit {
     // )
   }
   detailJardinier1(id: any, nom: any) {
-    localStorage.setItem('id_jar', (id));
-    this.router.navigate(['../user/details-jardinier', nom]);
+    // this.apiUser.getProfil(id).subscribe(
+    //   resp => {
+    if (localStorage.getItem('token')) {
+      localStorage.setItem('id_jar', (id));
+      this.router.navigate(['../user/details-jardinier', nom]);
+    } else {
+      Swal.fire({
+        'timer': 3000,
+        'text': 'Connection requis pour charger les détails.'
+      })
+    }
+    // }, err => {
+    // }
+    // )
   }
   detailJardinier(id: any) {
     localStorage.setItem('id_jar', (id));
@@ -187,5 +214,5 @@ export class AccueilComponent implements OnInit {
   details(id: any) {
     localStorage.setItem('id', id);
   }
-  
+
 }

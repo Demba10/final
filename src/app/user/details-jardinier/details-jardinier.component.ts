@@ -35,6 +35,15 @@ export class DetailsJardinierComponent {
   View!: any[];
   userView: any;
   produitPerUser!: any[];
+  searchTerm!: any;
+
+  // paginations 
+  pager: any = {};
+  itemsPerPage = 6;
+  currentPage = 1;
+
+  // paged items
+  pagedItems!: any[];
 
   constructor(
     private produitService: ProduitsService,
@@ -121,6 +130,16 @@ export class DetailsJardinierComponent {
     this.jar_id = localStorage.getItem('id_jar');
     this.jar = this.jardiniers.find(ele => ele.id == id);
     // this.router.navigate(['../user/details-jardinier', this.jar.prenom]);
+  }
+
+  // Pagination
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+  get paginatedProduits(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.prod.slice(startIndex, endIndex);
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

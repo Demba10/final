@@ -1,19 +1,34 @@
 <section class="row">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="top-dash-ele d-flex mb-4">
         <h5 style="color: #2a3547; font-size: 18px; ">Liste des articles</h5>
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 align-items-center justify-content-between">
             <input type="text" class="mb-0"
                 style="border: 0; border-bottom: 2px solid #3535357f; background-color: #F9F9F9; outline: 0; text-transform: italic; color: #353535;"
                 placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm" (input)="filterItems()">
-            <button mat-raised-button style="background-color: #4CAF50; color: white;" class="btn" (click)="open(first)"
-                (click)="actionner1()">Ajouter</button>
+            <button mat-mini-fab style="background-color: #4CAF50; color: white; height: 30px; width: 30px;" class="btn"
+                (click)="open(first)" (click)="actionner1()"><i class="fa-solid fa-plus"
+                    style="color: white;"></i></button>
         </div>
+        <style>
+            .top-dash-ele {
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            @media screen and (max-width: 575.98px) {
+
+                .top-dash-ele {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            }
+        </style>
     </div>
     <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
-        *ngIf="pagedItems.length == 0">
+        *ngIf="articleSliste.length == 0">
         <span class="text-center" style="">Pas d' astuces pour le moment</span>
     </div>
-    <div class="all col-3 col-lg-3 col-md-3 pb-4" *ngFor="let item of paginatedProduits">
+    <div class="all col-sm-6 col-lg-3 col-md-3 pb-4" *ngFor="let item of paginatedProduits">
         <mat-card class="example-card">
             <div style="width: 100%; overflow: hidden; border-top-right-radius: 4px; border-top-left-radius: 4px;">
                 <img mat-card-image src="http://127.0.0.1:8000/storage/{{item.image}}" alt="Photo of a Shiba Inu"
@@ -68,8 +83,9 @@
                 <input id="file" type="file" (change)="getFile($event)" accept="image/*">
             </label>
             <div class="d-flex justify-content-center" *ngIf="image">
-                <label for="file" class="custum-file-upload" style="background-color: transparent; width: 200px;">
-                    <img [src]="imageUrl" style="height: 200px;" *ngIf="imageUrl" />
+                <label for="file" class="custum-file-upload"
+                    style="background-color: transparent; width: 200px; overflow: hidden;">
+                    <img [src]="imageUrl" style="width: 100%" *ngIf="imageUrl" />
                     <input id="file" type="file" (change)="getFile($event)" accept="image/*">
                 </label>
             </div>

@@ -63,19 +63,25 @@
                             class="fa-brands fa-whatsapp"></i></a>
                     <a mat-raised-button href="+221{{jardinier.telephone}}" target="_blank"><i
                             class="fa-solid fa-phone-flip"></i></a>
-                    <a mat-raised-button (click)="openVerticallyCentered(message)"><i class="fa-solid fa-comment"></i></a>
+                    <a mat-raised-button (click)="openVerticallyCentered(message)"><i
+                            class="fa-solid fa-comment"></i></a>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
     <div class="col-8">
         <div class="row">
+            <div class="titre-input" *ngIf="prod.length != 0">
+                <input type="text" class="mb-3 justify-content-between"
+                    style="border: 0; border-bottom: 2px solid #292d2651; outline: 0; text-transform: italic;"
+                    placeholder="Filtrer" name="searchTerm" [(ngModel)]="searchTerm">
+            </div>
             <!-- <span class="text-center" *ngIf="prod.length == 0">Pas de produit pour le moment</span> -->
             <div style="height: 40vh; display: flex; align-items: center; justify-content: center;"
                 *ngIf="prod.length == 0">
-                <img src="assets/images/nocontent.png" class="img-fluid" alt="">
+                <img src="assets/images/null.png" class="img-fluid" alt="">
             </div>
-            <div class="col-6" *ngFor="let item of prod">
+            <div class="col-6" *ngFor="let item of paginatedProduits">
                 <div class="blog-produits card" style="margin-bottom: 16px; overflow: hidden;" id="card"
                     (click)="openLg(con)" (click)="detailsProduit(item.id, item.user_id)">
                     <div class="row g-0" style="">
@@ -144,9 +150,12 @@
                     </div>
                 </ng-template>
             </div>
-            <!-- <div class="pagination d-flex justify-content-center gap-2 m-3" *ngIf="produits.length > 0">
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-            </div> -->
+            <!-- Pagination -->
+            <div style="margin-top: 40px; display: flex; justify-content: center;" *ngIf="prod.length != 0">
+                <app-pagination [totalItems]="prod.length" [itemsPerPage]="itemsPerPage"
+                    (pageChange)="onPageChange($event)" *ngIf="prod.length > itemsPerPage">
+                </app-pagination>
+            </div>
         </div>
     </div>
 </div>

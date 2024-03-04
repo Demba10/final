@@ -7,6 +7,7 @@ import { Jardinier } from 'src/app/modele/jardiner.modele';
 import { SharedService } from 'src/app/services/shared.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
+import { ProduitsService } from 'src/app/services/produits.service';
 
 export interface PeriodicElement {
   name: string;
@@ -39,10 +40,13 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['#', 'utilisateur', 'adresse', 'email', 'création', 'action'];
   users!: Jardinier[];
   dataSource = new MatTableDataSource<Jardinier>();
+  prod!: any[];
+  long!: number;
 
   constructor(
     private userServices: UsersService,
     private sharedService: SharedService,
+    private produitServce: ProduitsService
     // private datePipe: DatePipe
   ) { }
   ngOnInit(): void {
@@ -59,6 +63,7 @@ export class UsersComponent implements OnInit {
     this.listerUsers2();
     // this.merger();
     this.allUser();
+    this.listerProduits();
   }
 
   applyFilter(event: Event) {
@@ -69,10 +74,32 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   openLg(content: TemplateRef<any>, id?: any) {
-    this.modalService.open(content, { size: 'lg' });
+    this.modalService.open(content, { size: 'lg' })
+    if (id) {
+      this.userServices.getProduits().subscribe(
+        response => {
+          this.prod = response;
+          // console.log(this.prod);
+          this.prod = this.prod.filter(p => {
+            p.user_id == id;
+            this.long = this.prod.length;
+          })
+        }
+      );
+    }
   }
   openAdd(add: TemplateRef<any>) {
     this.modalService.open(add, { size: 'lg' });
+  }
+  listerProduits() {
+    // this.userServices.getProduits().subscribe(
+    //   response => {
+    //     // console.log(response);
+    //     this.prod = response;
+    //     console.log(this.prod);
+
+    //   }
+    // );
   }
   listerUsers() {
     this.userServices.getJardiniers().subscribe(
@@ -133,7 +160,6 @@ export class UsersComponent implements OnInit {
       }
     )
   }
-
   mergedUsers: any[] = [];
   merger() {
     this.userServices.getJardiniers().subscribe(jardiniers => {

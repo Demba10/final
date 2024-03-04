@@ -77,7 +77,7 @@
 <section class="conseils row">
     <app-titre sus_titre="Le savoir faire des expérimentés" titre="Conseils Jardiniers" class="text-center"
         color_one="#4CAF50" color_two="#292D26"></app-titre>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of articles">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of articles; index = index">
         <div class="card" style="margin: 12px 0;">
             <div class="d-flex justify-content-end">
                 <div class="date">{{item.created_at | date:'dd MMMM yyyy'}}</div>
@@ -92,10 +92,10 @@
                             class="fa-solid fa-arrow-right"></i></a>
                     <span class="d-flex gap-3" style="font-size: 0.9em; opacity: 0.8;">
                         <span>
-                            <i class="fa-solid fa-thumbs-up"></i> {{item.like}}
+                            <!-- <i class="fa-solid fa-thumbs-up"></i> {{item.like}} -->
                         </span>
                         <span>
-                            <i class="fa-solid fa-comment"></i> {{item.like}}
+                            <i class="fa-solid fa-comment"></i> {{countLike[index]}}
                         </span>
                     </span>
                 </div>
@@ -124,7 +124,9 @@
     <app-titre sus_titre="Le savoir faire des expérimentés" titre="Astuces en video" class="text-center"
         color_one="#4CAF50" color_two="#292D26"></app-titre>
     <div class="col-lg-6" *ngFor="let video of displayVideo">
-        <mat-card class="videos card" style="margin: 12px 0;" (click)="openLg(content)">
+        <mat-card class="videos card" (click)="openLg(content)">
+            <i class="fa-solid fa-play"
+                style="color: #ffffff; font-size: 40px; position: absolute; left: 20px; top: 20px;"></i>
             <video>
                 <source src="http://localhost:8000{{video?.video}}" type="video/mp4">
                 Vidéo non supporté
@@ -177,8 +179,8 @@
                             </div>
                             <h6 class="text-black mt-2">{{detail?.user.prenom}} {{detail?.user.nom}}</h6>
                         </div>
-                        <a href="https://wa.me/221{{user?.telephone}}" target="_blank" *ngIf="detail"><i
-                                class="fa-brands fa-square-whatsapp"></i></a>
+                        <!-- <a href="https://wa.me/221{{user?.telephone}}" target="_blank" *ngIf="detail"><i
+                                class="fa-brands fa-square-whatsapp"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -271,16 +273,21 @@
 
     mat-card {
         overflow: hidden;
+        box-shadow: none;
     }
 
     .videos {
         transition: 0.2s all ease-in-out;
         cursor: pointer;
-        border: 2px solid #4CAF50;
+        /* border: 2px solid #4CAF50; */
     }
 
     .videos:hover {
         transform: scale(1.02);
         transition: 200ms all ease-in-out;
+    }
+
+    .videos video {
+        border-radius: 30px;
     }
 </style>

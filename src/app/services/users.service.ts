@@ -72,7 +72,10 @@ export class UsersService {
   post(resource: string, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}${resource}`, data);
   }
-
+  refreshUser(): Observable<any> {
+    const resource = 'refresh'
+    return this.http.post(`${this.apiUrl}${resource}`, null);
+  }
   // Méthode pour effectuer une requête POST
   newlatters(data: any): Observable<any> {
     const resource = "AjouterNewletters";

@@ -110,6 +110,7 @@ export class AstucesComponent {
       }
     )
   }
+  
   ajouterArticle() {
     const nA = new FormData();
     nA.append('titre', this.titre);

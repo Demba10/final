@@ -18,6 +18,7 @@ export class OneAstuceComponent implements OnInit {
   articleList!: any[];
   other!: any[];
   mergedUsers: any[] = [];
+  likeCount: any[] = [];
   searchTerm: any;
   like: any;
 

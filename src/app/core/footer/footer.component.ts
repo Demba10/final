@@ -33,6 +33,7 @@ export class FooterComponent implements OnInit {
         res => {
           this.sharedeService.alert('', 'Inscription au newllaters réussie!', 'success');
           this.email = '';
+          this.message = '';
         }
       );
     }
